@@ -1,0 +1,822 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<title>GHOST // OSINT Terminal</title>
+<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Orbitron:wght@400;700;900&family=VT323&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --green: #00ff41;
+    --green-dim: #00aa2b;
+    --green-glow: rgba(0,255,65,0.3);
+    --red: #ff003c;
+    --cyan: #00f5ff;
+    --amber: #ffb300;
+    --bg: #000a00;
+    --bg2: #000d00;
+    --border: #00ff4133;
+    --text: #b8ffcc;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--green);
+    font-family: 'Share Tech Mono', monospace;
+    min-height: 100vh;
+    overflow-x: hidden;
+    cursor: crosshair;
+  }
+
+  /* Scanline overlay */
+  body::before {
+    content: '';
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 2px,
+      rgba(0,0,0,0.15) 2px,
+      rgba(0,0,0,0.15) 4px
+    );
+    pointer-events: none;
+    z-index: 9999;
+  }
+
+  /* CRT noise */
+  body::after {
+    content: '';
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 9998;
+    opacity: 0.4;
+  }
+
+  /* Matrix rain canvas */
+  #matrix-bg {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    opacity: 0.06;
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  .container {
+    position: relative;
+    z-index: 10;
+    max-width: 1024px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+
+  /* Header */
+  .header {
+    text-align: center;
+    padding: 40px 0 30px;
+    position: relative;
+  }
+
+  .header::before {
+    content: '> INITIALIZING GHOST PROTOCOL v2.4.1 <';
+    display: block;
+    font-size: 11px;
+    color: var(--green-dim);
+    letter-spacing: 3px;
+    margin-bottom: 16px;
+    animation: blink-text 2s infinite;
+  }
+
+  .logo {
+    font-family: 'Orbitron', sans-serif;
+    font-size: clamp(36px, 8vw, 72px);
+    font-weight: 900;
+    letter-spacing: 8px;
+    color: var(--green);
+    text-shadow:
+      0 0 10px var(--green),
+      0 0 30px var(--green-glow),
+      0 0 60px rgba(0,255,65,0.15);
+    animation: glitch 4s infinite;
+    position: relative;
+  }
+
+  .logo::before, .logo::after {
+    content: 'G H O S T';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+  }
+  .logo::before {
+    color: var(--red);
+    clip-path: polygon(0 30%, 100% 30%, 100% 50%, 0 50%);
+    animation: glitch-r 4s infinite 0.1s;
+    opacity: 0.7;
+  }
+  .logo::after {
+    color: var(--cyan);
+    clip-path: polygon(0 55%, 100% 55%, 100% 70%, 0 70%);
+    animation: glitch-b 4s infinite 0.2s;
+    opacity: 0.7;
+  }
+
+  .subtitle {
+    font-family: 'VT323', monospace;
+    font-size: 20px;
+    color: var(--green-dim);
+    letter-spacing: 6px;
+    margin-top: 8px;
+  }
+
+  .status-bar {
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+    margin-top: 20px;
+    font-size: 11px;
+    color: var(--green-dim);
+    flex-wrap: wrap;
+  }
+
+  .status-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--green);
+    display: inline-block;
+    margin-right: 6px;
+    animation: pulse 1.5s infinite;
+    box-shadow: 0 0 8px var(--green);
+  }
+
+  /* Search panel */
+  .search-panel {
+    background: linear-gradient(135deg, rgba(0,255,65,0.03), rgba(0,0,0,0));
+    border: 1px solid var(--border);
+    border-top: 2px solid var(--green);
+    padding: 28px;
+    margin: 30px 0;
+    position: relative;
+    clip-path: polygon(0 0, calc(100% - 20px) 0, 100% 20px, 100% 100%, 0 100%);
+  }
+
+  .search-panel::before {
+    content: 'TARGET ACQUISITION';
+    position: absolute;
+    top: -10px;
+    left: 20px;
+    background: var(--bg);
+    padding: 0 10px;
+    font-size: 11px;
+    color: var(--green-dim);
+    letter-spacing: 4px;
+  }
+
+  .input-row {
+    display: flex;
+    gap: 16px;
+    align-items: stretch;
+    flex-wrap: wrap;
+  }
+
+  .input-wrapper {
+    flex: 3;
+    min-width: 200px;
+    position: relative;
+  }
+
+  .input-wrapper::before {
+    content: '>>> ';
+    position: absolute;
+    left: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--green);
+    font-size: 16px;
+    pointer-events: none;
+    z-index: 2;
+  }
+
+  input[type="text"] {
+    width: 100%;
+    background: rgba(0,255,65,0.04);
+    border: 1px solid var(--green-dim);
+    color: var(--green);
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 18px;
+    padding: 16px 16px 16px 52px;
+    outline: none;
+    letter-spacing: 1px;
+    transition: all 0.3s;
+    clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 0 100%);
+    white-space: pre-wrap;
+    word-break: break-all;
+    overflow-wrap: break-word;
+    line-height: 1.3;
+    min-height: 54px;
+    resize: vertical;
+  }
+
+  input[type="text"]:focus {
+    border-color: var(--green);
+    background: rgba(0,255,65,0.07);
+    box-shadow: 0 0 20px var(--green-glow), inset 0 0 20px rgba(0,255,65,0.03);
+  }
+
+  input[type="text"]::placeholder {
+    color: rgba(0,255,65,0.3);
+    letter-spacing: 2px;
+    font-size: 16px;
+  }
+
+  .btn-scan {
+    background: transparent;
+    border: 1px solid var(--green);
+    color: var(--green);
+    font-family: 'Orbitron', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    padding: 0 28px;
+    cursor: pointer;
+    transition: all 0.2s;
+    position: relative;
+    overflow: hidden;
+    clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
+    white-space: nowrap;
+    height: auto;
+    min-height: 56px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .btn-scan::before {
+    content: '';
+    position: absolute;
+    top: 0; left: -100%;
+    width: 100%; height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(0,255,65,0.2), transparent);
+    transition: left 0.4s;
+  }
+
+  .btn-scan:hover::before { left: 100%; }
+  .btn-scan:hover {
+    background: rgba(0,255,65,0.1);
+    box-shadow: 0 0 20px var(--green-glow);
+    text-shadow: 0 0 10px var(--green);
+  }
+
+  .btn-scan:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  /* Scanning animation */
+  .scan-progress {
+    display: none;
+    margin-top: 20px;
+  }
+
+  .scan-progress.active { display: block; }
+
+  .scan-bar-wrap {
+    height: 3px;
+    background: rgba(0,255,65,0.1);
+    border-radius: 0;
+    overflow: hidden;
+    margin-bottom: 10px;
+  }
+
+  .scan-bar {
+    height: 100%;
+    background: var(--green);
+    box-shadow: 0 0 10px var(--green);
+    animation: scan-fill 2s ease-out forwards;
+    width: 0%;
+  }
+
+  .scan-log {
+    font-size: 12px;
+    color: var(--green-dim);
+    min-height: 60px;
+    max-height: 120px;
+    overflow-y: auto;
+    font-family: 'Share Tech Mono', monospace;
+  }
+
+  .scan-log-line {
+    opacity: 0;
+    animation: fade-in 0.3s forwards;
+    padding: 2px 0;
+  }
+
+  /* Results */
+  .results-section {
+    display: none;
+  }
+  .results-section.visible { display: block; }
+
+  .results-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 20px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--border);
+    flex-wrap: wrap;
+  }
+
+  .results-header h2 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 14px;
+    letter-spacing: 4px;
+    color: var(--green);
+  }
+
+  .result-count {
+    background: var(--green);
+    color: var(--bg);
+    font-size: 11px;
+    font-weight: bold;
+    padding: 2px 10px;
+    font-family: 'Orbitron', sans-serif;
+  }
+
+  .result-card {
+    background: linear-gradient(135deg, rgba(0,255,65,0.04), rgba(0,0,0,0));
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--green);
+    padding: 24px;
+    margin-bottom: 16px;
+    position: relative;
+    animation: card-reveal 0.5s ease-out forwards;
+    opacity: 0;
+    clip-path: polygon(0 0, calc(100% - 16px) 0, 100% 16px, 100% 100%, 0 100%);
+  }
+
+  .result-card:nth-child(2) { animation-delay: 0.1s; }
+  .result-card:nth-child(3) { animation-delay: 0.2s; }
+
+  .card-label {
+    position: absolute;
+    top: -1px; right: 20px;
+    background: var(--green);
+    color: var(--bg);
+    font-family: 'Orbitron', sans-serif;
+    font-size: 10px;
+    letter-spacing: 2px;
+    padding: 3px 12px;
+  }
+
+  .field-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 12px;
+    margin-top: 16px;
+  }
+
+  .field-item {
+    background: rgba(0,255,65,0.03);
+    border: 1px solid rgba(0,255,65,0.1);
+    padding: 12px 14px;
+    position: relative;
+    overflow: hidden;
+    word-break: break-word;
+  }
+
+  .field-item::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 3px; height: 100%;
+    background: var(--green-dim);
+  }
+
+  .field-item.highlight::before { background: var(--cyan); }
+  .field-item.highlight .field-value { color: var(--cyan); text-shadow: 0 0 8px rgba(0,245,255,0.5); }
+
+  .field-key {
+    font-size: 10px;
+    color: var(--green-dim);
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+
+  .field-value {
+    font-size: 15px;
+    color: var(--text);
+    letter-spacing: 1px;
+    word-break: break-word;
+    overflow-wrap: break-word;
+    white-space: normal;
+  }
+
+  .field-value.na { color: rgba(0,255,65,0.3); font-style: italic; }
+
+  /* Error */
+  .error-box {
+    display: none;
+    border: 1px solid var(--red);
+    border-left: 3px solid var(--red);
+    background: rgba(255,0,60,0.04);
+    padding: 16px 20px;
+    color: var(--red);
+    font-size: 14px;
+    margin-top: 16px;
+    letter-spacing: 1px;
+    word-break: break-word;
+  }
+  .error-box.visible { display: block; }
+
+  /* Footer */
+  .footer {
+    text-align: center;
+    padding: 40px 0 20px;
+    font-size: 11px;
+    color: rgba(0,255,65,0.2);
+    letter-spacing: 3px;
+    border-top: 1px solid var(--border);
+    margin-top: 40px;
+  }
+
+  /* Grid decoration */
+  .grid-deco {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-image:
+      linear-gradient(rgba(0,255,65,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,255,65,0.03) 1px, transparent 1px);
+    background-size: 40px 40px;
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  /* Corner decorations */
+  .corner-deco {
+    position: fixed;
+    width: 60px; height: 60px;
+    border-color: var(--green-dim);
+    border-style: solid;
+    opacity: 0.5;
+    z-index: 11;
+    pointer-events: none;
+  }
+  .corner-deco.tl { top: 16px; left: 16px; border-width: 2px 0 0 2px; }
+  .corner-deco.tr { top: 16px; right: 16px; border-width: 2px 2px 0 0; }
+  .corner-deco.bl { bottom: 16px; left: 16px; border-width: 0 0 2px 2px; }
+  .corner-deco.br { bottom: 16px; right: 16px; border-width: 0 2px 2px 0; }
+
+  /* Mobile responsiveness fix */
+  @media (max-width: 720px) {
+    .container {
+      padding: 12px;
+    }
+    .search-panel {
+      padding: 20px 16px;
+    }
+    .input-row {
+      flex-direction: column;
+      gap: 12px;
+    }
+    .btn-scan {
+      width: 100%;
+      padding: 14px 16px;
+      white-space: normal;
+      min-height: 48px;
+      font-size: 12px;
+      letter-spacing: 2px;
+    }
+    .input-wrapper::before {
+      top: 50%;
+      transform: translateY(-50%);
+      left: 12px;
+    }
+    input[type="text"] {
+      font-size: 16px;
+      padding: 14px 12px 14px 44px;
+      white-space: normal;
+      word-break: break-all;
+    }
+    .field-grid {
+      grid-template-columns: 1fr;
+    }
+    .result-card {
+      padding: 16px;
+    }
+  }
+
+  /* Animations */
+  @keyframes glitch {
+    0%, 92%, 100% { transform: none; }
+    93% { transform: skewX(-2deg); }
+    94% { transform: skewX(2deg) translateX(-3px); }
+    95% { transform: none; }
+    97% { transform: translateX(3px); }
+    98% { transform: none; }
+  }
+  @keyframes glitch-r {
+    0%, 92%, 100% { transform: none; opacity: 0; }
+    93% { transform: translateX(-4px); opacity: 0.7; }
+    95% { transform: translateX(4px); opacity: 0.7; }
+    96% { opacity: 0; }
+  }
+  @keyframes glitch-b {
+    0%, 92%, 100% { transform: none; opacity: 0; }
+    94% { transform: translateX(4px); opacity: 0.7; }
+    96% { transform: translateX(-2px); opacity: 0.7; }
+    97% { opacity: 0; }
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+  }
+  @keyframes blink-text {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+  }
+  @keyframes scan-fill {
+    0% { width: 0%; }
+    60% { width: 80%; }
+    100% { width: 100%; }
+  }
+  @keyframes fade-in {
+    to { opacity: 1; }
+  }
+  @keyframes card-reveal {
+    from { opacity: 0; transform: translateX(-10px); }
+    to { opacity: 1; transform: none; }
+  }
+</style>
+</head>
+<body>
+
+<canvas id="matrix-bg"></canvas>
+<div class="grid-deco"></div>
+<div class="corner-deco tl"></div>
+<div class="corner-deco tr"></div>
+<div class="corner-deco bl"></div>
+<div class="corner-deco br"></div>
+
+<div class="container">
+  <div class="header">
+    <div class="logo">G H O S T</div>
+    <div class="subtitle">OPEN SOURCE INTELLIGENCE TERMINAL</div>
+    <div class="status-bar">
+      <span><span class="status-dot"></span>SYSTEMS ONLINE</span>
+      <span><span class="status-dot"></span>PROXY ACTIVE</span>
+      <span><span class="status-dot"></span>ENCRYPTED CHANNEL</span>
+    </div>
+  </div>
+
+  <div class="search-panel">
+    <div class="input-row">
+      <div class="input-wrapper">
+        <input type="text" id="phone-input" placeholder="ENTER TARGET NUMBER (WITHOUT +91)" maxlength="10" inputmode="numeric" />
+      </div>
+      <button class="btn-scan" id="scan-btn">⬡ INITIATE SCAN</button>
+    </div>
+
+    <div class="scan-progress" id="scan-progress">
+      <div class="scan-bar-wrap"><div class="scan-bar" id="scan-bar"></div></div>
+      <div class="scan-log" id="scan-log"></div>
+    </div>
+  </div>
+
+  <div class="error-box" id="error-box"></div>
+
+  <div class="results-section" id="results-section">
+    <div class="results-header">
+      <h2>◈ INTELLIGENCE REPORT</h2>
+      <span class="result-count" id="result-count">0 RECORDS</span>
+    </div>
+    <div id="results-container"></div>
+  </div>
+
+  <div class="footer">
+    ◈ GHOST PROTOCOL // FOR AUTHORIZED USE ONLY // ALL SESSIONS LOGGED ◈
+  </div>
+</div>
+
+<script>
+// Matrix rain effect
+(function() {
+  const canvas = document.getElementById('matrix-bg');
+  const ctx = canvas.getContext('2d');
+  
+  function resizeCanvas() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+  }
+  resizeCanvas();
+  
+  const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%^&*()_+-=[]{}|;:,./<>?';
+  const fontSize = 14;
+  let cols = Math.floor(canvas.width / fontSize);
+  let drops = Array(cols).fill(1);
+  
+  function initDrops() {
+    cols = Math.floor(canvas.width / fontSize);
+    drops = Array(cols).fill(1);
+  }
+  
+  function draw() {
+    if (!ctx) return;
+    ctx.fillStyle = 'rgba(0,10,0,0.05)';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    ctx.fillStyle = '#00ff41';
+    ctx.font = fontSize + 'px Share Tech Mono';
+    for (let i = 0; i < drops.length; i++) {
+      const char = chars[Math.floor(Math.random() * chars.length)];
+      const x = i * fontSize;
+      const y = drops[i] * fontSize;
+      ctx.fillText(char, x, y);
+      if (y > canvas.height && Math.random() > 0.975) drops[i] = 0;
+      drops[i]++;
+    }
+  }
+  
+  let interval = setInterval(draw, 50);
+  window.addEventListener('resize', () => {
+    resizeCanvas();
+    initDrops();
+  });
+})();
+
+// Input handling: digits only
+const phoneInput = document.getElementById('phone-input');
+phoneInput.addEventListener('input', function(e) {
+  this.value = this.value.replace(/[^0-9]/g, '').slice(0, 10);
+});
+
+phoneInput.addEventListener('keypress', function(e) {
+  if (e.key === 'Enter') startScan();
+  if (!/[0-9]/.test(e.key) && e.key !== 'Enter' && e.key !== 'Backspace' && e.key !== 'Delete' && e.key !== 'ArrowLeft' && e.key !== 'ArrowRight' && e.key !== 'Tab') {
+    e.preventDefault();
+  }
+});
+
+const scanMessages = [
+  '> Establishing encrypted tunnel...',
+  '> Connecting to intelligence network...',
+  '> Querying subscriber databases...',
+  '> Cross-referencing telecom records...',
+  '> Aggregating available data points...',
+  '> Decrypting response payload...',
+  '> Compiling intelligence report...',
+];
+
+function addLogLine(msg, delay) {
+  const log = document.getElementById('scan-log');
+  return new Promise(res => {
+    setTimeout(() => {
+      const line = document.createElement('div');
+      line.className = 'scan-log-line';
+      line.textContent = msg;
+      log.appendChild(line);
+      log.scrollTop = log.scrollHeight;
+      res();
+    }, delay);
+  });
+}
+
+async function startScan() {
+  const num = phoneInput.value.trim();
+  if (!num || num.length < 10) {
+    showError('ERROR: INVALID TARGET — ENTER EXACT 10-DIGIT NUMBER');
+    return;
+  }
+
+  const btn = document.getElementById('scan-btn');
+  const progressDiv = document.getElementById('scan-progress');
+  const errorBox = document.getElementById('error-box');
+  const resultsSection = document.getElementById('results-section');
+
+  btn.disabled = true;
+  btn.textContent = '⟳ SCANNING...';
+  errorBox.classList.remove('visible');
+  resultsSection.classList.remove('visible');
+
+  progressDiv.classList.add('active');
+  const bar = document.getElementById('scan-bar');
+  bar.style.animation = 'none';
+  bar.offsetHeight; // Force reflow
+  bar.style.animation = 'scan-fill 3s ease-out forwards';
+
+  document.getElementById('scan-log').innerHTML = '';
+
+  for (let i = 0; i < scanMessages.length; i++) {
+    await addLogLine(scanMessages[i], i * 380);
+  }
+
+  const url = `https://techvishalboss.com/api/v1/lookup.php?key=TVB_FULL_52F4672E&service=number&number=${num}`;
+
+  try {
+    const res = await fetch(url);
+    const data = await res.json();
+
+    await addLogLine('> ✓ DATA RECEIVED — PARSING RESULTS...', 2660);
+    await new Promise(r => setTimeout(r, 600));
+
+    progressDiv.classList.remove('active');
+    btn.disabled = false;
+    btn.textContent = '⬡ INITIATE SCAN';
+
+    if (data && data.status && data.results && Object.keys(data.results).length > 0) {
+      renderResults(data.results);
+    } else {
+      showError('ERROR: NO DATA FOUND FOR THIS TARGET / API RETURNED EMPTY RESPONSE');
+    }
+  } catch (err) {
+    console.error('Fetch error:', err);
+    progressDiv.classList.remove('active');
+    btn.disabled = false;
+    btn.textContent = '⬡ INITIATE SCAN';
+    showError('ERROR: CONNECTION FAILED — ' + err.message);
+  }
+}
+
+function showError(msg) {
+  const box = document.getElementById('error-box');
+  box.textContent = msg;
+  box.classList.add('visible');
+}
+
+const highlightFields = ['name', 'mobile', 'aadhar_number', 'address'];
+const fieldLabels = {
+  name: 'FULL NAME',
+  father_name: "FATHER'S NAME",
+  mobile: 'MOBILE',
+  alt_mobile: 'ALT MOBILE',
+  email: 'EMAIL',
+  aadhar_number: 'AADHAR NO.',
+  operator: 'OPERATOR',
+  state_circle: 'STATE CIRCLE',
+  address: 'ADDRESS'
+};
+
+function renderResults(results) {
+  const container = document.getElementById('results-container');
+  const section = document.getElementById('results-section');
+  const countEl = document.getElementById('result-count');
+
+  container.innerHTML = '';
+  const keys = Object.keys(results);
+  countEl.textContent = keys.length + ' RECORD' + (keys.length !== 1 ? 'S' : '') + ' FOUND';
+
+  keys.forEach((key, idx) => {
+    const rec = results[key];
+    const card = document.createElement('div');
+    card.className = 'result-card';
+    card.style.animationDelay = (idx * 0.12) + 's';
+
+    const label = document.createElement('div');
+    label.className = 'card-label';
+    label.textContent = key.toUpperCase();
+    card.appendChild(label);
+
+    const grid = document.createElement('div');
+    grid.className = 'field-grid';
+
+    Object.entries(rec).forEach(([k, v]) => {
+      const item = document.createElement('div');
+      item.className = 'field-item' + (highlightFields.includes(k) ? ' highlight' : '');
+      
+      const keyEl = document.createElement('div');
+      keyEl.className = 'field-key';
+      keyEl.textContent = fieldLabels[k] || k.toUpperCase().replace(/_/g, ' ');
+      
+      const valEl = document.createElement('div');
+      valEl.className = 'field-value' + (v === 'n/a' || v === '' || v === null ? ' na' : '');
+      let displayValue = (v && v !== 'n/a') ? v : 'N/A';
+      if (displayValue === 'null' || displayValue === 'undefined') displayValue = 'N/A';
+      valEl.textContent = displayValue;
+
+      item.appendChild(keyEl);
+      item.appendChild(valEl);
+      grid.appendChild(item);
+    });
+
+    card.appendChild(grid);
+    container.appendChild(card);
+  });
+
+  section.classList.add('visible');
+}
+
+// Add event listener for the scan button
+document.getElementById('scan-btn').addEventListener('click', startScan);
+
+// Initialize
+window.addEventListener('load', () => {
+  phoneInput.style.overflowWrap = 'break-word';
+  phoneInput.style.whiteSpace = 'pre-wrap';
+});
+</script>
+</body>
+</html>
