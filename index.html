@@ -724,12 +724,11 @@ async function startScan() {
     await addLogLine(scanMessages[i], i * 380);
   }
 
-  const apiKey = 'ShadowWarThunder';
-  const targetUrl = `https://romeo-num-info.onrender.com/api/lookup?mobile=${num}`;
-
+  // ✅ YOUR PROXY API URL (fixed)
+  const apiUrl = `https://romeo-num-info.onrender.com/api/lookup?mobile=${num}`;
 
   try {
-    const res = await fetch(proxyUrl);
+    const res = await fetch(apiUrl);  // ✅ NOW USING CORRECT VARIABLE
     const data = await res.json();
 
     await addLogLine('> ✓ DATA RECEIVED — PARSING RESPONSE...', 600);
@@ -738,9 +737,21 @@ async function startScan() {
     btn.disabled = false;
     btn.textContent = '⬡ INITIATE SCAN';
 
-    if (data && data.success === true && data.result && Array.isArray(data.result) && data.result.length > 0) {
+    // Check if your proxy returned data in the expected format
+    if (data && data.api_response) {
+      // Data is wrapped in api_response from your proxy
+      const apiData = data.api_response;
+      if (apiData.success === true && apiData.result && Array.isArray(apiData.result) && apiData.result.length > 0) {
+        renderResults(apiData);
+      } else {
+        showError('ERROR: NO DATA FOUND FOR THIS TARGET');
+      }
+    } 
+    else if (data && data.success === true && data.result && Array.isArray(data.result) && data.result.length > 0) {
+      // Direct response format
       renderResults(data);
-    } else {
+    }
+    else {
       showError('ERROR: NO DATA FOUND FOR THIS TARGET');
     }
   } catch (err) {
