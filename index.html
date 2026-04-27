@@ -878,7 +878,7 @@ function renderResults(apiResponse, searchedNumber) {
   
   const resultsArray = apiResponse.result;
   const totalCount = apiResponse.total_results || resultsArray.length;
-  const developer = 'SAIF ALI KHAN // GHOST SECURITY';
+  const developer = 'Developer Saif // GHOST SECURITY';
   const timestamp = new Date().toLocaleString();
   
   countEl.textContent = totalCount + ' RECORD' + (totalCount !== 1 ? 'S' : '') + ' FOUND';
@@ -937,7 +937,7 @@ function renderResults(apiResponse, searchedNumber) {
     // Developer signature with hacking flair
     const devSpan = document.createElement('div');
     devSpan.className = 'dev-tag';
-    devSpan.innerHTML = `🔪 SAIF ALI KHAN // GHOST INTELLIGENCE | ⏱️ ${timestamp} | 🎯 TARGET: +91 ${searchedNumber} 🔪`;
+    devSpan.innerHTML = `🔪 Developer Saif// GHOST INTELLIGENCE | ⏱️ ${timestamp} | 🎯 TARGET: +91 ${searchedNumber} 🔪`;
     card.appendChild(devSpan);
     
     container.appendChild(card);
