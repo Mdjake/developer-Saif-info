@@ -726,7 +726,7 @@ async function startScan() {
 
   // NEW API URL with api_key and mobile param
   const apiKey = 'ShadowWarThunder';
-  const apiUrl = `https://numapi-production.up.railway.app/search?api_key=${apiKey}&mobile=${num}`;
+  const apiUrl = `https://cors-anywhere.herokuapp.com/https://numapi-production.up.railway.app/search?api_key=${apiKey}&mobile=${num}`;
 
   try {
     const res = await fetch(apiUrl);
