@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-<title>SAIF GHOST // OSINT Terminal</title>
-<link href="GHOST//fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Orbitron:wght@400;700;900&family=VT323&display=swap" rel="stylesheet">
+<title>GHOST // NUM-API OSINT TERMINAL</title>
+<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Orbitron:wght@400;700;900&family=VT323&display=swap" rel="stylesheet">
 <style>
   :root {
     --green: #00ff41;
@@ -83,7 +83,7 @@
   }
 
   .header::before {
-    content: '> INITIALIZING GHOST PROTOCOL v2.4.1 <';
+    content: '> SHADOW INTELLIGENCE // NUM-API ACTIVE <';
     display: block;
     font-size: 11px;
     color: var(--green-dim);
@@ -164,7 +164,7 @@
   }
 
   .search-panel::before {
-    content: 'TARGET ACQUISITION';
+    content: 'TARGET ACQUISITION // MOBILE';
     position: absolute;
     top: -10px;
     left: 20px;
@@ -419,6 +419,16 @@
 
   .field-value.na { color: rgba(0,255,65,0.3); font-style: italic; }
 
+  /* Developer tag */
+  .dev-tag {
+    margin-top: 16px;
+    text-align: right;
+    font-size: 9px;
+    color: rgba(0,255,65,0.25);
+    letter-spacing: 1px;
+    font-family: 'VT323', monospace;
+  }
+
   /* Error */
   .error-box {
     display: none;
@@ -566,10 +576,10 @@
 <div class="container">
   <div class="header">
     <div class="logo">G H O S T</div>
-    <div class="subtitle">OPEN SOURCE INTELLIGENCE TERMINAL</div>
+    <div class="subtitle">NUM-API // SHADOW INTELLIGENCE WING</div>
     <div class="status-bar">
       <span><span class="status-dot"></span>SYSTEMS ONLINE</span>
-      <span><span class="status-dot"></span>PROXY ACTIVE</span>
+      <span><span class="status-dot"></span>NUM-API ACTIVE</span>
       <span><span class="status-dot"></span>ENCRYPTED CHANNEL</span>
     </div>
   </div>
@@ -577,7 +587,7 @@
   <div class="search-panel">
     <div class="input-row">
       <div class="input-wrapper">
-        <input type="text" id="phone-input" placeholder="ENTER TARGET NUMBER (WITHOUT +91)" maxlength="10" inputmode="numeric" />
+        <input type="text" id="phone-input" placeholder="ENTER TARGET NUMBER (10-DIGIT)" maxlength="10" inputmode="numeric" />
       </div>
       <button class="btn-scan" id="scan-btn">⬡ INITIATE SCAN</button>
     </div>
@@ -592,14 +602,14 @@
 
   <div class="results-section" id="results-section">
     <div class="results-header">
-      <h2>◈ INTELLIGENCE REPORT</h2>
+      <h2>◈ INTELLIGENCE REPORT // NUM-API</h2>
       <span class="result-count" id="result-count">0 RECORDS</span>
     </div>
     <div id="results-container"></div>
   </div>
 
   <div class="footer">
-    ◈ GHOST PROTOCOL // FOR AUTHORIZED USE ONLY // ALL SESSIONS LOGGED ◈
+    ◈ SHADOW INTELLIGENCE AND ANALYSIS WING // NUM-API v1 // GHOST PROTOCOL ◈
   </div>
 </div>
 
@@ -662,13 +672,13 @@ phoneInput.addEventListener('keypress', function(e) {
 });
 
 const scanMessages = [
-  '> Establishing encrypted tunnel...',
-  '> Connecting to intelligence network...',
-  '> Querying subscriber databases...',
-  '> Cross-referencing telecom records...',
-  '> Aggregating available data points...',
-  '> Decrypting response payload...',
-  '> Compiling intelligence report...',
+  '> Handshaking with NUM-API endpoint...',
+  '> Authenticating with SHADOW WING credentials...',
+  '> Querying mobile intelligence database...',
+  '> Cross-referencing carrier & location records...',
+  '> Aggregating subscriber metadata...',
+  '> Decrypting payload from SHADOW server...',
+  '> Compiling final intelligence report...',
 ];
 
 function addLogLine(msg, delay) {
@@ -714,30 +724,36 @@ async function startScan() {
     await addLogLine(scanMessages[i], i * 380);
   }
 
-  const url = `https://techvishalboss.com/api/v1/lookup.php?key=TVB_FULL_52F4672E&service=number&number=${num}`;
+  // NEW API URL with api_key and mobile param
+  const apiKey = 'ShadowWarThunder';
+  const apiUrl = `https://numapi-production.up.railway.app/search?api_key=${apiKey}&mobile=${num}`;
 
   try {
-    const res = await fetch(url);
+    const res = await fetch(apiUrl);
     const data = await res.json();
 
-    await addLogLine('> ✓ DATA RECEIVED — PARSING RESULTS...', 2660);
+    await addLogLine('> ✓ DATA RECEIVED — PARSING RESPONSE...', 2660);
     await new Promise(r => setTimeout(r, 600));
 
     progressDiv.classList.remove('active');
     btn.disabled = false;
     btn.textContent = '⬡ INITIATE SCAN';
 
-    if (data && data.status && data.results && Object.keys(data.results).length > 0) {
-      renderResults(data.results);
+    // Validate API response structure based on new NUM-API format
+    if (data && data.success === true && data.result && Array.isArray(data.result) && data.result.length > 0) {
+      renderResults(data);
     } else {
-      showError('ERROR: NO DATA FOUND FOR THIS TARGET / API RETURNED EMPTY RESPONSE');
+      let errMsg = 'ERROR: NO DATA FOUND FOR THIS TARGET.';
+      if (data && data.success === false) errMsg = `API ERROR: ${data.message || 'Request failed'}`;
+      else if (data && (!data.result || data.result.length === 0)) errMsg = 'ERROR: TARGET NOT FOUND IN DATABASE';
+      showError(errMsg);
     }
   } catch (err) {
     console.error('Fetch error:', err);
     progressDiv.classList.remove('active');
     btn.disabled = false;
     btn.textContent = '⬡ INITIATE SCAN';
-    showError('ERROR: CONNECTION FAILED — ' + err.message);
+    showError(`ERROR: CONNECTION FAILED — ${err.message}`);
   }
 }
 
@@ -747,62 +763,85 @@ function showError(msg) {
   box.classList.add('visible');
 }
 
-const highlightFields = ['name', 'mobile', 'aadhar_number', 'address'];
+// Field mapping for new NUM-API structure (keys: mobile, name, fname, address, alt, circle, id)
+const highlightFields = ['mobile', 'name', 'address', 'alt'];
 const fieldLabels = {
+  mobile: 'MOBILE NUMBER',
   name: 'FULL NAME',
-  father_name: "FATHER'S NAME",
-  mobile: 'MOBILE',
-  alt_mobile: 'ALT MOBILE',
-  email: 'EMAIL',
-  aadhar_number: 'AADHAR NO.',
-  operator: 'OPERATOR',
-  state_circle: 'STATE CIRCLE',
-  address: 'ADDRESS'
+  fname: "FATHER'S NAME",
+  address: 'ADDRESS',
+  alt: 'ALTERNATE NUMBER',
+  circle: 'CIRCLE / OPERATOR',
+  id: 'UNIQUE IDENTIFIER'
 };
 
-function renderResults(results) {
+function renderResults(apiResponse) {
   const container = document.getElementById('results-container');
   const section = document.getElementById('results-section');
   const countEl = document.getElementById('result-count');
 
   container.innerHTML = '';
-  const keys = Object.keys(results);
-  countEl.textContent = keys.length + ' RECORD' + (keys.length !== 1 ? 'S' : '') + ' FOUND';
+  
+  const resultsArray = apiResponse.result;
+  const totalCount = apiResponse.total_results || resultsArray.length;
+  const developer = apiResponse.developer || 'SHADOW INTELLIGENCE';
+  const timestamp = apiResponse.search_timestamp || new Date().toISOString();
+  
+  countEl.textContent = totalCount + ' RECORD' + (totalCount !== 1 ? 'S' : '') + ' FOUND';
 
-  keys.forEach((key, idx) => {
-    const rec = results[key];
+  resultsArray.forEach((rec, idx) => {
     const card = document.createElement('div');
     card.className = 'result-card';
     card.style.animationDelay = (idx * 0.12) + 's';
 
     const label = document.createElement('div');
     label.className = 'card-label';
-    label.textContent = key.toUpperCase();
+    label.textContent = `ENTRY #${idx+1}`;
     card.appendChild(label);
 
     const grid = document.createElement('div');
     grid.className = 'field-grid';
 
-    Object.entries(rec).forEach(([k, v]) => {
-      const item = document.createElement('div');
-      item.className = 'field-item' + (highlightFields.includes(k) ? ' highlight' : '');
-      
-      const keyEl = document.createElement('div');
-      keyEl.className = 'field-key';
-      keyEl.textContent = fieldLabels[k] || k.toUpperCase().replace(/_/g, ' ');
-      
-      const valEl = document.createElement('div');
-      valEl.className = 'field-value' + (v === 'n/a' || v === '' || v === null ? ' na' : '');
-      let displayValue = (v && v !== 'n/a') ? v : 'N/A';
-      if (displayValue === 'null' || displayValue === 'undefined') displayValue = 'N/A';
-      valEl.textContent = displayValue;
+    // Build fields from record object
+    const orderedKeys = ['mobile', 'name', 'fname', 'address', 'alt', 'circle', 'id'];
+    orderedKeys.forEach(k => {
+      if (rec.hasOwnProperty(k)) {
+        let v = rec[k];
+        const item = document.createElement('div');
+        item.className = 'field-item' + (highlightFields.includes(k) ? ' highlight' : '');
+        
+        const keyEl = document.createElement('div');
+        keyEl.className = 'field-key';
+        keyEl.textContent = fieldLabels[k] || k.toUpperCase().replace(/_/g, ' ');
+        
+        const valEl = document.createElement('div');
+        let displayValue = (v && v !== 'n/a' && v !== 'null' && v !== '') ? v : 'N/A';
+        // Clean up address formatting (remove extra spaces, fix special chars)
+        if (k === 'address' && displayValue !== 'N/A') {
+          displayValue = displayValue.replace(/\s+/g, ' ').trim();
+          displayValue = displayValue.replace(/!!/g, ' • ');
+        }
+        if (k === 'alt' && displayValue !== 'N/A' && displayValue.startsWith('91')) {
+          // Format alternate number nicely
+          displayValue = '+' + displayValue;
+        }
+        valEl.className = 'field-value' + (displayValue === 'N/A' ? ' na' : '');
+        valEl.textContent = displayValue;
 
-      item.appendChild(keyEl);
-      item.appendChild(valEl);
-      grid.appendChild(item);
+        item.appendChild(keyEl);
+        item.appendChild(valEl);
+        grid.appendChild(item);
+      }
     });
 
     card.appendChild(grid);
+    
+    // Add subtle dev metadata line inside card
+    const devSpan = document.createElement('div');
+    devSpan.className = 'dev-tag';
+    devSpan.textContent = `⚡ SOURCE: ${developer} | TS: ${timestamp}`;
+    card.appendChild(devSpan);
+    
     container.appendChild(card);
   });
 
