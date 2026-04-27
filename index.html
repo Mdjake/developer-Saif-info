@@ -715,7 +715,7 @@ async function startScan() {
   progressDiv.classList.add('active');
   const bar = document.getElementById('scan-bar');
   bar.style.animation = 'none';
-  bar.offsetHeight; // Force reflow
+  bar.offsetHeight;
   bar.style.animation = 'scan-fill 3s ease-out forwards';
 
   document.getElementById('scan-log').innerHTML = '';
@@ -724,36 +724,31 @@ async function startScan() {
     await addLogLine(scanMessages[i], i * 380);
   }
 
-  // NEW API URL with api_key and mobile param
   const apiKey = 'ShadowWarThunder';
-  const apiUrl = `https://cors-anywhere.herokuapp.com/https://numapi-production.up.railway.app/search?api_key=${apiKey}&mobile=${num}`;
+  const targetUrl = `https://numapi-production.up.railway.app/search?api_key=${apiKey}&mobile=${num}`;
+  const proxyUrl = `https://api.allorigins.win/raw?url=${encodeURIComponent(targetUrl)}`;
 
   try {
-    const res = await fetch(apiUrl);
+    const res = await fetch(proxyUrl);
     const data = await res.json();
 
-    await addLogLine('> ✓ DATA RECEIVED — PARSING RESPONSE...', 2660);
-    await new Promise(r => setTimeout(r, 600));
-
+    await addLogLine('> ✓ DATA RECEIVED — PARSING RESPONSE...', 600);
+    
     progressDiv.classList.remove('active');
     btn.disabled = false;
     btn.textContent = '⬡ INITIATE SCAN';
 
-    // Validate API response structure based on new NUM-API format
     if (data && data.success === true && data.result && Array.isArray(data.result) && data.result.length > 0) {
       renderResults(data);
     } else {
-      let errMsg = 'ERROR: NO DATA FOUND FOR THIS TARGET.';
-      if (data && data.success === false) errMsg = `API ERROR: ${data.message || 'Request failed'}`;
-      else if (data && (!data.result || data.result.length === 0)) errMsg = 'ERROR: TARGET NOT FOUND IN DATABASE';
-      showError(errMsg);
+      showError('ERROR: NO DATA FOUND FOR THIS TARGET');
     }
   } catch (err) {
     console.error('Fetch error:', err);
     progressDiv.classList.remove('active');
     btn.disabled = false;
     btn.textContent = '⬡ INITIATE SCAN';
-    showError(`ERROR: CONNECTION FAILED — ${err.message}`);
+    showError(`ERROR: ${err.message}`);
   }
 }
 
