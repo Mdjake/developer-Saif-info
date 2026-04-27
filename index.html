@@ -725,8 +725,8 @@ async function startScan() {
   }
 
   const apiKey = 'ShadowWarThunder';
-  const targetUrl = `https://numapi-production.up.railway.app/search?api_key=${apiKey}&mobile=${num}`;
-  const proxyUrl = `https://api.allorigins.win/raw?url=${encodeURIComponent(targetUrl)}`;
+  const targetUrl = `https://romeo-num-info.onrender.com/api/lookup?mobile=${num}`;
+
 
   try {
     const res = await fetch(proxyUrl);
