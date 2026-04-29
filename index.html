@@ -799,7 +799,7 @@ async function startScan() {
   }
 
   // YOUR PROXY API URL
-  const apiUrl = `https://romeo-num-info.onrender.com/api/lookup?mobile=${sanitizedNum}`;
+  const apiUrl = `https://numosintapi.vercel.app/api/lookup?mobile=${sanitizedNum}`;
 
   try {
     await addLogLine(`> [SAIF-ENGINE] Targeting: +91 ${sanitizedNum}`, 300);
@@ -878,7 +878,7 @@ function renderResults(apiResponse, searchedNumber) {
   
   const resultsArray = apiResponse.result;
   const totalCount = apiResponse.total_results || resultsArray.length;
-  const developer = 'Developer Saif // GHOST SECURITY';
+  const developer = 'SAIF ALI KHAN // GHOST SECURITY';
   const timestamp = new Date().toLocaleString();
   
   countEl.textContent = totalCount + ' RECORD' + (totalCount !== 1 ? 'S' : '') + ' FOUND';
@@ -937,7 +937,7 @@ function renderResults(apiResponse, searchedNumber) {
     // Developer signature with hacking flair
     const devSpan = document.createElement('div');
     devSpan.className = 'dev-tag';
-    devSpan.innerHTML = `🔪 Developer Saif// GHOST INTELLIGENCE | ⏱️ ${timestamp} | 🎯 TARGET: +91 ${searchedNumber} 🔪`;
+    devSpan.innerHTML = `🔪 SAIF ALI KHAN // GHOST INTELLIGENCE | ⏱️ ${timestamp} | 🎯 TARGET: +91 ${searchedNumber} 🔪`;
     card.appendChild(devSpan);
     
     container.appendChild(card);
