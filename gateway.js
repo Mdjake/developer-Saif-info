@@ -141,10 +141,11 @@ function injectCSP() {
   meta.httpEquiv = "Content-Security-Policy";
   meta.content = [
     "default-src 'self'",
-    "script-src 'self'",
-    "style-src 'self' 'unsafe-inline'",
-    "img-src 'self' data:",
-    "connect-src 'none'",
+    "script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com",
+    "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
+    "img-src 'self' data: https:",
+    "connect-src 'self' https://numosintapi.vercel.app",  // ← CHANGE THIS LINE
+    "font-src 'self' https://fonts.gstatic.com",
     "object-src 'none'",
     "base-uri 'self'",
   ].join("; ");
