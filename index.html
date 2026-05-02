@@ -611,6 +611,9 @@
 </head>
 <body>
 
+<!-- PASSWORD GATEWAY - CONTENT HIDDEN UNTIL VERIFIED -->
+<div id="terminal-content" style="display: none;">
+
 <canvas id="matrix-bg"></canvas>
 <div class="container">
   <div class="ascii-header">
@@ -711,6 +714,8 @@
   </div>
 </div>
 
+</div> <!-- Close terminal-content -->
+
 <script>
 // Storage Manager
 class StorageManager {
@@ -749,6 +754,10 @@ class StorageManager {
   getHistory() {
     const data = localStorage.getItem(this.historyKey);
     return data ? JSON.parse(data) : [];
+  }
+
+  getHistoryList() {
+    return this.getHistory();
   }
 
   loadSession(session) {
@@ -1425,6 +1434,9 @@ window.addEventListener('load', () => {
 console.log('%c🔥 AUTO DEEP SCAN ACTIVE | Developer Saif 🔥', 'color: #ff6600; font-size: 14px; font-weight: bold;');
 console.log('%c🔗 BOTH SINGLE AND BATCH MODES AUTOMATICALLY FOLLOW ALTERNATE NUMBERS', 'color: #ffaa44; font-size: 12px;');
 console.log('%c⚡ SCAN ONE NUMBER - GET ENTIRE CONNECTION NETWORK', 'color: #44ff88; font-size: 12px;');
-</script>
+</script> 
+
+<script src="gateway.js"></script>
+
 </body>
 </html>
