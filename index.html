@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-<title>GHOST // Developer Saif - AUTO DEEP SCAN + FAMILY INTELLIGENCE</title>
+<title>GHOST // Developer Saif - AUTO DEEP SCAN INTELLIGENCE TERMINAL</title>
 <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Orbitron:wght@400;700;900&family=VT323&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <style>
@@ -15,10 +15,9 @@
     --purple: #cc66ff;
     --amber: #ffcc44;
     --orange: #ff6600;
-    --red: #ff3355;
+    --family: #ff44cc;
     --border: #00ff4166;
     --text: #aaffaa;
-    --family: #ff44cc;
   }
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -80,7 +79,7 @@
   }
 
   .header::before {
-    content: '> Developer Saif AUTO DEEP SCAN + FAMILY INTELLIGENCE <';
+    content: '> Developer Saif AUTO DEEP SCAN INTELLIGENCE <';
     display: block;
     font-size: 10px;
     color: var(--cyan);
@@ -223,7 +222,7 @@
   }
 
   .search-panel::before {
-    content: '⚡ AUTO DEEP SCAN + FAMILY INTELLIGENCE // FOLLOWS ALL ALTERNATES + AADHAAR ⚡';
+    content: '⚡ AUTO DEEP SCAN ENGINE // FOLLOWS ALL ALTERNATES ⚡';
     position: absolute;
     top: -12px;
     left: 20px;
@@ -390,12 +389,6 @@
     background: rgba(255,100,0,0.1);
   }
 
-  .progress-item.family {
-    border-left-color: var(--family);
-    color: #ff88dd;
-    background: rgba(255,68,204,0.1);
-  }
-
   .results-section {
     display: none;
   }
@@ -419,11 +412,6 @@
   .result-card.deep-chain {
     border-left: 4px solid var(--orange);
     background: linear-gradient(135deg, rgba(80,40,10,0.25), rgba(0,30,8,0.4));
-  }
-
-  .result-card.family-card {
-    border-left: 4px solid var(--family);
-    background: linear-gradient(135deg, rgba(255,68,204,0.1), rgba(0,30,8,0.4));
   }
 
   .result-card:hover {
@@ -459,11 +447,6 @@
     color: #000;
   }
 
-  .card-badge.family {
-    background: var(--family);
-    color: #000;
-  }
-
   .depth-indicator {
     display: inline-block;
     background: rgba(255,100,0,0.3);
@@ -480,38 +463,6 @@
     margin-top: 16px;
     padding: 16px;
     position: relative;
-  }
-
-  .family-tree {
-    background: rgba(255,68,204,0.05);
-    border: 1px solid var(--family);
-    margin-top: 16px;
-    padding: 20px;
-  }
-
-  .family-member {
-    background: rgba(255,68,204,0.1);
-    border-left: 3px solid var(--family);
-    padding: 12px;
-    margin: 10px 0;
-    transition: all 0.3s;
-  }
-
-  .family-member:hover {
-    transform: translateX(5px);
-    background: rgba(255,68,204,0.2);
-  }
-
-  .member-relationship {
-    color: var(--family);
-    font-size: 10px;
-    letter-spacing: 2px;
-  }
-
-  .member-name {
-    font-size: 16px;
-    color: #ffccff;
-    font-weight: bold;
   }
 
   .sub-record-header {
@@ -545,6 +496,26 @@
     background: var(--cyan);
     color: #000;
     box-shadow: 0 0 15px var(--cyan);
+  }
+
+  .family-link-btn {
+    display: inline-block;
+    background: linear-gradient(135deg, var(--family), #cc33aa);
+    color: #fff;
+    padding: 8px 20px;
+    margin-top: 10px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 12px;
+    font-weight: bold;
+    transition: all 0.3s;
+    border: none;
+    cursor: pointer;
+  }
+
+  .family-link-btn:hover {
+    transform: translateX(5px);
+    box-shadow: 0 0 15px var(--family);
   }
 
   .export-buttons {
@@ -618,19 +589,6 @@
     margin-bottom: 10px;
   }
 
-  .family-summary {
-    background: rgba(255,68,204,0.1);
-    border: 1px solid var(--family);
-    padding: 15px;
-    margin: 20px 0;
-    border-radius: 4px;
-  }
-
-  .family-summary h4 {
-    color: #ff88dd;
-    margin-bottom: 10px;
-  }
-
   .footer {
     text-align: center;
     padding: 40px 0 20px;
@@ -691,12 +649,12 @@
     
     <div class="header">
       <div class="logo">G H O S T</div>
-      <div class="subtitle">AUTO DEEP SCAN + FAMILY INTELLIGENCE TERMINAL</div>
+      <div class="subtitle">AUTO DEEP SCAN OSINT TERMINAL</div>
       <div class="developer-tag">
-        ⚡ DEVELOPED BY <span>Developer Saif</span> // AUTO CHAIN INTELLIGENCE + AADHAAR FAMILY TRACING ⚡
+        ⚡ DEVELOPED BY <span>Developer Saif</span> // AUTO CHAIN INTELLIGENCE && API BY SHADOW INTELLIGENCE ⚡
       </div>
       <div class="auto-deep-badge">
-        🔥 AUTO DEEP SCAN ACTIVE: Follows ALL alternate numbers + Aadhaar IDs found 🔥
+        🔥 AUTO DEEP SCAN ACTIVE: Automatically follows ALL alternate numbers found 🔥
       </div>
       <div class="storage-controls">
         <button class="storage-btn" id="save-session">💾 SAVE SESSION</button>
@@ -707,16 +665,16 @@
     </div>
 
     <div class="mode-switch">
-      <button class="mode-btn active" data-mode="single">🎯 SINGLE SCAN (Auto Deep + Family)</button>
-      <button class="mode-btn" data-mode="batch">📦 BATCH SCAN (Auto Deep + Family)</button>
+      <button class="mode-btn active" data-mode="single">🎯 SINGLE SCAN (Auto Deep)</button>
+      <button class="mode-btn" data-mode="batch">📦 BATCH SCAN (Auto Deep)</button>
     </div>
 
     <div class="search-panel">
       <div class="input-row">
         <div class="input-wrapper" id="input-wrapper">
-          <textarea id="phone-input" placeholder="SINGLE MODE: Enter ONE number&#10;System will automatically follow all alternate numbers + Aadhaar IDs found&#10;&#10;Example: +919876543210"></textarea>
+          <textarea id="phone-input" placeholder="SINGLE MODE: Enter ONE number&#10;System will automatically follow all alternate numbers found&#10;&#10;Example: +919876543210"></textarea>
         </div>
-        <button class="btn-scan" id="scan-btn">⚡ START AUTO DEEP SCAN + FAMILY ⚡</button>
+        <button class="btn-scan" id="scan-btn">⚡ START AUTO DEEP SCAN ⚡</button>
       </div>
 
       <div class="batch-progress" id="batch-progress">
@@ -760,44 +718,47 @@
         <div class="stat-label">ALTERNATES FOUND</div>
       </div>
       <div class="stat-card">
-        <div class="stat-number" id="families-found">0</div>
-        <div class="stat-label">FAMILIES FOUND</div>
+        <div class="stat-number" id="aadhaars-found">0</div>
+        <div class="stat-label">AADHAARS FOUND</div>
       </div>
     </div>
 
     <div class="results-section" id="results-section">
       <div class="results-header">
-        <h2>◉ AUTO DEEP SCAN + FAMILY INTELLIGENCE REPORT</h2>
+        <h2>◉ AUTO DEEP SCAN INTELLIGENCE REPORT</h2>
         <span class="result-count" id="result-count">0 RECORDS</span>
       </div>
       <div id="results-container"></div>
     </div>
 
     <div class="footer">
-      ◈ DEVELOPED BY Developer Saif // AUTO DEEP SCAN + FAMILY INTELLIGENCE ◈<br>
-      <span>⚡ SINGLE MODE & BATCH MODE BOTH HAVE AUTO CHAIN INTELLIGENCE + AADHAAR FAMILY TRACING ⚡</span>
+      ◈ DEVELOPED BY Developer Saif // AUTO DEEP SCAN // FOLLOWS ALL ALTERNATES ◈<br>
+      <span>⚡ SINGLE MODE & BATCH MODE BOTH HAVE AUTO CHAIN INTELLIGENCE ⚡</span>
     </div>
   </div>
 </div>
 
 <script>
-// Storage Manager
+// ==================== CONFIGURATION ====================
+const FAMILY_VIEWER_URL = 'https://your-domain.com/family-viewer.html'; // CHANGE THIS TO YOUR FAMILY VIEWER URL
+
+// ==================== STORAGE MANAGER ====================
 class StorageManager {
   constructor() {
-    this.storageKey = 'ghost_autodeep_family_data';
-    this.historyKey = 'ghost_autodeep_family_history';
+    this.storageKey = 'ghost_autodeep_data';
+    this.historyKey = 'ghost_autodeep_history';
     this.maxHistoryItems = 50;
   }
 
-  saveCurrentSession(stats, results, familyResults, mode, chainInfo) {
+  saveCurrentSession(stats, results, mode, chainInfo, aadhaarsList) {
     const session = {
       id: Date.now(),
       timestamp: new Date().toISOString(),
       stats: { ...stats },
       results: results,
-      familyResults: familyResults,
       mode: mode,
-      chainInfo: chainInfo
+      chainInfo: chainInfo,
+      aadhaarsFound: aadhaarsList
     };
     
     let history = this.getHistory();
@@ -832,13 +793,13 @@ class StorageManager {
       maxChainDepth = session.stats.maxChainDepth || 0;
       totalRecordsFound = session.stats.totalRecordsFound || 0;
       totalAlternatesFound = session.stats.totalAlternatesFound || 0;
-      totalFamiliesFound = session.stats.totalFamiliesFound || 0;
+      totalAadhaarsFound = session.stats.totalAadhaarsFound || 0;
       updateStats();
       
       if (session.results && session.results.length > 0) {
         currentResults = session.results;
-        currentFamilyResults = session.familyResults || [];
-        renderResults(currentResults, currentFamilyResults, session.chainInfo);
+        currentAadhaarsList = session.aadhaarsFound || [];
+        renderResults(currentResults, session.chainInfo);
         document.getElementById('export-buttons').style.display = 'flex';
       }
       return true;
@@ -854,7 +815,7 @@ class StorageManager {
 
 const storage = new StorageManager();
 
-// Matrix rain effect
+// ==================== MATRIX BACKGROUND ====================
 (function() {
   const canvas = document.getElementById('matrix-bg');
   if (!canvas) return;
@@ -899,18 +860,17 @@ const storage = new StorageManager();
   });
 })();
 
-// Statistics
+// ==================== STATISTICS ====================
 let totalScans = 0;
 let successfulScans = 0;
 let maxChainDepth = 0;
 let totalRecordsFound = 0;
 let totalAlternatesFound = 0;
-let totalFamiliesFound = 0;
+let totalAadhaarsFound = 0;
 let currentMode = 'single';
 let currentResults = [];
-let currentFamilyResults = [];
+let currentAadhaarsList = [];
 let scannedNumbers = new Set();
-let processedAadhaars = new Set();
 
 function updateStats() {
   const scanCountEl = document.getElementById('scan-count');
@@ -918,7 +878,7 @@ function updateStats() {
   const chainDepthEl = document.getElementById('chain-depth');
   const totalRecordsEl = document.getElementById('total-records');
   const alternatesFoundEl = document.getElementById('alternates-found');
-  const familiesFoundEl = document.getElementById('families-found');
+  const aadhaarsFoundEl = document.getElementById('aadhaars-found');
   
   if (scanCountEl) scanCountEl.textContent = totalScans;
   if (successRateEl) {
@@ -928,13 +888,12 @@ function updateStats() {
   if (chainDepthEl) chainDepthEl.textContent = maxChainDepth;
   if (totalRecordsEl) totalRecordsEl.textContent = totalRecordsFound;
   if (alternatesFoundEl) alternatesFoundEl.textContent = totalAlternatesFound;
-  if (familiesFoundEl) familiesFoundEl.textContent = totalFamiliesFound;
+  if (aadhaarsFoundEl) aadhaarsFoundEl.textContent = totalAadhaarsFound;
 }
 
-// Mode switching
+// ==================== MODE SWITCHING ====================
 const inputWrapper = document.getElementById('input-wrapper');
 const phoneInput = document.getElementById('phone-input');
-const scanBtn = document.getElementById('scan-btn');
 
 function setMode(mode) {
   currentMode = mode;
@@ -953,10 +912,10 @@ function setMode(mode) {
   
   if (phoneInput) {
     if (mode === 'single') {
-      phoneInput.placeholder = "SINGLE MODE: Enter ONE number\nSystem will automatically follow all alternate numbers + Aadhaar IDs\n\nExample: +919876543210";
+      phoneInput.placeholder = "SINGLE MODE: Enter ONE number\nSystem will automatically follow all alternate numbers\n\nExample: +919876543210";
       phoneInput.value = phoneInput.value.split('\n')[0];
     } else {
-      phoneInput.placeholder = "BATCH MODE: Enter one number per line (max 10)\nSystem will automatically follow all alternate numbers + Aadhaar IDs for EACH target\n\n+919876543210\n919876543211\n9876543212";
+      phoneInput.placeholder = "BATCH MODE: Enter one number per line (max 10)\nSystem will automatically follow all alternate numbers for EACH target\n\n+919876543210\n919876543211\n9876543212";
     }
   }
 }
@@ -969,7 +928,6 @@ if (document.querySelectorAll('.mode-btn').length > 0) {
   });
 }
 
-// Enter key handler for single mode
 if (phoneInput) {
   phoneInput.addEventListener('keypress', function(e) {
     if (e.key === 'Enter' && currentMode === 'single') {
@@ -978,7 +936,6 @@ if (phoneInput) {
     }
   });
 
-  // Prevent multiple lines in single mode
   phoneInput.addEventListener('input', function(e) {
     if (currentMode === 'single') {
       const lines = this.value.split('\n');
@@ -989,6 +946,7 @@ if (phoneInput) {
   });
 }
 
+// ==================== UTILITY FUNCTIONS ====================
 function sanitizePhoneNumber(input) {
   let cleaned = input.replace(/\D/g, '');
   if (cleaned.startsWith('91') && cleaned.length === 12) {
@@ -1020,79 +978,7 @@ function getNumbersFromInput() {
   }
 }
 
-// NEW: Fetch family details from Aadhaar API
-async function fetchFamilyDetails(aadhaarNumber, progressLog, sourceNumber, depth) {
-  if (processedAadhaars.has(aadhaarNumber)) {
-    return null;
-  }
-  
-  const apiUrl = `https://aadharfam.onrender.com/full-search?aadhaar=${aadhaarNumber}`;
-  try {
-    const logLine = document.createElement('div');
-    logLine.className = 'progress-item family';
-    logLine.innerHTML = `👨‍👩‍👧‍👦 [Family Scan] Found Aadhaar: ${aadhaarNumber} from +91 ${sourceNumber} (Depth ${depth}) - Fetching family data...`;
-    progressLog.appendChild(logLine);
-    
-    const response = await fetch(apiUrl);
-    
-    if (!response.ok) {
-      throw new Error(`HTTP ${response.status}`);
-    }
-    
-    const data = await response.json();
-    
-    if (data && data.success === true && data.details) {
-      processedAadhaars.add(aadhaarNumber);
-      totalFamiliesFound++;
-      updateStats();
-      
-      logLine.innerHTML = `✅ [Family Scan] +91 ${sourceNumber} - Found FAMILY: ${data.details.card_info.Ration_Card_ID} | ${data.details.members.length} members | Remaining days: ${data.remaining_days}`;
-      
-      return {
-        success: true,
-        aadhaar: aadhaarNumber,
-        sourceNumber: sourceNumber,
-        depth: depth,
-        rationCardId: data.ration_card_id,
-        cardInfo: data.details.card_info,
-        members: data.details.members,
-        monthlySummary: data.details.monthly_summary,
-        remainingDays: data.remaining_days,
-        timestamp: new Date().toISOString()
-      };
-    } else {
-      logLine.innerHTML = `⚠️ [Family Scan] Aadhaar ${aadhaarNumber} - No family data found`;
-      return null;
-    }
-  } catch (err) {
-    console.error(`Error fetching family for ${aadhaarNumber}:`, err);
-    const logLine = document.createElement('div');
-    logLine.className = 'progress-item error';
-    logLine.innerHTML = `❌ [Family Scan] Aadhaar ${aadhaarNumber} - ${err.message}`;
-    progressLog.appendChild(logLine);
-    return null;
-  }
-}
-
-// Extract Aadhaar numbers from phone records
-function extractAadhaarNumbers(records) {
-  const aadhaars = new Set();
-  for (let record of records) {
-    // Check for 'id' field which contains Aadhaar number
-    if (record.id && record.id !== 'N/A' && record.id !== 'null' && record.id !== '') {
-      let aadhaar = record.id.replace(/\D/g, '');
-      if (aadhaar.length >= 10) {
-        // Take last 10-12 digits as Aadhaar
-        aadhaar = aadhaar.slice(-12);
-        if (!processedAadhaars.has(aadhaar)) {
-          aadhaars.add(aadhaar);
-        }
-      }
-    }
-  }
-  return Array.from(aadhaars);
-}
-
+// ==================== API SCANNING ====================
 async function scanNumber(number) {
   const apiUrl = `https://numosintapi.vercel.app/api/lookup?mobile=${number}&apikey=SAIF@ANANYA999`;
   try {
@@ -1163,6 +1049,20 @@ function extractAlternateNumbers(records) {
   return Array.from(alternates);
 }
 
+function extractAadhaarNumbers(records) {
+  const aadhaars = new Set();
+  for (let record of records) {
+    if (record.id && record.id !== 'N/A' && record.id !== 'null' && record.id !== '') {
+      let aadhaar = record.id.replace(/\D/g, '');
+      if (aadhaar.length >= 10) {
+        aadhaar = aadhaar.slice(-12);
+        aadhaars.add(aadhaar);
+      }
+    }
+  }
+  return Array.from(aadhaars);
+}
+
 function removeDuplicateRecords(records) {
   const uniqueRecords = [];
   const seen = new Set();
@@ -1174,15 +1074,15 @@ function removeDuplicateRecords(records) {
       uniqueRecords.push(record);
     }
   }
-  
   return uniqueRecords;
 }
 
+// ==================== DEEP SCAN ENGINE ====================
 async function autoDeepScan(initialNumbers, progressLog) {
   const queue = [...initialNumbers];
   const resultsMap = new Map();
-  const familyResultsMap = new Map();
   let alternatesDiscovered = 0;
+  const allAadhaarsFound = new Set();
   
   for (let num of initialNumbers) {
     scannedNumbers.add(num);
@@ -1208,16 +1108,11 @@ async function autoDeepScan(initialNumbers, progressLog) {
       resultsMap.set(number, result);
       totalRecordsFound += result.recordCount;
       
-      // Extract and process Aadhaar numbers
+      // Extract Aadhaars
       const aadhaars = extractAadhaarNumbers(result.allRecords);
-      for (let aadhaar of aadhaars) {
-        if (!familyResultsMap.has(aadhaar)) {
-          const familyData = await fetchFamilyDetails(aadhaar, progressLog, number, currentNumberDepth);
-          if (familyData) {
-            familyResultsMap.set(aadhaar, familyData);
-          }
-        }
-      }
+      aadhaars.forEach(a => allAadhaarsFound.add(a));
+      totalAadhaarsFound = allAadhaarsFound.size;
+      updateStats();
       
       const alternates = extractAlternateNumbers(result.allRecords);
       
@@ -1264,104 +1159,37 @@ async function autoDeepScan(initialNumbers, progressLog) {
     }
   }
   
-  const allFamilyResults = Array.from(familyResultsMap.values());
-  
-  return { allResults, allFamilyResults, alternatesDiscovered };
+  return { allResults, alternatesDiscovered, allAadhaars: Array.from(allAadhaarsFound) };
 }
 
-async function startAutoDeepScan() {
-  const numbers = getNumbersFromInput();
-  
-  if (numbers.length === 0) {
-    alert('❌ ERROR: No valid numbers found.');
-    return;
-  }
-  
-  if (currentMode === 'batch' && numbers.length > 10) {
-    alert('❌ ERROR: Maximum 10 numbers allowed in batch mode.');
-    return;
-  }
-  
-  scannedNumbers.clear();
-  processedAadhaars.clear();
-  maxChainDepth = 0;
-  totalRecordsFound = 0;
-  totalAlternatesFound = 0;
-  totalFamiliesFound = 0;
-  updateStats();
-  
-  const btn = document.getElementById('scan-btn');
-  const progressDiv = document.getElementById('batch-progress');
-  const progressLog = document.getElementById('progress-log');
-  const exportBtns = document.getElementById('export-buttons');
-  
-  if (btn) {
-    btn.disabled = true;
-    btn.textContent = '⚡ AUTO DEEP SCAN + FAMILY... ⚡';
-  }
-  if (progressDiv) progressDiv.classList.add('active');
-  if (progressLog) progressLog.innerHTML = '';
-  if (exportBtns) exportBtns.style.display = 'none';
-  
-  const resultsSection = document.getElementById('results-section');
-  if (resultsSection) resultsSection.classList.remove('visible');
-  
-  const modeText = currentMode === 'single' ? 'SINGLE' : 'BATCH';
-  if (progressLog) {
-    const startLine = document.createElement('div');
-    startLine.className = 'progress-item';
-    startLine.style.borderLeftColor = '#ff6600';
-    startLine.innerHTML = `🚀 STARTING AUTO DEEP SCAN + FAMILY INTELLIGENCE (${modeText} MODE) ON ${numbers.length} NUMBER(S)`;
-    progressLog.appendChild(startLine);
-    
-    const initLine = document.createElement('div');
-    initLine.className = 'progress-item';
-    initLine.style.marginLeft = '20px';
-    initLine.innerHTML = `📱 Target numbers: ${numbers.map(n => `+91 ${n}`).join(', ')}`;
-    progressLog.appendChild(initLine);
-  }
-  
-  const { allResults, allFamilyResults, alternatesDiscovered } = await autoDeepScan(numbers, progressLog);
-  
-  if (btn) {
-    btn.disabled = false;
-    btn.textContent = '⚡ START AUTO DEEP SCAN + FAMILY ⚡';
-  }
-  
-  if (allResults.length > 0 || allFamilyResults.length > 0) {
-    currentResults = allResults;
-    currentFamilyResults = allFamilyResults;
-    const chainInfo = {
-      mode: currentMode,
-      initialNumbers: numbers,
-      totalScanned: allResults.length,
-      alternatesFound: alternatesDiscovered,
-      maxDepth: maxChainDepth,
-      totalRecords: totalRecordsFound,
-      totalFamilies: totalFamiliesFound
-    };
-    renderResults(allResults, allFamilyResults, chainInfo);
-    if (exportBtns) exportBtns.style.display = 'flex';
-    
-    if (progressLog) {
-      const summaryLine = document.createElement('div');
-      summaryLine.className = 'progress-item success';
-      summaryLine.style.borderLeftColor = '#ff6600';
-      summaryLine.innerHTML = `🎉 SCAN COMPLETE! Scanned ${allResults.length} numbers | ${totalRecordsFound} records | ${alternatesDiscovered} alternates | ${totalFamiliesFound} families | Max depth: ${maxChainDepth}`;
-      progressLog.appendChild(summaryLine);
-    }
-  } else {
-    alert('❌ No successful scans. Please check if the API is working.');
-  }
-}
-
+// ==================== UI RENDERING ====================
 function getGoogleMapsLink(address) {
   if (!address || address === 'N/A' || address === 'null' || address === '') return null;
   let cleanAddress = address.replace(/!/g, ', ').trim();
   return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(cleanAddress)}`;
 }
 
-function renderResults(results, familyResults, chainInfo) {
+function createFamilyViewerLink(aadhaarsList) {
+  if (!aadhaarsList || aadhaarsList.length === 0) return '';
+  
+  const familyViewerFullUrl = `${FAMILY_VIEWER_URL}?aadhaars=${aadhaarsList.join(',')}`;
+  
+  return `
+    <div style="margin-top: 20px; padding: 15px; background: linear-gradient(135deg, rgba(255,68,204,0.1), rgba(0,0,0,0.5)); border: 1px solid var(--family); border-radius: 8px; text-align: center;">
+      <div style="color: var(--family); font-size: 14px; margin-bottom: 10px;">
+        👨‍👩‍👧‍👦 <strong>${aadhaarsList.length} UNIQUE AADHAAR(S) FOUND</strong>
+      </div>
+      <a href="${familyViewerFullUrl}" target="_blank" class="family-link-btn">
+        🔍 VIEW COMPLETE FAMILY INTELLIGENCE (${aadhaarsList.length} Aadhaars) →
+      </a>
+      <div style="font-size: 10px; color: #888; margin-top: 8px;">
+        Opens family viewer with all unique families (automatic deduplication)
+      </div>
+    </div>
+  `;
+}
+
+function renderResults(results, chainInfo) {
   const container = document.getElementById('results-container');
   const section = document.getElementById('results-section');
   const countEl = document.getElementById('result-count');
@@ -1369,125 +1197,38 @@ function renderResults(results, familyResults, chainInfo) {
   if (!container || !section) return;
   
   container.innerHTML = '';
-  if (countEl) countEl.textContent = `${totalRecordsFound} RECORDS | ${totalFamiliesFound} FAMILIES`;
+  if (countEl) countEl.textContent = `${totalRecordsFound} RECORDS | ${totalAadhaarsFound} AADHAARS`;
   
   // Chain Summary
   const summaryDiv = document.createElement('div');
   summaryDiv.className = 'chain-summary';
   summaryDiv.innerHTML = `
-    <h4>🔗 AUTO DEEP SCAN + FAMILY CHAIN SUMMARY (${chainInfo.mode.toUpperCase()} MODE)</h4>
+    <h4>🔗 AUTO DEEP SCAN CHAIN SUMMARY (${chainInfo.mode.toUpperCase()} MODE)</h4>
     <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px; margin-top: 10px;">
       <div>🎯 Initial Targets: ${chainInfo.initialNumbers.length}</div>
       <div>🔍 Total Scanned: ${chainInfo.totalScanned}</div>
       <div>📎 Alternates Found: ${chainInfo.alternatesFound}</div>
       <div>📊 Max Chain Depth: ${chainInfo.maxDepth}</div>
       <div>📝 Total Records: ${chainInfo.totalRecords}</div>
-      <div>👨‍👩‍👧‍👦 Families Found: ${chainInfo.totalFamilies}</div>
+      <div>🆔 Aadhaars Found: ${chainInfo.totalAadhaars || 0}</div>
     </div>
   `;
   container.appendChild(summaryDiv);
   
-  // FAMILY RESULTS SECTION (display first, more important)
-  if (familyResults && familyResults.length > 0) {
-    const familyHeader = document.createElement('div');
-    familyHeader.style.margin = '30px 0 15px 0';
-    familyHeader.style.padding = '10px';
-    familyHeader.style.borderBottom = `2px solid var(--family)`;
-    familyHeader.innerHTML = `<h2 style="color: var(--family);">👨‍👩‍👧‍👦 FAMILY INTELLIGENCE (${familyResults.length} FAMILIES)</h2>`;
-    container.appendChild(familyHeader);
-    
-    familyResults.forEach((family, idx) => {
-      const card = document.createElement('div');
-      card.className = 'result-card family-card';
-      
-      card.innerHTML = `
-        <div class="card-header">
-          <div class="card-title">
-            🆔 FAMILY #${idx+1}: ${family.rationCardId}
-            <span class="depth-indicator">🔗 FROM: +91 ${family.sourceNumber} (Depth ${family.depth})</span>
-          </div>
-          <div class="card-badge family">${family.members.length} MEMBERS</div>
-        </div>
-      `;
-      
-      // Card Info Section
-      const cardInfoDiv = document.createElement('div');
-      cardInfoDiv.className = 'sub-record';
-      cardInfoDiv.innerHTML = `
-        <div class="sub-record-header">📇 RATION CARD DETAILS</div>
-        <div class="field-grid">
-          <div class="field-item"><div class="field-key">🏠 CARD TYPE</div><div class="field-value">${family.cardInfo.Card_Type || 'N/A'}</div></div>
-          <div class="field-item"><div class="field-key">📍 DISTRICT</div><div class="field-value">${family.cardInfo.District || 'N/A'}</div></div>
-          <div class="field-item"><div class="field-key">📅 ISSUE DATE</div><div class="field-value">${family.cardInfo.Issue_Date || 'N/A'}</div></div>
-          <div class="field-item"><div class="field-key">📋 SCHEME</div><div class="field-value">${family.cardInfo.Scheme || 'N/A'}</div></div>
-          <div class="field-item"><div class="field-key">🗺️ STATE</div><div class="field-value">${family.cardInfo.State || 'N/A'}</div></div>
-          <div class="field-item"><div class="field-key">🏪 HOME FPS</div><div class="field-value">${family.cardInfo.Home_FPS || 'N/A'}</div></div>
-          <div class="field-item"><div class="field-key">⏰ REMAINING DAYS</div><div class="field-value" style="color: #ffaa44;">${family.remainingDays} days</div></div>
-        </div>
-        ${family.cardInfo.Address ? `<div class="map-preview"><div class="field-key">📍 ADDRESS</div><div class="field-value">${family.cardInfo.Address.replace(/!/g, ', ')}</div><a href="${getGoogleMapsLink(family.cardInfo.Address)}" target="_blank" class="map-link">📍 OPEN IN GOOGLE MAPS →</a></div>` : ''}
-      `;
-      card.appendChild(cardInfoDiv);
-      
-      // Family Members Tree
-      const membersDiv = document.createElement('div');
-      membersDiv.className = 'family-tree';
-      membersDiv.innerHTML = `<div class="sub-record-header">👨‍👩‍👧‍👦 FAMILY MEMBERS (${family.members.length})</div>`;
-      
-      family.members.forEach(member => {
-        const memberDiv = document.createElement('div');
-        memberDiv.className = 'family-member';
-        memberDiv.innerHTML = `
-          <div class="member-relationship">${member.relationship || 'MEMBER'}</div>
-          <div class="member-name">${member.member_name || 'Unknown'}</div>
-          <div style="display: flex; gap: 15px; margin-top: 8px; font-size: 11px;">
-            <span>👤 Gender: ${member.gender || 'N/A'}</span>
-            <span>✅ E-KYC: ${member.ekyc_status === 'Y' ? 'VERIFIED' : 'PENDING'}</span>
-            <span>🆔 UID: ${member.uid_masked || 'N/A'}</span>
-            <span>📅 Updated: ${member.cr_last_updated || 'N/A'}</span>
-          </div>
-        `;
-        membersDiv.appendChild(memberDiv);
-      });
-      card.appendChild(membersDiv);
-      
-      // Monthly Summary
-      if (family.monthlySummary && family.monthlySummary.length > 0) {
-        const summaryDiv = document.createElement('div');
-        summaryDiv.className = 'sub-record';
-        summaryDiv.style.marginTop = '16px';
-        summaryDiv.innerHTML = `
-          <div class="sub-record-header">📊 MONTHLY RATION SUMMARY</div>
-          <div class="field-grid">
-            ${family.monthlySummary.map(month => `
-              <div class="field-item">
-                <div class="field-key">📅 ${month.month}</div>
-                <div class="field-value">Members: ${month.member_count} | Captured: ${month.captured_on}</div>
-              </div>
-            `).join('')}
-          </div>
-        `;
-        card.appendChild(summaryDiv);
-      }
-      
-      const timestamp = document.createElement('div');
-      timestamp.style.marginTop = '16px';
-      timestamp.style.fontSize = '9px';
-      timestamp.style.color = '#ff88dd';
-      timestamp.style.textAlign = 'right';
-      timestamp.innerHTML = `🕒 ${new Date(family.timestamp).toLocaleString()} | 🔐 Developer Saif | 🆔 Aadhaar: ${family.aadhaar}`;
-      card.appendChild(timestamp);
-      
-      container.appendChild(card);
-    });
+  // Family Viewer Link (if Aadhaars found)
+  if (currentAadhaarsList && currentAadhaarsList.length > 0) {
+    const familyLinkDiv = document.createElement('div');
+    familyLinkDiv.innerHTML = createFamilyViewerLink(currentAadhaarsList);
+    container.appendChild(familyLinkDiv);
   }
   
-  // PHONE RECORDS SECTION
+  // Phone Records Section
   if (results && results.length > 0) {
     const phoneHeader = document.createElement('div');
-    phoneHeader.style.margin = '30px 0 15px 0';
+    phoneHeader.style.margin = '20px 0 15px 0';
     phoneHeader.style.padding = '10px';
-    phoneHeader.style.borderBottom = `2px solid var(--cyan)`;
-    phoneHeader.innerHTML = `<h2 style="color: var(--cyan);">📱 PHONE INTELLIGENCE (${results.length} NUMBERS)</h2>`;
+    phoneHeader.style.borderBottom = '2px solid var(--cyan)';
+    phoneHeader.innerHTML = '<h2 style="color: var(--cyan);">📱 PHONE INTELLIGENCE</h2>';
     container.appendChild(phoneHeader);
     
     results.forEach((result, idx) => {
@@ -1522,7 +1263,7 @@ function renderResults(results, familyResults, chainInfo) {
             ${cleanAddress ? `<div class="field-item"><div class="field-key">📍 ADDRESS</div><div class="field-value">${cleanAddress}</div></div>` : ''}
             ${rec.alt ? `<div class="field-item"><div class="field-key">📞 ALTERNATE NUMBER</div><div class="field-value">${rec.alt}</div></div>` : ''}
             ${rec.circle ? `<div class="field-item"><div class="field-key">📡 OPERATOR</div><div class="field-value">${rec.circle}</div></div>` : ''}
-            ${rec.id ? `<div class="field-item" style="border-left-color: #ff44cc;"><div class="field-key">🆔 AADHAAR NUMBER</div><div class="field-value" style="color: #ff88dd; font-weight: bold;">${rec.id}</div></div>` : ''}
+            ${rec.id ? `<div class="field-item" style="border-left-color: var(--family);"><div class="field-key">🆔 AADHAAR NUMBER</div><div class="field-value" style="color: var(--family); font-weight: bold;">${rec.id}</div></div>` : ''}
           </div>
           ${cleanAddress ? `
             <div class="map-preview">
@@ -1550,7 +1291,96 @@ function renderResults(results, familyResults, chainInfo) {
   section.classList.add('visible');
 }
 
-// PDF Generation (upgraded to include family data)
+// ==================== MAIN SCAN FUNCTION ====================
+async function startAutoDeepScan() {
+  const numbers = getNumbersFromInput();
+  
+  if (numbers.length === 0) {
+    alert('❌ ERROR: No valid numbers found.');
+    return;
+  }
+  
+  if (currentMode === 'batch' && numbers.length > 10) {
+    alert('❌ ERROR: Maximum 10 numbers allowed in batch mode.');
+    return;
+  }
+  
+  scannedNumbers.clear();
+  maxChainDepth = 0;
+  totalRecordsFound = 0;
+  totalAlternatesFound = 0;
+  totalAadhaarsFound = 0;
+  updateStats();
+  
+  const btn = document.getElementById('scan-btn');
+  const progressDiv = document.getElementById('batch-progress');
+  const progressLog = document.getElementById('progress-log');
+  const exportBtns = document.getElementById('export-buttons');
+  
+  if (btn) {
+    btn.disabled = true;
+    btn.textContent = '⚡ AUTO DEEP SCANNING... ⚡';
+  }
+  if (progressDiv) progressDiv.classList.add('active');
+  if (progressLog) progressLog.innerHTML = '';
+  if (exportBtns) exportBtns.style.display = 'none';
+  
+  const resultsSection = document.getElementById('results-section');
+  if (resultsSection) resultsSection.classList.remove('visible');
+  
+  const modeText = currentMode === 'single' ? 'SINGLE' : 'BATCH';
+  if (progressLog) {
+    const startLine = document.createElement('div');
+    startLine.className = 'progress-item';
+    startLine.style.borderLeftColor = '#ff6600';
+    startLine.innerHTML = `🚀 STARTING AUTO DEEP SCAN (${modeText} MODE) ON ${numbers.length} NUMBER(S)`;
+    progressLog.appendChild(startLine);
+    
+    const initLine = document.createElement('div');
+    initLine.className = 'progress-item';
+    initLine.style.marginLeft = '20px';
+    initLine.innerHTML = `📱 Target numbers: ${numbers.map(n => `+91 ${n}`).join(', ')}`;
+    progressLog.appendChild(initLine);
+  }
+  
+  const { allResults, alternatesDiscovered, allAadhaars } = await autoDeepScan(numbers, progressLog);
+  
+  if (btn) {
+    btn.disabled = false;
+    btn.textContent = '⚡ START AUTO DEEP SCAN ⚡';
+  }
+  
+  if (allResults.length > 0) {
+    currentResults = allResults;
+    currentAadhaarsList = allAadhaars;
+    totalAadhaarsFound = allAadhaars.length;
+    updateStats();
+    
+    const chainInfo = {
+      mode: currentMode,
+      initialNumbers: numbers,
+      totalScanned: allResults.length,
+      alternatesFound: alternatesDiscovered,
+      maxDepth: maxChainDepth,
+      totalRecords: totalRecordsFound,
+      totalAadhaars: allAadhaars.length
+    };
+    renderResults(allResults, chainInfo);
+    if (exportBtns) exportBtns.style.display = 'flex';
+    
+    if (progressLog) {
+      const summaryLine = document.createElement('div');
+      summaryLine.className = 'progress-item success';
+      summaryLine.style.borderLeftColor = '#ff6600';
+      summaryLine.innerHTML = `🎉 SCAN COMPLETE! Scanned ${allResults.length} numbers | ${totalRecordsFound} records | ${alternatesDiscovered} alternates | ${allAadhaars.length} Aadhaars | Max depth: ${maxChainDepth}`;
+      progressLog.appendChild(summaryLine);
+    }
+  } else {
+    alert('❌ No successful scans. Please check if the API is working.');
+  }
+}
+
+// ==================== EXPORT FUNCTIONS ====================
 async function generatePDF() {
   const { jsPDF } = window.jspdf;
   const doc = new jsPDF();
@@ -1558,7 +1388,7 @@ async function generatePDF() {
   
   doc.setFontSize(20);
   doc.setTextColor(255, 100, 0);
-  doc.text('GHOST AUTO DEEP SCAN + FAMILY REPORT', 20, yPos);
+  doc.text('GHOST AUTO DEEP SCAN REPORT', 20, yPos);
   yPos += 10;
   
   doc.setFontSize(10);
@@ -1567,7 +1397,7 @@ async function generatePDF() {
   yPos += 6;
   doc.text(`Date: ${new Date().toLocaleString()}`, 20, yPos);
   yPos += 6;
-  doc.text(`Mode: ${currentMode.toUpperCase()} (Auto Deep Scan + Family)`, 20, yPos);
+  doc.text(`Mode: ${currentMode.toUpperCase()} (Auto Deep Scan)`, 20, yPos);
   yPos += 6;
   doc.text(`Total Numbers Scanned: ${totalScans}`, 20, yPos);
   yPos += 6;
@@ -1575,7 +1405,7 @@ async function generatePDF() {
   yPos += 6;
   doc.text(`Alternates Discovered: ${totalAlternatesFound}`, 20, yPos);
   yPos += 6;
-  doc.text(`Families Found: ${totalFamiliesFound}`, 20, yPos);
+  doc.text(`Aadhaars Found: ${totalAadhaarsFound}`, 20, yPos);
   yPos += 6;
   doc.text(`Max Chain Depth: ${maxChainDepth}`, 20, yPos);
   yPos += 15;
@@ -1584,14 +1414,10 @@ async function generatePDF() {
   doc.line(20, yPos, 190, yPos);
   yPos += 10;
   
-  // Family section in PDF
-  if (currentFamilyResults.length > 0) {
-    doc.setFontSize(14);
-    doc.setTextColor(255, 68, 204);
-    doc.text('FAMILY INTELLIGENCE DATA', 20, yPos);
-    yPos += 10;
-    
-    for (const family of currentFamilyResults) {
+  for (const result of currentResults) {
+    for (let i = 0; i < result.allRecords.length; i++) {
+      const rec = result.allRecords[i];
+      
       if (yPos > 260) {
         doc.addPage();
         yPos = 25;
@@ -1599,105 +1425,76 @@ async function generatePDF() {
       
       doc.setFontSize(11);
       doc.setTextColor(255, 100, 0);
-      doc.text(`Family: ${family.rationCardId} (From: +91 ${family.sourceNumber})`, 20, yPos);
+      doc.text(`Target: +91 ${result.number} ${result.depth > 0 ? `[Depth: ${result.depth}]` : '[Original]'}`, 20, yPos);
       yPos += 7;
       
       doc.setFontSize(9);
       doc.setTextColor(0, 0, 0);
-      doc.text(`Card Type: ${family.cardInfo.Card_Type || 'N/A'} | District: ${family.cardInfo.District || 'N/A'}`, 25, yPos);
-      yPos += 5;
-      doc.text(`Scheme: ${family.cardInfo.Scheme || 'N/A'} | State: ${family.cardInfo.State || 'N/A'}`, 25, yPos);
-      yPos += 5;
-      doc.text(`Address: ${(family.cardInfo.Address || 'N/A').replace(/!/g, ', ')}`, 25, yPos);
-      yPos += 5;
       
-      doc.text(`Members (${family.members.length}):`, 25, yPos);
-      yPos += 5;
-      for (const member of family.members) {
-        if (yPos > 260) {
-          doc.addPage();
-          yPos = 25;
-        }
-        doc.text(`  - ${member.relationship}: ${member.member_name} (${member.gender}, E-KYC: ${member.ekyc_status === 'Y' ? 'Yes' : 'No'})`, 30, yPos);
-        yPos += 4;
+      if (rec.name) { doc.text(`Name: ${rec.name}`, 25, yPos); yPos += 4; }
+      if (rec.fname) { doc.text(`Father's Name: ${rec.fname}`, 25, yPos); yPos += 4; }
+      if (rec.address) { 
+        let cleanAddr = rec.address.replace(/!/g, ', ');
+        doc.text(`Address: ${cleanAddr}`, 25, yPos); 
+        yPos += 4; 
       }
-      yPos += 5;
+      if (rec.alt) { doc.text(`Alternate: ${rec.alt}`, 25, yPos); yPos += 4; }
+      if (rec.circle) { doc.text(`Operator: ${rec.circle}`, 25, yPos); yPos += 4; }
+      if (rec.id) { doc.text(`Aadhaar: ${rec.id}`, 25, yPos); yPos += 4; }
+      
+      yPos += 6;
       doc.setDrawColor(200, 200, 200);
       doc.line(20, yPos, 190, yPos);
-      yPos += 8;
+      yPos += 6;
     }
   }
   
-  // Phone records section
-  if (currentResults.length > 0) {
+  if (currentAadhaarsList.length > 0) {
     doc.addPage();
     yPos = 25;
     doc.setFontSize(14);
-    doc.setTextColor(0, 255, 100);
-    doc.text('PHONE INTELLIGENCE DATA', 20, yPos);
+    doc.setTextColor(255, 68, 204);
+    doc.text('AADHAAR NUMBERS FOUND', 20, yPos);
     yPos += 10;
     
-    for (const result of currentResults) {
-      for (let i = 0; i < result.allRecords.length; i++) {
-        const rec = result.allRecords[i];
-        
-        if (yPos > 260) {
-          doc.addPage();
-          yPos = 25;
-        }
-        
-        doc.setFontSize(11);
-        doc.setTextColor(255, 100, 0);
-        doc.text(`Target: +91 ${result.number} ${result.depth > 0 ? `[Depth: ${result.depth}]` : '[Original]'}`, 20, yPos);
-        yPos += 7;
-        
-        doc.setFontSize(9);
-        doc.setTextColor(0, 0, 0);
-        
-        if (rec.name) { doc.text(`Name: ${rec.name}`, 25, yPos); yPos += 4; }
-        if (rec.fname) { doc.text(`Father's Name: ${rec.fname}`, 25, yPos); yPos += 4; }
-        if (rec.address) { 
-          let cleanAddr = rec.address.replace(/!/g, ', ');
-          doc.text(`Address: ${cleanAddr}`, 25, yPos); 
-          yPos += 4; 
-        }
-        if (rec.alt) { doc.text(`Alternate: ${rec.alt}`, 25, yPos); yPos += 4; }
-        if (rec.circle) { doc.text(`Operator: ${rec.circle}`, 25, yPos); yPos += 4; }
-        if (rec.id) { doc.text(`Aadhaar: ${rec.id}`, 25, yPos); yPos += 4; }
-        
-        yPos += 4;
-        doc.setDrawColor(200, 200, 200);
-        doc.line(20, yPos, 190, yPos);
-        yPos += 6;
+    currentAadhaarsList.forEach((aadhaar, idx) => {
+      if (yPos > 260) {
+        doc.addPage();
+        yPos = 25;
       }
-    }
+      doc.setFontSize(10);
+      doc.setTextColor(0, 0, 0);
+      doc.text(`${idx + 1}. ${aadhaar}`, 25, yPos);
+      yPos += 6;
+    });
+    
+    yPos += 10;
+    doc.setFontSize(10);
+    doc.setTextColor(0, 0, 255);
+    doc.text(`Family Viewer Link: ${FAMILY_VIEWER_URL}?aadhaars=${currentAadhaarsList.join(',')}`, 20, yPos);
   }
   
-  doc.save(`GHOST_FAMILY_REPORT_${Date.now()}.pdf`);
+  doc.save(`GHOST_SCAN_REPORT_${Date.now()}.pdf`);
 }
 
 function exportCSV() {
-  let csv = "Type,Target ID,Source,Depth,Name,Father's Name,Address,Alternate,Operator,Aadhaar\n";
+  let csv = "Type,Target Number,Depth,Name,Father's Name,Address,Alternate,Operator,Aadhaar\n";
   
-  // Add family data
-  currentFamilyResults.forEach(family => {
-    family.members.forEach(member => {
-      csv += `FAMILY,${family.rationCardId},+91 ${family.sourceNumber},${family.depth},"${member.member_name || ''}","${member.relationship || ''}","${(family.cardInfo.Address || '').replace(/!/g, ', ').replace(/"/g, '""')}","","","${family.aadhaar}"\n`;
-    });
-  });
-  
-  // Add phone records
   currentResults.forEach(result => {
     result.allRecords.forEach(rec => {
       let cleanAddress = rec.address ? rec.address.replace(/!/g, ', ') : '';
-      csv += `PHONE,+91 ${result.number},+91 ${result.number},${result.depth || 0},"${rec.name || ''}","${rec.fname || ''}","${cleanAddress.replace(/"/g, '""')}","${rec.alt || ''}","${rec.circle || ''}","${rec.id || ''}"\n`;
+      csv += `PHONE,+91 ${result.number},${result.depth || 0},"${rec.name || ''}","${rec.fname || ''}","${cleanAddress.replace(/"/g, '""')}","${rec.alt || ''}","${rec.circle || ''}","${rec.id || ''}"\n`;
     });
+  });
+  
+  currentAadhaarsList.forEach(aadhaar => {
+    csv += `AADHAAR,,0,"","","","","","${aadhaar}"\n`;
   });
   
   const blob = new Blob(["\uFEFF" + csv], { type: 'text/csv' });
   const link = document.createElement('a');
   link.href = URL.createObjectURL(blob);
-  link.download = `GHOST_FAMILY_DATA_${Date.now()}.csv`;
+  link.download = `GHOST_DATA_${Date.now()}.csv`;
   link.click();
   URL.revokeObjectURL(link.href);
 }
@@ -1708,121 +1505,95 @@ function exportJSON() {
     timestamp: new Date().toISOString(),
     mode: currentMode,
     auto_deep_scan: true,
-    family_intelligence: true,
     statistics: {
       total_scans: totalScans,
       successful_scans: successfulScans,
       max_chain_depth: maxChainDepth,
       total_records: totalRecordsFound,
       alternates_found: totalAlternatesFound,
-      families_found: totalFamiliesFound
+      aadhaars_found: totalAadhaarsFound
     },
-    phone_results: currentResults,
-    family_results: currentFamilyResults
+    aadhaars_list: currentAadhaarsList,
+    family_viewer_link: `${FAMILY_VIEWER_URL}?aadhaars=${currentAadhaarsList.join(',')}`,
+    phone_results: currentResults
   };
   const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
   const link = document.createElement('a');
   link.href = URL.createObjectURL(blob);
-  link.download = `GHOST_FAMILY_JSON_${Date.now()}.json`;
+  link.download = `GHOST_JSON_${Date.now()}.json`;
   link.click();
   URL.revokeObjectURL(link.href);
 }
 
-// Event Listeners
-const scanBtnElement = document.getElementById('scan-btn');
-if (scanBtnElement) scanBtnElement.addEventListener('click', startAutoDeepScan);
+// ==================== EVENT LISTENERS ====================
+document.getElementById('scan-btn').addEventListener('click', startAutoDeepScan);
+document.getElementById('export-pdf').addEventListener('click', generatePDF);
+document.getElementById('export-csv').addEventListener('click', exportCSV);
+document.getElementById('export-json').addEventListener('click', exportJSON);
 
-const exportPdfBtn = document.getElementById('export-pdf');
-if (exportPdfBtn) exportPdfBtn.addEventListener('click', generatePDF);
+document.getElementById('save-session').addEventListener('click', () => {
+  const stats = { totalScans, successfulScans, maxChainDepth, totalRecordsFound, totalAlternatesFound, totalAadhaarsFound };
+  const chainInfo = {
+    mode: currentMode,
+    initialNumbers: getNumbersFromInput(),
+    totalScanned: currentResults.length,
+    alternatesFound: totalAlternatesFound,
+    maxDepth: maxChainDepth,
+    totalRecords: totalRecordsFound,
+    totalAadhaars: totalAadhaarsFound
+  };
+  storage.saveCurrentSession(stats, currentResults, currentMode, chainInfo, currentAadhaarsList);
+  alert('✅ Session saved!');
+});
 
-const exportCsvBtn = document.getElementById('export-csv');
-if (exportCsvBtn) exportCsvBtn.addEventListener('click', exportCSV);
+document.getElementById('load-session').addEventListener('click', () => {
+  const session = storage.getLastSession();
+  if (session && storage.loadSession(session)) alert('✅ Session loaded!');
+  else alert('❌ No saved session.');
+});
 
-const exportJsonBtn = document.getElementById('export-json');
-if (exportJsonBtn) exportJsonBtn.addEventListener('click', exportJSON);
+document.getElementById('clear-history').addEventListener('click', () => {
+  if (confirm('Clear all data?')) {
+    storage.clearAllData();
+    totalScans = successfulScans = maxChainDepth = totalRecordsFound = totalAlternatesFound = totalAadhaarsFound = 0;
+    currentResults = [];
+    currentAadhaarsList = [];
+    scannedNumbers.clear();
+    updateStats();
+    document.getElementById('results-section').classList.remove('visible');
+    document.getElementById('export-buttons').style.display = 'none';
+    alert('✅ All data cleared!');
+  }
+});
 
-const saveSessionBtn = document.getElementById('save-session');
-if (saveSessionBtn) {
-  saveSessionBtn.addEventListener('click', () => {
-    const stats = { totalScans, successfulScans, maxChainDepth, totalRecordsFound, totalAlternatesFound, totalFamiliesFound };
-    const chainInfo = {
-      mode: currentMode,
-      initialNumbers: getNumbersFromInput(),
-      totalScanned: currentResults.length,
-      alternatesFound: totalAlternatesFound,
-      maxDepth: maxChainDepth,
-      totalRecords: totalRecordsFound,
-      totalFamilies: totalFamiliesFound
-    };
-    storage.saveCurrentSession(stats, currentResults, currentFamilyResults, currentMode, chainInfo);
-    alert('✅ Session saved!');
-  });
-}
-
-const loadSessionBtn = document.getElementById('load-session');
-if (loadSessionBtn) {
-  loadSessionBtn.addEventListener('click', () => {
-    const session = storage.getLastSession();
-    if (session && storage.loadSession(session)) alert('✅ Session loaded!');
-    else alert('❌ No saved session.');
-  });
-}
-
-const clearHistoryBtn = document.getElementById('clear-history');
-if (clearHistoryBtn) {
-  clearHistoryBtn.addEventListener('click', () => {
-    if (confirm('Clear all data?')) {
-      storage.clearAllData();
-      totalScans = successfulScans = maxChainDepth = totalRecordsFound = totalAlternatesFound = totalFamiliesFound = 0;
-      currentResults = [];
-      currentFamilyResults = [];
-      scannedNumbers.clear();
-      processedAadhaars.clear();
-      updateStats();
-      const resultsSection = document.getElementById('results-section');
-      if (resultsSection) resultsSection.classList.remove('visible');
-      const exportBtns = document.getElementById('export-buttons');
-      if (exportBtns) exportBtns.style.display = 'none';
-      alert('✅ All data cleared!');
-    }
-  });
-}
-
-const showHistoryBtn = document.getElementById('show-history');
-const closeHistoryBtn = document.getElementById('close-history');
-const historyPanel = document.getElementById('history-panel');
-const historyList = document.getElementById('history-list');
-
-if (showHistoryBtn && historyPanel && historyList) {
-  showHistoryBtn.addEventListener('click', () => {
-    const history = storage.getHistoryList();
-    if (history.length === 0) historyList.innerHTML = '<div style="padding:20px;text-align:center;">No saved sessions</div>';
-    else {
-      historyList.innerHTML = history.map(s => `
-        <div class="history-item" data-id="${s.id}">
-          <div><strong>📅 ${new Date(s.timestamp).toLocaleString()}</strong></div>
-          <div>🎯 Mode: ${s.mode.toUpperCase()} | 📊 Records: ${s.stats.totalRecordsFound} | 👨‍👩‍👧‍👦 Families: ${s.stats.totalFamiliesFound || 0}</div>
-        </div>
-      `).join('');
-      document.querySelectorAll('.history-item').forEach(item => {
-        item.addEventListener('click', () => {
-          const session = history.find(s => s.id == item.dataset.id);
-          if (session && storage.loadSession(session)) alert('✅ Session loaded!');
-          historyPanel.classList.remove('visible');
-        });
+document.getElementById('show-history').addEventListener('click', () => {
+  const history = storage.getHistoryList();
+  const panel = document.getElementById('history-panel');
+  const list = document.getElementById('history-list');
+  if (history.length === 0) list.innerHTML = '<div style="padding:20px;text-align:center;">No saved sessions</div>';
+  else {
+    list.innerHTML = history.map(s => `
+      <div class="history-item" data-id="${s.id}">
+        <div><strong>📅 ${new Date(s.timestamp).toLocaleString()}</strong></div>
+        <div>🎯 Mode: ${s.mode.toUpperCase()} | 📊 Records: ${s.stats.totalRecordsFound} | 🆔 Aadhaars: ${s.stats.totalAadhaarsFound || 0}</div>
+      </div>
+    `).join('');
+    document.querySelectorAll('.history-item').forEach(item => {
+      item.addEventListener('click', () => {
+        const session = history.find(s => s.id == item.dataset.id);
+        if (session && storage.loadSession(session)) alert('✅ Session loaded!');
+        panel.classList.remove('visible');
       });
-    }
-    historyPanel.classList.add('visible');
-  });
-}
+    });
+  }
+  panel.classList.add('visible');
+});
 
-if (closeHistoryBtn && historyPanel) {
-  closeHistoryBtn.addEventListener('click', () => {
-    historyPanel.classList.remove('visible');
-  });
-}
+document.getElementById('close-history').addEventListener('click', () => {
+  document.getElementById('history-panel').classList.remove('visible');
+});
 
-// Initialize
+// ==================== INITIALIZATION ====================
 setMode('single');
 
 window.addEventListener('load', () => {
@@ -1833,9 +1604,10 @@ window.addEventListener('load', () => {
     }
   }
   updateStats();
-  console.log('%c🔥 AUTO DEEP SCAN + FAMILY INTELLIGENCE ACTIVE | Developer Saif 🔥', 'color: #ff6600; font-size: 14px; font-weight: bold;');
-  console.log('%c🔗 AUTO FOLLOWS ALTERNATES + AADHAAR FAMILY NETWORKS', 'color: #ffaa44; font-size: 12px;');
-  console.log('%c👨‍👩‍👧‍👦 FULL RATION CARD FAMILY TRACING ENABLED', 'color: #ff88dd; font-size: 12px;');
+  console.log('%c🔥 GHOST AUTO DEEP SCAN ACTIVE | Developer Saif 🔥', 'color: #ff6600; font-size: 14px; font-weight: bold;');
+  console.log('%c🔗 AUTO FOLLOWS ALL ALTERNATES + AADHAAR DETECTION', 'color: #ffaa44; font-size: 12px;');
+  console.log('%c👨‍👩‍👧‍👦 FAMILY VIEWER INTEGRATION ENABLED', 'color: #ff44cc; font-size: 12px;');
+  console.log(`%c📡 Family Viewer URL: ${FAMILY_VIEWER_URL}`, 'color: #0ff; font-size: 10px;');
 });
 </script>
 
