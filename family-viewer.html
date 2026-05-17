@@ -13,7 +13,7 @@
 
         body {
             background: #0a0e0a;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
             padding: 20px;
             min-height: 100vh;
         }
@@ -23,6 +23,7 @@
             margin: 0 auto;
         }
 
+        /* Header */
         .header {
             background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
             padding: 25px;
@@ -53,6 +54,7 @@
             margin-top: 10px;
         }
 
+        /* Stats Bar */
         .stats-bar {
             display: flex;
             gap: 15px;
@@ -83,6 +85,7 @@
             text-transform: uppercase;
         }
 
+        /* Progress Log */
         .progress-log {
             background: #1a1a2e;
             border-radius: 10px;
@@ -95,11 +98,12 @@
         }
 
         .log-entry {
-            padding: 6px 10px;
+            padding: 8px 12px;
             margin: 5px 0;
             border-left: 3px solid;
             background: #0a0e0a;
             border-radius: 3px;
+            line-height: 1.4;
         }
 
         .log-info { border-left-color: #00aaff; color: #88ccff; }
@@ -107,13 +111,14 @@
         .log-warning { border-left-color: #ffaa00; color: #ffcc66; }
         .log-error { border-left-color: #ff3355; color: #ff8888; }
 
+        /* Family Cards */
         .family-card {
             background: #1a1a2e;
             border-radius: 15px;
             margin-bottom: 25px;
             overflow: hidden;
             border: 1px solid #2a2a4e;
-            animation: fadeIn 0.5s;
+            animation: fadeIn 0.3s ease-out;
         }
 
         @keyframes fadeIn {
@@ -149,6 +154,7 @@
             margin-top: 8px;
         }
 
+        /* Info Grid */
         .info-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -178,6 +184,7 @@
             line-height: 1.4;
         }
 
+        /* Members Section */
         .members-section {
             padding: 0 20px 20px 20px;
         }
@@ -221,6 +228,7 @@
             color: #aaa;
         }
 
+        /* Monthly Summary */
         .summary-section {
             padding: 0 20px 20px 20px;
         }
@@ -238,6 +246,13 @@
             text-align: center;
         }
 
+        .summary-month {
+            color: #ff44cc;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        /* Share Section */
         .share-section {
             padding: 20px;
             border-top: 1px solid #2a2a4e;
@@ -278,6 +293,7 @@
             transform: scale(1.02);
         }
 
+        /* No Results */
         .no-results {
             background: #1a1a2e;
             border-radius: 15px;
@@ -286,21 +302,12 @@
             color: #aaa;
         }
 
-        .loading-spinner {
-            display: inline-block;
-            width: 14px;
-            height: 14px;
-            border: 2px solid #ff44cc;
-            border-top-color: transparent;
-            border-radius: 50%;
-            animation: spin 0.8s linear infinite;
-            margin-right: 8px;
+        /* Hidden utility */
+        .hidden {
+            display: none;
         }
 
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-
+        /* Scrollbar */
         ::-webkit-scrollbar {
             width: 8px;
         }
@@ -312,6 +319,7 @@
             border-radius: 4px;
         }
 
+        /* Responsive */
         @media (max-width: 768px) {
             .member-item {
                 flex-direction: column;
@@ -323,6 +331,9 @@
             }
             h1 {
                 font-size: 22px;
+            }
+            .info-grid {
+                grid-template-columns: 1fr;
             }
         }
     </style>
@@ -364,13 +375,13 @@
     <script>
         // Configuration
         const API_URL = 'https://aadharfam.onrender.com/full-search';
-        const MAX_CONCURRENT = 5; // Scan 5 Aadhaars at once!
+        const MAX_CONCURRENT = 5;
         
         // State
         let uniqueFamilies = new Map();
         let processedAadhaars = new Set();
         let totalDuplicates = 0;
-        let completedScans = 0;
+        let isScanComplete = false;
         
         // Get Aadhaars from URL
         const urlParams = new URLSearchParams(window.location.search);
@@ -388,10 +399,10 @@
         aadhaarsList = [...new Set(aadhaarsList)];
         
         if (aadhaarsList.length > 0) {
-            document.getElementById('statusBadge').innerHTML = `⚡ PARALLEL SCANNING ${aadhaarsList.length} AADHAAR(S) (${MAX_CONCURRENT} AT A TIME)`;
+            document.getElementById('statusBadge').innerHTML = `⚡ SCANNING ${aadhaarsList.length} AADHAAR(S)`;
             scanAllAadhaarsParallel();
         } else {
-            document.getElementById('progressContainer').style.display = 'none';
+            document.getElementById('progressContainer').classList.add('hidden');
             document.getElementById('resultsContainer').innerHTML = `
                 <div class="no-results">
                     <div style="font-size: 48px; margin-bottom: 15px;">🆔</div>
@@ -399,18 +410,18 @@
                     <div style="color: #aaa; font-size: 14px;">Use: ?aadhaars=123456789012,987654321098</div>
                 </div>
             `;
+            document.getElementById('statusBadge').innerHTML = `❌ NO AADHAARS PROVIDED`;
         }
         
-        // PARALLEL SCANNING - MUCH FASTER!
         async function scanAllAadhaarsParallel() {
-            addLog(`🚀 Starting FAST parallel scan of ${aadhaarsList.length} Aadhaar(s) (${MAX_CONCURRENT} concurrent requests)`, 'info');
+            addLog(`🚀 Starting scan of ${aadhaarsList.length} Aadhaar(s) (${MAX_CONCURRENT} at a time)`, 'info');
             
             const results = [];
             const queue = [...aadhaarsList];
+            let completedCount = 0;
             
-            // Process in parallel batches
             async function processBatch(batch) {
-                return Promise.all(batch.map(async (aadhaar) => {
+                const batchPromises = batch.map(async (aadhaar) => {
                     if (processedAadhaars.has(aadhaar)) {
                         addLog(`⏭️ Skipping duplicate: ${aadhaar}`, 'warning');
                         return null;
@@ -426,21 +437,23 @@
                         addLog(`❌ No data: ${aadhaar}`, 'error');
                         return null;
                     }
-                }));
+                });
+                
+                const batchResults = await Promise.all(batchPromises);
+                return batchResults.filter(r => r !== null);
             }
             
-            // Process in parallel batches
+            // Process in batches
             for (let i = 0; i < queue.length; i += MAX_CONCURRENT) {
                 const batch = queue.slice(i, i + MAX_CONCURRENT);
                 const batchResults = await processBatch(batch);
-                results.push(...batchResults.filter(r => r !== null));
+                results.push(...batchResults);
                 
-                // Update progress
-                completedScans = Math.min(i + MAX_CONCURRENT, queue.length);
-                addLog(`📊 Progress: ${completedScans}/${queue.length} Aadhaars processed`, 'info');
+                completedCount = Math.min(i + MAX_CONCURRENT, queue.length);
+                addLog(`📊 Progress: ${completedCount}/${queue.length} Aadhaars processed`, 'info');
             }
             
-            // Process results for deduplication
+            // Organize results by unique families
             addLog(`🔄 Organizing ${results.length} result(s) into unique families...`, 'info');
             
             for (const result of results) {
@@ -451,7 +464,7 @@
                     const existing = uniqueFamilies.get(rationCardId);
                     existing.sourceAadhaars.push(aadhaar);
                     totalDuplicates++;
-                    addLog(`⚠️ Duplicate family: ${rationCardId} (already from ${existing.sourceAadhaars[0]})`, 'warning');
+                    addLog(`⚠️ Duplicate: ${rationCardId} (also from ${existing.sourceAadhaars[0]})`, 'warning');
                 } else {
                     data.sourceAadhaars = [aadhaar];
                     uniqueFamilies.set(rationCardId, data);
@@ -461,17 +474,21 @@
             }
             
             updateStats();
-            addLog(`🎉 SCAN COMPLETE! ${uniqueFamilies.size} unique family(ies) found in ${Math.ceil(results.length / MAX_CONCURRENT)} batches`, 'success');
+            addLog(`🎉 COMPLETE! ${uniqueFamilies.size} unique family(ies) found`, 'success');
+            
+            // Mark scan as complete and display results
+            isScanComplete = true;
             displayResults();
+            document.getElementById('statusBadge').innerHTML = `✅ SCAN COMPLETE - ${uniqueFamilies.size} FAMILIES FOUND`;
         }
         
         async function fetchFamilyData(aadhaar) {
             const url = `${API_URL}?aadhaar=${aadhaar}`;
             
-            // Try direct fetch first (fastest)
+            // Try direct fetch
             try {
                 const controller = new AbortController();
-                const timeoutId = setTimeout(() => controller.abort(), 8000); // 8 second timeout
+                const timeoutId = setTimeout(() => controller.abort(), 8000);
                 const response = await fetch(url, { signal: controller.signal });
                 clearTimeout(timeoutId);
                 
@@ -482,7 +499,7 @@
                 // Continue to proxy
             }
             
-            // Try with fast proxy
+            // Try with proxy
             try {
                 const proxyUrl = `https://cors-anywhere.herokuapp.com/${url}`;
                 const controller = new AbortController();
@@ -494,7 +511,7 @@
                     return await response.json();
                 }
             } catch (e) {
-                // Continue
+                // Fail gracefully
             }
             
             return null;
@@ -504,10 +521,22 @@
             const logContainer = document.getElementById('progressLog');
             const logEntry = document.createElement('div');
             logEntry.className = `log-entry log-${type}`;
-            const spinner = type === 'info' && message.includes('Scanning:') ? '<span class="loading-spinner"></span>' : '';
-            logEntry.innerHTML = `${getTimestamp()} ${spinner} ${message}`;
+            
+            // Only add spinner for scanning messages that are still active
+            let displayMessage = message;
+            if (type === 'info' && message.includes('Scanning:') && !isScanComplete) {
+                displayMessage = `🔄 ${message}`;
+            } else if (type === 'success') {
+                displayMessage = `✅ ${message}`;
+            } else if (type === 'error') {
+                displayMessage = `❌ ${message}`;
+            } else if (type === 'warning') {
+                displayMessage = `⚠️ ${message}`;
+            }
+            
+            logEntry.innerHTML = `${getTimestamp()} ${displayMessage}`;
             logContainer.appendChild(logEntry);
-            logEntry.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            logContainer.scrollTop = logContainer.scrollHeight;
         }
         
         function getTimestamp() {
@@ -536,7 +565,6 @@
                         <div style="color: #aaa; font-size: 14px;">No valid family information found for the provided Aadhaar numbers.</div>
                     </div>
                 `;
-                document.getElementById('statusBadge').innerHTML = `❌ NO FAMILIES FOUND`;
                 return;
             }
             
@@ -556,7 +584,7 @@
                             <div class="card-title">🎫 FAMILY #${familyNumber}: ${rationCardId}</div>
                             <div class="card-subtitle">
                                 Found from ${sources.length} Aadhaar source(s)
-                                ${sources.length > 1 ? ' ✨ Auto-deduplicated' : ''}
+                                ${sources.length > 1 ? '<span style="color: #ff44cc; margin-left: 8px;">✨ Auto-deduplicated</span>' : ''}
                             </div>
                             <div class="source-badge">🆔 Sources: ${sources.join(', ')}</div>
                         </div>
@@ -564,27 +592,27 @@
                         <div class="info-grid">
                             <div class="info-item">
                                 <div class="info-label">🏠 CARD TYPE</div>
-                                <div class="info-value">${cardInfo.Card_Type || 'N/A'}</div>
+                                <div class="info-value">${escapeHtml(cardInfo.Card_Type || 'N/A')}</div>
                             </div>
                             <div class="info-item">
                                 <div class="info-label">📍 DISTRICT</div>
-                                <div class="info-value">${cardInfo.District || 'N/A'}</div>
+                                <div class="info-value">${escapeHtml(cardInfo.District || 'N/A')}</div>
                             </div>
                             <div class="info-item">
                                 <div class="info-label">📅 ISSUE DATE</div>
-                                <div class="info-value">${cardInfo.Issue_Date || 'N/A'}</div>
+                                <div class="info-value">${escapeHtml(cardInfo.Issue_Date || 'N/A')}</div>
                             </div>
                             <div class="info-item">
                                 <div class="info-label">📋 SCHEME</div>
-                                <div class="info-value">${cardInfo.Scheme || 'N/A'}</div>
+                                <div class="info-value">${escapeHtml(cardInfo.Scheme || 'N/A')}</div>
                             </div>
                             <div class="info-item">
                                 <div class="info-label">🗺️ STATE</div>
-                                <div class="info-value">${cardInfo.State || 'N/A'}</div>
+                                <div class="info-value">${escapeHtml(cardInfo.State || 'N/A')}</div>
                             </div>
                             <div class="info-item">
                                 <div class="info-label">🏪 HOME FPS</div>
-                                <div class="info-value">${cardInfo.Home_FPS || 'N/A'}</div>
+                                <div class="info-value">${escapeHtml(cardInfo.Home_FPS || 'N/A')}</div>
                             </div>
                             <div class="info-item">
                                 <div class="info-label">⏰ REMAINING DAYS</div>
@@ -596,13 +624,14 @@
                     html += `
                             <div class="info-item">
                                 <div class="info-label">📍 ADDRESS</div>
-                                <div class="info-value">${cardInfo.Address.replace(/!/g, ', ')}</div>
+                                <div class="info-value">${escapeHtml(cardInfo.Address.replace(/!/g, ', '))}</div>
                             </div>
                     `;
                 }
                 
                 html += `</div>`;
                 
+                // Members Section
                 if (members.length > 0) {
                     html += `
                         <div class="members-section">
@@ -612,12 +641,13 @@
                     members.forEach(member => {
                         html += `
                             <div class="member-item">
-                                <div class="member-name">${member.member_name || 'Unknown'}</div>
+                                <div class="member-name">${escapeHtml(member.member_name || 'Unknown')}</div>
                                 <div class="member-details">
-                                    <span>👤 ${member.relationship || 'MEMBER'}</span>
-                                    <span>⚥ ${member.gender || 'N/A'}</span>
+                                    <span>👤 ${escapeHtml(member.relationship || 'MEMBER')}</span>
+                                    <span>⚥ ${escapeHtml(member.gender || 'N/A')}</span>
                                     <span>✅ ${member.ekyc_status === 'Y' ? 'VERIFIED' : 'PENDING'}</span>
-                                    <span>🆔 ${member.uid_masked || 'N/A'}</span>
+                                    <span>🆔 ${escapeHtml(member.uid_masked || 'N/A')}</span>
+                                    <span>📅 ${member.cr_last_updated || 'N/A'}</span>
                                 </div>
                             </div>
                         `;
@@ -626,6 +656,7 @@
                     html += `</div>`;
                 }
                 
+                // Monthly Summary
                 if (monthlySummary && monthlySummary.length > 0) {
                     html += `
                         <div class="summary-section">
@@ -636,7 +667,7 @@
                     monthlySummary.forEach(month => {
                         html += `
                             <div class="summary-item">
-                                <div class="summary-month">${month.month}</div>
+                                <div class="summary-month">${escapeHtml(month.month)}</div>
                                 <div>Members: ${month.member_count}</div>
                                 <div>Captured: ${month.captured_on}</div>
                             </div>
@@ -646,6 +677,7 @@
                     html += `</div></div>`;
                 }
                 
+                // Share Section
                 const shareUrl = `${window.location.origin}${window.location.pathname}?aadhaars=${sources.join(',')}`;
                 html += `
                     <div class="share-section">
@@ -661,25 +693,37 @@
             }
             
             container.innerHTML = html;
-            document.getElementById('statusBadge').innerHTML = `✅ SCAN COMPLETE - ${uniqueFamilies.size} FAMILIES FOUND`;
-            document.getElementById('progressContainer').style.maxHeight = '200px';
+        }
+        
+        function escapeHtml(str) {
+            if (!str) return str;
+            return str.replace(/[&<>]/g, function(m) {
+                if (m === '&') return '&amp;';
+                if (m === '<') return '&lt;';
+                if (m === '>') return '&gt;';
+                return m;
+            });
         }
         
         function copyToClipboard(elementId) {
             const input = document.getElementById(elementId);
+            if (!input) return;
+            
             input.select();
             document.execCommand('copy');
             
             const btn = input.nextElementSibling;
-            const originalText = btn.textContent;
-            btn.textContent = '✓ COPIED!';
-            setTimeout(() => {
-                btn.textContent = originalText;
-            }, 2000);
+            if (btn) {
+                const originalText = btn.textContent;
+                btn.textContent = '✓ COPIED!';
+                setTimeout(() => {
+                    btn.textContent = originalText;
+                }, 2000);
+            }
         }
         
-        console.log('%c⚡ FAST PARALLEL SCAN MODE ENABLED', 'color: #00ff88; font-size: 14px; font-weight: bold;');
-        console.log(`%c📊 Scanning ${aadhaarsList.length} Aadhaars with ${MAX_CONCURRENT} concurrent requests`, 'color: #ff44cc; font-size: 12px;');
+        console.log('%c⚡ FAMILY INTELLIGENCE VIEWER | Developer Saif', 'color: #ff44cc; font-size: 14px; font-weight: bold;');
+        console.log(`%c📊 Scanning ${aadhaarsList.length} Aadhaars`, 'color: #00ff88; font-size: 12px;');
     </script>
 </body>
 </html>
