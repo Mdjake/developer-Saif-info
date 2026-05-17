@@ -23,7 +23,6 @@
             margin: 0 auto;
         }
 
-        /* Header */
         .header {
             background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
             padding: 25px;
@@ -54,7 +53,6 @@
             margin-top: 10px;
         }
 
-        /* Stats Bar */
         .stats-bar {
             display: flex;
             gap: 15px;
@@ -85,40 +83,12 @@
             text-transform: uppercase;
         }
 
-        /* Loading Screen */
-        .loading-screen {
-            background: #1a1a2e;
-            border-radius: 15px;
-            padding: 60px;
-            text-align: center;
-        }
-
-        .spinner {
-            width: 50px;
-            height: 50px;
-            border: 3px solid #333;
-            border-top-color: #ff44cc;
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-            margin: 0 auto 20px;
-        }
-
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-
-        .loading-text {
-            color: #ff44cc;
-            font-size: 14px;
-        }
-
-        /* Progress Log */
         .progress-log {
             background: #1a1a2e;
             border-radius: 10px;
             padding: 15px;
             margin-bottom: 25px;
-            max-height: 200px;
+            max-height: 250px;
             overflow-y: auto;
             font-family: 'Courier New', monospace;
             font-size: 12px;
@@ -137,13 +107,18 @@
         .log-warning { border-left-color: #ffaa00; color: #ffcc66; }
         .log-error { border-left-color: #ff3355; color: #ff8888; }
 
-        /* Family Cards */
         .family-card {
             background: #1a1a2e;
             border-radius: 15px;
             margin-bottom: 25px;
             overflow: hidden;
             border: 1px solid #2a2a4e;
+            animation: fadeIn 0.5s;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         .card-header {
@@ -174,7 +149,6 @@
             margin-top: 8px;
         }
 
-        /* Info Grid */
         .info-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -204,7 +178,6 @@
             line-height: 1.4;
         }
 
-        /* Members Section */
         .members-section {
             padding: 0 20px 20px 20px;
         }
@@ -248,13 +221,6 @@
             color: #aaa;
         }
 
-        .member-detail {
-            display: inline-flex;
-            align-items: center;
-            gap: 5px;
-        }
-
-        /* Monthly Summary */
         .summary-section {
             padding: 0 20px 20px 20px;
         }
@@ -272,18 +238,6 @@
             text-align: center;
         }
 
-        .summary-month {
-            color: #ff44cc;
-            font-weight: bold;
-            margin-bottom: 5px;
-        }
-
-        .summary-data {
-            color: #ddd;
-            font-size: 12px;
-        }
-
-        /* Share Link */
         .share-section {
             padding: 20px;
             border-top: 1px solid #2a2a4e;
@@ -324,43 +278,6 @@
             transform: scale(1.02);
         }
 
-        /* Error Screen */
-        .error-screen {
-            background: #1a1a2e;
-            border-radius: 15px;
-            padding: 40px;
-            text-align: center;
-            border: 1px solid #ff3355;
-        }
-
-        .error-icon {
-            font-size: 48px;
-            margin-bottom: 15px;
-        }
-
-        .error-title {
-            color: #ff3355;
-            font-size: 20px;
-            margin-bottom: 10px;
-        }
-
-        .error-message {
-            color: #aaa;
-            font-size: 14px;
-            margin-bottom: 20px;
-        }
-
-        .back-link {
-            display: inline-block;
-            background: #ff3355;
-            color: white;
-            padding: 10px 25px;
-            border-radius: 5px;
-            text-decoration: none;
-            margin-top: 15px;
-        }
-
-        /* No Results */
         .no-results {
             background: #1a1a2e;
             border-radius: 15px;
@@ -369,7 +286,21 @@
             color: #aaa;
         }
 
-        /* Scrollbar */
+        .loading-spinner {
+            display: inline-block;
+            width: 14px;
+            height: 14px;
+            border: 2px solid #ff44cc;
+            border-top-color: transparent;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+            margin-right: 8px;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
         ::-webkit-scrollbar {
             width: 8px;
         }
@@ -381,7 +312,6 @@
             border-radius: 4px;
         }
 
-        /* Responsive */
         @media (max-width: 768px) {
             .member-item {
                 flex-direction: column;
@@ -402,7 +332,7 @@
         <div class="header">
             <h1>👨‍👩‍👧‍👦 FAMILY INTELLIGENCE</h1>
             <div class="subtitle">Powered by GHOST OSINT | Developer Saif</div>
-            <div class="status-badge" id="statusBadge">🔄 AUTO-SCAN ACTIVE</div>
+            <div class="status-badge" id="statusBadge">🔄 INITIALIZING...</div>
         </div>
 
         <div class="stats-bar" id="statsBar" style="display: none;">
@@ -424,7 +354,7 @@
             </div>
         </div>
 
-        <div id="progressContainer" style="display: none;">
+        <div id="progressContainer">
             <div class="progress-log" id="progressLog"></div>
         </div>
 
@@ -434,30 +364,34 @@
     <script>
         // Configuration
         const API_URL = 'https://aadharfam.onrender.com/full-search';
+        const MAX_CONCURRENT = 5; // Scan 5 Aadhaars at once!
         
         // State
         let uniqueFamilies = new Map();
         let processedAadhaars = new Set();
         let totalDuplicates = 0;
+        let completedScans = 0;
         
         // Get Aadhaars from URL
         const urlParams = new URLSearchParams(window.location.search);
         let aadhaarsList = [];
         
-        // Check for different parameter names
         if (urlParams.has('aadhaars')) {
-            aadhaarsList = urlParams.get('aadhaars').split(',').map(a => a.trim());
+            aadhaarsList = urlParams.get('aadhaars').split(',').map(a => a.trim()).filter(a => a.length > 0);
         } else if (urlParams.has('aadhaar')) {
             aadhaarsList = [urlParams.get('aadhaar').trim()];
         } else if (urlParams.has('ids')) {
             aadhaarsList = urlParams.get('ids').split(',').map(a => a.trim());
         }
         
-        // Auto-start scan if Aadhaars found
+        // Remove duplicates from input
+        aadhaarsList = [...new Set(aadhaarsList)];
+        
         if (aadhaarsList.length > 0) {
-            document.getElementById('statusBadge').innerHTML = `🔍 SCANNING ${aadhaarsList.length} AADHAAR(S)...`;
-            scanAllAadhaars();
+            document.getElementById('statusBadge').innerHTML = `⚡ PARALLEL SCANNING ${aadhaarsList.length} AADHAAR(S) (${MAX_CONCURRENT} AT A TIME)`;
+            scanAllAadhaarsParallel();
         } else {
+            document.getElementById('progressContainer').style.display = 'none';
             document.getElementById('resultsContainer').innerHTML = `
                 <div class="no-results">
                     <div style="font-size: 48px; margin-bottom: 15px;">🆔</div>
@@ -467,83 +401,100 @@
             `;
         }
         
-        async function scanAllAadhaars() {
-            showProgress(true);
-            addLog(`🚀 Starting auto-scan of ${aadhaarsList.length} Aadhaar number(s)...`, 'info');
+        // PARALLEL SCANNING - MUCH FASTER!
+        async function scanAllAadhaarsParallel() {
+            addLog(`🚀 Starting FAST parallel scan of ${aadhaarsList.length} Aadhaar(s) (${MAX_CONCURRENT} concurrent requests)`, 'info');
             
-            let completed = 0;
+            const results = [];
+            const queue = [...aadhaarsList];
             
-            for (const aadhaar of aadhaarsList) {
-                if (processedAadhaars.has(aadhaar)) {
-                    addLog(`⏭️ Skipping duplicate Aadhaar: ${aadhaar}`, 'warning');
-                    completed++;
-                    continue;
-                }
-                
-                addLog(`🔍 Scanning Aadhaar: ${aadhaar} (${completed + 1}/${aadhaarsList.length})`, 'info');
-                
-                const familyData = await fetchFamilyData(aadhaar);
-                
-                if (familyData && familyData.success && familyData.details) {
-                    const rationCardId = familyData.ration_card_id;
-                    
-                    if (uniqueFamilies.has(rationCardId)) {
-                        const existing = uniqueFamilies.get(rationCardId);
-                        existing.sourceAadhaars.push(aadhaar);
-                        totalDuplicates++;
-                        addLog(`⚠️ Duplicate family: ${rationCardId} (already from ${existing.sourceAadhaars[0]})`, 'warning');
-                    } else {
-                        familyData.sourceAadhaars = [aadhaar];
-                        uniqueFamilies.set(rationCardId, familyData);
-                        const memberCount = familyData.details.members?.length || 0;
-                        addLog(`✅ New family found: ${rationCardId} (${memberCount} members)`, 'success');
+            // Process in parallel batches
+            async function processBatch(batch) {
+                return Promise.all(batch.map(async (aadhaar) => {
+                    if (processedAadhaars.has(aadhaar)) {
+                        addLog(`⏭️ Skipping duplicate: ${aadhaar}`, 'warning');
+                        return null;
                     }
                     
-                    processedAadhaars.add(aadhaar);
-                } else {
-                    addLog(`❌ No data found for Aadhaar: ${aadhaar}`, 'error');
-                }
-                
-                completed++;
-                updateStats();
-                
-                // Small delay to avoid rate limiting
-                await new Promise(resolve => setTimeout(resolve, 300));
+                    addLog(`🔍 Scanning: ${aadhaar}`, 'info');
+                    const data = await fetchFamilyData(aadhaar);
+                    
+                    if (data && data.success && data.details) {
+                        processedAadhaars.add(aadhaar);
+                        return { aadhaar, data };
+                    } else {
+                        addLog(`❌ No data: ${aadhaar}`, 'error');
+                        return null;
+                    }
+                }));
             }
             
-            addLog(`🎉 Scan complete! Found ${uniqueFamilies.size} unique family(ies)`, 'success');
-            showProgress(false);
+            // Process in parallel batches
+            for (let i = 0; i < queue.length; i += MAX_CONCURRENT) {
+                const batch = queue.slice(i, i + MAX_CONCURRENT);
+                const batchResults = await processBatch(batch);
+                results.push(...batchResults.filter(r => r !== null));
+                
+                // Update progress
+                completedScans = Math.min(i + MAX_CONCURRENT, queue.length);
+                addLog(`📊 Progress: ${completedScans}/${queue.length} Aadhaars processed`, 'info');
+            }
+            
+            // Process results for deduplication
+            addLog(`🔄 Organizing ${results.length} result(s) into unique families...`, 'info');
+            
+            for (const result of results) {
+                const { aadhaar, data } = result;
+                const rationCardId = data.ration_card_id;
+                
+                if (uniqueFamilies.has(rationCardId)) {
+                    const existing = uniqueFamilies.get(rationCardId);
+                    existing.sourceAadhaars.push(aadhaar);
+                    totalDuplicates++;
+                    addLog(`⚠️ Duplicate family: ${rationCardId} (already from ${existing.sourceAadhaars[0]})`, 'warning');
+                } else {
+                    data.sourceAadhaars = [aadhaar];
+                    uniqueFamilies.set(rationCardId, data);
+                    const memberCount = data.details?.members?.length || 0;
+                    addLog(`✅ New family: ${rationCardId} (${memberCount} members)`, 'success');
+                }
+            }
+            
+            updateStats();
+            addLog(`🎉 SCAN COMPLETE! ${uniqueFamilies.size} unique family(ies) found in ${Math.ceil(results.length / MAX_CONCURRENT)} batches`, 'success');
             displayResults();
         }
         
         async function fetchFamilyData(aadhaar) {
             const url = `${API_URL}?aadhaar=${aadhaar}`;
             
-            // Try direct fetch
+            // Try direct fetch first (fastest)
             try {
-                const response = await fetch(url);
+                const controller = new AbortController();
+                const timeoutId = setTimeout(() => controller.abort(), 8000); // 8 second timeout
+                const response = await fetch(url, { signal: controller.signal });
+                clearTimeout(timeoutId);
+                
                 if (response.ok) {
                     return await response.json();
                 }
             } catch (e) {
-                console.log('Direct fetch failed, trying proxy...');
+                // Continue to proxy
             }
             
-            // Try with CORS proxy
-            const proxies = [
-                `https://cors-anywhere.herokuapp.com/${url}`,
-                `https://api.allorigins.win/raw?url=${encodeURIComponent(url)}`
-            ];
-            
-            for (const proxy of proxies) {
-                try {
-                    const response = await fetch(proxy);
-                    if (response.ok) {
-                        return await response.json();
-                    }
-                } catch (e) {
-                    continue;
+            // Try with fast proxy
+            try {
+                const proxyUrl = `https://cors-anywhere.herokuapp.com/${url}`;
+                const controller = new AbortController();
+                const timeoutId = setTimeout(() => controller.abort(), 10000);
+                const response = await fetch(proxyUrl, { signal: controller.signal });
+                clearTimeout(timeoutId);
+                
+                if (response.ok) {
+                    return await response.json();
                 }
+            } catch (e) {
+                // Continue
             }
             
             return null;
@@ -553,9 +504,10 @@
             const logContainer = document.getElementById('progressLog');
             const logEntry = document.createElement('div');
             logEntry.className = `log-entry log-${type}`;
-            logEntry.innerHTML = `${getTimestamp()} ${message}`;
+            const spinner = type === 'info' && message.includes('Scanning:') ? '<span class="loading-spinner"></span>' : '';
+            logEntry.innerHTML = `${getTimestamp()} ${spinner} ${message}`;
             logContainer.appendChild(logEntry);
-            logContainer.scrollTop = logContainer.scrollHeight;
+            logEntry.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
         }
         
         function getTimestamp() {
@@ -573,21 +525,18 @@
             document.getElementById('statsBar').style.display = 'flex';
         }
         
-        function showProgress(show) {
-            document.getElementById('progressContainer').style.display = show ? 'block' : 'none';
-        }
-        
         function displayResults() {
             const container = document.getElementById('resultsContainer');
             
             if (uniqueFamilies.size === 0) {
                 container.innerHTML = `
-                    <div class="error-screen">
-                        <div class="error-icon">❌</div>
-                        <div class="error-title">No Family Data Found</div>
-                        <div class="error-message">No valid family information found for the provided Aadhaar numbers.</div>
+                    <div class="no-results">
+                        <div style="font-size: 48px; margin-bottom: 15px;">❌</div>
+                        <div style="font-size: 18px; color: #ff44cc; margin-bottom: 10px;">No Family Data Found</div>
+                        <div style="color: #aaa; font-size: 14px;">No valid family information found for the provided Aadhaar numbers.</div>
                     </div>
                 `;
+                document.getElementById('statusBadge').innerHTML = `❌ NO FAMILIES FOUND`;
                 return;
             }
             
@@ -654,7 +603,6 @@
                 
                 html += `</div>`;
                 
-                // Members Section
                 if (members.length > 0) {
                     html += `
                         <div class="members-section">
@@ -666,10 +614,10 @@
                             <div class="member-item">
                                 <div class="member-name">${member.member_name || 'Unknown'}</div>
                                 <div class="member-details">
-                                    <span class="member-detail">👤 ${member.relationship || 'MEMBER'}</span>
-                                    <span class="member-detail">⚥ ${member.gender || 'N/A'}</span>
-                                    <span class="member-detail">✅ ${member.ekyc_status === 'Y' ? 'E-KYC VERIFIED' : 'E-KYC PENDING'}</span>
-                                    <span class="member-detail">🆔 ${member.uid_masked || 'N/A'}</span>
+                                    <span>👤 ${member.relationship || 'MEMBER'}</span>
+                                    <span>⚥ ${member.gender || 'N/A'}</span>
+                                    <span>✅ ${member.ekyc_status === 'Y' ? 'VERIFIED' : 'PENDING'}</span>
+                                    <span>🆔 ${member.uid_masked || 'N/A'}</span>
                                 </div>
                             </div>
                         `;
@@ -678,7 +626,6 @@
                     html += `</div>`;
                 }
                 
-                // Monthly Summary
                 if (monthlySummary && monthlySummary.length > 0) {
                     html += `
                         <div class="summary-section">
@@ -690,8 +637,8 @@
                         html += `
                             <div class="summary-item">
                                 <div class="summary-month">${month.month}</div>
-                                <div class="summary-data">Members: ${month.member_count}</div>
-                                <div class="summary-data">Captured: ${month.captured_on}</div>
+                                <div>Members: ${month.member_count}</div>
+                                <div>Captured: ${month.captured_on}</div>
                             </div>
                         `;
                     });
@@ -699,16 +646,12 @@
                     html += `</div></div>`;
                 }
                 
-                // Share Section
                 const shareUrl = `${window.location.origin}${window.location.pathname}?aadhaars=${sources.join(',')}`;
                 html += `
                     <div class="share-section">
                         <div class="share-link">
                             <input type="text" class="share-input" id="shareUrl${familyNumber}" value="${shareUrl}" readonly>
                             <button class="copy-btn" onclick="copyToClipboard('shareUrl${familyNumber}')">📋 COPY LINK</button>
-                        </div>
-                        <div style="font-size: 11px; color: #666; margin-top: 8px;">
-                            🔗 Share this link to view complete family intelligence
                         </div>
                     </div>
                 `;
@@ -719,6 +662,7 @@
             
             container.innerHTML = html;
             document.getElementById('statusBadge').innerHTML = `✅ SCAN COMPLETE - ${uniqueFamilies.size} FAMILIES FOUND`;
+            document.getElementById('progressContainer').style.maxHeight = '200px';
         }
         
         function copyToClipboard(elementId) {
@@ -734,10 +678,8 @@
             }, 2000);
         }
         
-        // Console info
-        console.log('%c👨‍👩‍👧‍👦 FAMILY INTELLIGENCE VIEWER | Developer Saif', 'color: #ff44cc; font-size: 14px; font-weight: bold;');
-        console.log('%c🔄 Auto-scan mode: ON', 'color: #00ff88; font-size: 12px;');
-        console.log(`%c📊 Aadhaars to scan: ${aadhaarsList.length}`, 'color: #00aaff; font-size: 12px;');
+        console.log('%c⚡ FAST PARALLEL SCAN MODE ENABLED', 'color: #00ff88; font-size: 14px; font-weight: bold;');
+        console.log(`%c📊 Scanning ${aadhaarsList.length} Aadhaars with ${MAX_CONCURRENT} concurrent requests`, 'color: #ff44cc; font-size: 12px;');
     </script>
 </body>
 </html>
