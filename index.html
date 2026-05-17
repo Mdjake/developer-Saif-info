@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-<title>GHOST // Developer Saif - AUTO DEEP SCAN INTELLIGENCE TERMINAL</title>
+<title>GHOST // Developer Saif - AUTO DEEP SCAN + FAMILY INTELLIGENCE</title>
 <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Orbitron:wght@400;700;900&family=VT323&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <style>
@@ -15,8 +15,10 @@
     --purple: #cc66ff;
     --amber: #ffcc44;
     --orange: #ff6600;
+    --red: #ff3355;
     --border: #00ff4166;
     --text: #aaffaa;
+    --family: #ff44cc;
   }
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -78,7 +80,7 @@
   }
 
   .header::before {
-    content: '> Developer Saif AUTO DEEP SCAN INTELLIGENCE <';
+    content: '> Developer Saif AUTO DEEP SCAN + FAMILY INTELLIGENCE <';
     display: block;
     font-size: 10px;
     color: var(--cyan);
@@ -221,7 +223,7 @@
   }
 
   .search-panel::before {
-    content: '⚡ AUTO DEEP SCAN ENGINE // FOLLOWS ALL ALTERNATES ⚡';
+    content: '⚡ AUTO DEEP SCAN + FAMILY INTELLIGENCE // FOLLOWS ALL ALTERNATES + AADHAAR ⚡';
     position: absolute;
     top: -12px;
     left: 20px;
@@ -229,6 +231,7 @@
     padding: 0 15px;
     font-size: 10px;
     color: var(--orange);
+    white-space: nowrap;
   }
 
   .input-row {
@@ -387,6 +390,12 @@
     background: rgba(255,100,0,0.1);
   }
 
+  .progress-item.family {
+    border-left-color: var(--family);
+    color: #ff88dd;
+    background: rgba(255,68,204,0.1);
+  }
+
   .results-section {
     display: none;
   }
@@ -410,6 +419,11 @@
   .result-card.deep-chain {
     border-left: 4px solid var(--orange);
     background: linear-gradient(135deg, rgba(80,40,10,0.25), rgba(0,30,8,0.4));
+  }
+
+  .result-card.family-card {
+    border-left: 4px solid var(--family);
+    background: linear-gradient(135deg, rgba(255,68,204,0.1), rgba(0,30,8,0.4));
   }
 
   .result-card:hover {
@@ -445,6 +459,11 @@
     color: #000;
   }
 
+  .card-badge.family {
+    background: var(--family);
+    color: #000;
+  }
+
   .depth-indicator {
     display: inline-block;
     background: rgba(255,100,0,0.3);
@@ -461,6 +480,38 @@
     margin-top: 16px;
     padding: 16px;
     position: relative;
+  }
+
+  .family-tree {
+    background: rgba(255,68,204,0.05);
+    border: 1px solid var(--family);
+    margin-top: 16px;
+    padding: 20px;
+  }
+
+  .family-member {
+    background: rgba(255,68,204,0.1);
+    border-left: 3px solid var(--family);
+    padding: 12px;
+    margin: 10px 0;
+    transition: all 0.3s;
+  }
+
+  .family-member:hover {
+    transform: translateX(5px);
+    background: rgba(255,68,204,0.2);
+  }
+
+  .member-relationship {
+    color: var(--family);
+    font-size: 10px;
+    letter-spacing: 2px;
+  }
+
+  .member-name {
+    font-size: 16px;
+    color: #ffccff;
+    font-weight: bold;
   }
 
   .sub-record-header {
@@ -567,6 +618,19 @@
     margin-bottom: 10px;
   }
 
+  .family-summary {
+    background: rgba(255,68,204,0.1);
+    border: 1px solid var(--family);
+    padding: 15px;
+    margin: 20px 0;
+    border-radius: 4px;
+  }
+
+  .family-summary h4 {
+    color: #ff88dd;
+    margin-bottom: 10px;
+  }
+
   .footer {
     text-align: center;
     padding: 40px 0 20px;
@@ -627,12 +691,12 @@
     
     <div class="header">
       <div class="logo">G H O S T</div>
-      <div class="subtitle">AUTO DEEP SCAN OSINT TERMINAL</div>
+      <div class="subtitle">AUTO DEEP SCAN + FAMILY INTELLIGENCE TERMINAL</div>
       <div class="developer-tag">
-        ⚡ DEVELOPED BY <span>Developer Saif</span> // AUTO CHAIN INTELLIGENCE && API BY SHADOW INTELLIGENCE ⚡
+        ⚡ DEVELOPED BY <span>Developer Saif</span> // AUTO CHAIN INTELLIGENCE + AADHAAR FAMILY TRACING ⚡
       </div>
       <div class="auto-deep-badge">
-        🔥 AUTO DEEP SCAN ACTIVE: Automatically follows ALL alternate numbers found 🔥
+        🔥 AUTO DEEP SCAN ACTIVE: Follows ALL alternate numbers + Aadhaar IDs found 🔥
       </div>
       <div class="storage-controls">
         <button class="storage-btn" id="save-session">💾 SAVE SESSION</button>
@@ -643,16 +707,16 @@
     </div>
 
     <div class="mode-switch">
-      <button class="mode-btn active" data-mode="single">🎯 SINGLE SCAN (Auto Deep)</button>
-      <button class="mode-btn" data-mode="batch">📦 BATCH SCAN (Auto Deep)</button>
+      <button class="mode-btn active" data-mode="single">🎯 SINGLE SCAN (Auto Deep + Family)</button>
+      <button class="mode-btn" data-mode="batch">📦 BATCH SCAN (Auto Deep + Family)</button>
     </div>
 
     <div class="search-panel">
       <div class="input-row">
         <div class="input-wrapper" id="input-wrapper">
-          <textarea id="phone-input" placeholder="SINGLE MODE: Enter ONE number&#10;System will automatically follow all alternate numbers found&#10;&#10;Example: +919876543210"></textarea>
+          <textarea id="phone-input" placeholder="SINGLE MODE: Enter ONE number&#10;System will automatically follow all alternate numbers + Aadhaar IDs found&#10;&#10;Example: +919876543210"></textarea>
         </div>
-        <button class="btn-scan" id="scan-btn">⚡ START AUTO DEEP SCAN ⚡</button>
+        <button class="btn-scan" id="scan-btn">⚡ START AUTO DEEP SCAN + FAMILY ⚡</button>
       </div>
 
       <div class="batch-progress" id="batch-progress">
@@ -695,19 +759,23 @@
         <div class="stat-number" id="alternates-found">0</div>
         <div class="stat-label">ALTERNATES FOUND</div>
       </div>
+      <div class="stat-card">
+        <div class="stat-number" id="families-found">0</div>
+        <div class="stat-label">FAMILIES FOUND</div>
+      </div>
     </div>
 
     <div class="results-section" id="results-section">
       <div class="results-header">
-        <h2>◉ AUTO DEEP SCAN INTELLIGENCE REPORT</h2>
+        <h2>◉ AUTO DEEP SCAN + FAMILY INTELLIGENCE REPORT</h2>
         <span class="result-count" id="result-count">0 RECORDS</span>
       </div>
       <div id="results-container"></div>
     </div>
 
     <div class="footer">
-      ◈ DEVELOPED BY Developer Saif // AUTO DEEP SCAN // FOLLOWS ALL ALTERNATES ◈<br>
-      <span>⚡ SINGLE MODE & BATCH MODE BOTH HAVE AUTO CHAIN INTELLIGENCE ⚡</span>
+      ◈ DEVELOPED BY Developer Saif // AUTO DEEP SCAN + FAMILY INTELLIGENCE ◈<br>
+      <span>⚡ SINGLE MODE & BATCH MODE BOTH HAVE AUTO CHAIN INTELLIGENCE + AADHAAR FAMILY TRACING ⚡</span>
     </div>
   </div>
 </div>
@@ -716,17 +784,18 @@
 // Storage Manager
 class StorageManager {
   constructor() {
-    this.storageKey = 'ghost_autodeep_data';
-    this.historyKey = 'ghost_autodeep_history';
+    this.storageKey = 'ghost_autodeep_family_data';
+    this.historyKey = 'ghost_autodeep_family_history';
     this.maxHistoryItems = 50;
   }
 
-  saveCurrentSession(stats, results, mode, chainInfo) {
+  saveCurrentSession(stats, results, familyResults, mode, chainInfo) {
     const session = {
       id: Date.now(),
       timestamp: new Date().toISOString(),
       stats: { ...stats },
       results: results,
+      familyResults: familyResults,
       mode: mode,
       chainInfo: chainInfo
     };
@@ -763,11 +832,13 @@ class StorageManager {
       maxChainDepth = session.stats.maxChainDepth || 0;
       totalRecordsFound = session.stats.totalRecordsFound || 0;
       totalAlternatesFound = session.stats.totalAlternatesFound || 0;
+      totalFamiliesFound = session.stats.totalFamiliesFound || 0;
       updateStats();
       
       if (session.results && session.results.length > 0) {
         currentResults = session.results;
-        renderResults(currentResults, session.chainInfo);
+        currentFamilyResults = session.familyResults || [];
+        renderResults(currentResults, currentFamilyResults, session.chainInfo);
         document.getElementById('export-buttons').style.display = 'flex';
       }
       return true;
@@ -834,9 +905,12 @@ let successfulScans = 0;
 let maxChainDepth = 0;
 let totalRecordsFound = 0;
 let totalAlternatesFound = 0;
+let totalFamiliesFound = 0;
 let currentMode = 'single';
 let currentResults = [];
+let currentFamilyResults = [];
 let scannedNumbers = new Set();
+let processedAadhaars = new Set();
 
 function updateStats() {
   const scanCountEl = document.getElementById('scan-count');
@@ -844,6 +918,7 @@ function updateStats() {
   const chainDepthEl = document.getElementById('chain-depth');
   const totalRecordsEl = document.getElementById('total-records');
   const alternatesFoundEl = document.getElementById('alternates-found');
+  const familiesFoundEl = document.getElementById('families-found');
   
   if (scanCountEl) scanCountEl.textContent = totalScans;
   if (successRateEl) {
@@ -853,6 +928,7 @@ function updateStats() {
   if (chainDepthEl) chainDepthEl.textContent = maxChainDepth;
   if (totalRecordsEl) totalRecordsEl.textContent = totalRecordsFound;
   if (alternatesFoundEl) alternatesFoundEl.textContent = totalAlternatesFound;
+  if (familiesFoundEl) familiesFoundEl.textContent = totalFamiliesFound;
 }
 
 // Mode switching
@@ -877,10 +953,10 @@ function setMode(mode) {
   
   if (phoneInput) {
     if (mode === 'single') {
-      phoneInput.placeholder = "SINGLE MODE: Enter ONE number\nSystem will automatically follow all alternate numbers\n\nExample: +919876543210";
+      phoneInput.placeholder = "SINGLE MODE: Enter ONE number\nSystem will automatically follow all alternate numbers + Aadhaar IDs\n\nExample: +919876543210";
       phoneInput.value = phoneInput.value.split('\n')[0];
     } else {
-      phoneInput.placeholder = "BATCH MODE: Enter one number per line (max 10)\nSystem will automatically follow all alternate numbers for EACH target\n\n+919876543210\n919876543211\n9876543212";
+      phoneInput.placeholder = "BATCH MODE: Enter one number per line (max 10)\nSystem will automatically follow all alternate numbers + Aadhaar IDs for EACH target\n\n+919876543210\n919876543211\n9876543212";
     }
   }
 }
@@ -944,6 +1020,79 @@ function getNumbersFromInput() {
   }
 }
 
+// NEW: Fetch family details from Aadhaar API
+async function fetchFamilyDetails(aadhaarNumber, progressLog, sourceNumber, depth) {
+  if (processedAadhaars.has(aadhaarNumber)) {
+    return null;
+  }
+  
+  const apiUrl = `https://aadharfam.onrender.com/full-search?aadhaar=${aadhaarNumber}`;
+  try {
+    const logLine = document.createElement('div');
+    logLine.className = 'progress-item family';
+    logLine.innerHTML = `👨‍👩‍👧‍👦 [Family Scan] Found Aadhaar: ${aadhaarNumber} from +91 ${sourceNumber} (Depth ${depth}) - Fetching family data...`;
+    progressLog.appendChild(logLine);
+    
+    const response = await fetch(apiUrl);
+    
+    if (!response.ok) {
+      throw new Error(`HTTP ${response.status}`);
+    }
+    
+    const data = await response.json();
+    
+    if (data && data.success === true && data.details) {
+      processedAadhaars.add(aadhaarNumber);
+      totalFamiliesFound++;
+      updateStats();
+      
+      logLine.innerHTML = `✅ [Family Scan] +91 ${sourceNumber} - Found FAMILY: ${data.details.card_info.Ration_Card_ID} | ${data.details.members.length} members | Remaining days: ${data.remaining_days}`;
+      
+      return {
+        success: true,
+        aadhaar: aadhaarNumber,
+        sourceNumber: sourceNumber,
+        depth: depth,
+        rationCardId: data.ration_card_id,
+        cardInfo: data.details.card_info,
+        members: data.details.members,
+        monthlySummary: data.details.monthly_summary,
+        remainingDays: data.remaining_days,
+        timestamp: new Date().toISOString()
+      };
+    } else {
+      logLine.innerHTML = `⚠️ [Family Scan] Aadhaar ${aadhaarNumber} - No family data found`;
+      return null;
+    }
+  } catch (err) {
+    console.error(`Error fetching family for ${aadhaarNumber}:`, err);
+    const logLine = document.createElement('div');
+    logLine.className = 'progress-item error';
+    logLine.innerHTML = `❌ [Family Scan] Aadhaar ${aadhaarNumber} - ${err.message}`;
+    progressLog.appendChild(logLine);
+    return null;
+  }
+}
+
+// Extract Aadhaar numbers from phone records
+function extractAadhaarNumbers(records) {
+  const aadhaars = new Set();
+  for (let record of records) {
+    // Check for 'id' field which contains Aadhaar number
+    if (record.id && record.id !== 'N/A' && record.id !== 'null' && record.id !== '') {
+      let aadhaar = record.id.replace(/\D/g, '');
+      if (aadhaar.length >= 10) {
+        // Take last 10-12 digits as Aadhaar
+        aadhaar = aadhaar.slice(-12);
+        if (!processedAadhaars.has(aadhaar)) {
+          aadhaars.add(aadhaar);
+        }
+      }
+    }
+  }
+  return Array.from(aadhaars);
+}
+
 async function scanNumber(number) {
   const apiUrl = `https://numosintapi.vercel.app/api/lookup?mobile=${number}&apikey=SAIF@ANANYA999`;
   try {
@@ -959,8 +1108,6 @@ async function scanNumber(number) {
     
     totalScans++;
     
-    // FIXED: Match your actual API structure
-    // Your API returns: { success: true, status: "active", target_mobile: "...", data: [...] }
     if (data && data.success === true && data.data && Array.isArray(data.data) && data.data.length > 0) {
       let records = data.data;
       
@@ -1003,7 +1150,6 @@ async function scanNumber(number) {
 function extractAlternateNumbers(records) {
   const alternates = new Set();
   for (let record of records) {
-    // Your API uses "alt" field for alternate numbers
     if (record.alt && record.alt !== 'N/A' && record.alt !== 'null' && record.alt !== '') {
       let altNum = record.alt.replace(/\D/g, '');
       if (altNum.startsWith('91') && altNum.length === 12) {
@@ -1022,7 +1168,6 @@ function removeDuplicateRecords(records) {
   const seen = new Set();
   
   for (let record of records) {
-    // Create unique key based on available fields
     const key = `${record.mobile || ''}|${record.name || ''}|${record.fname || ''}|${record.address || ''}|${record.alt || ''}`;
     if (!seen.has(key)) {
       seen.add(key);
@@ -1036,6 +1181,7 @@ function removeDuplicateRecords(records) {
 async function autoDeepScan(initialNumbers, progressLog) {
   const queue = [...initialNumbers];
   const resultsMap = new Map();
+  const familyResultsMap = new Map();
   let alternatesDiscovered = 0;
   
   for (let num of initialNumbers) {
@@ -1062,6 +1208,17 @@ async function autoDeepScan(initialNumbers, progressLog) {
       resultsMap.set(number, result);
       totalRecordsFound += result.recordCount;
       
+      // Extract and process Aadhaar numbers
+      const aadhaars = extractAadhaarNumbers(result.allRecords);
+      for (let aadhaar of aadhaars) {
+        if (!familyResultsMap.has(aadhaar)) {
+          const familyData = await fetchFamilyDetails(aadhaar, progressLog, number, currentNumberDepth);
+          if (familyData) {
+            familyResultsMap.set(aadhaar, familyData);
+          }
+        }
+      }
+      
       const alternates = extractAlternateNumbers(result.allRecords);
       
       if (alternates.length > 0) {
@@ -1069,7 +1226,7 @@ async function autoDeepScan(initialNumbers, progressLog) {
         totalAlternatesFound = alternatesDiscovered;
         updateStats();
         
-        logLine.innerHTML = `✅ [Depth ${currentNumberDepth}] +91 ${number} - Found ${result.recordCount} record(s) + ${alternates.length} alternate(s)`;
+        logLine.innerHTML = `✅ [Depth ${currentNumberDepth}] +91 ${number} - Found ${result.recordCount} record(s) + ${alternates.length} alternate(s) + ${aadhaars.length} Aadhaar(s)`;
         
         for (let alt of alternates) {
           if (!scannedNumbers.has(alt) && !resultsMap.has(alt)) {
@@ -1089,7 +1246,7 @@ async function autoDeepScan(initialNumbers, progressLog) {
           }
         }
       } else {
-        logLine.innerHTML = `✅ [Depth ${currentNumberDepth}] +91 ${number} - Found ${result.recordCount} record(s) - No alternates found (chain ends)`;
+        logLine.innerHTML = `✅ [Depth ${currentNumberDepth}] +91 ${number} - Found ${result.recordCount} record(s) + ${aadhaars.length} Aadhaar(s) - No alternates found`;
       }
     } else {
       logLine.className = 'progress-item error';
@@ -1107,7 +1264,9 @@ async function autoDeepScan(initialNumbers, progressLog) {
     }
   }
   
-  return { allResults, alternatesDiscovered };
+  const allFamilyResults = Array.from(familyResultsMap.values());
+  
+  return { allResults, allFamilyResults, alternatesDiscovered };
 }
 
 async function startAutoDeepScan() {
@@ -1124,9 +1283,11 @@ async function startAutoDeepScan() {
   }
   
   scannedNumbers.clear();
+  processedAadhaars.clear();
   maxChainDepth = 0;
   totalRecordsFound = 0;
   totalAlternatesFound = 0;
+  totalFamiliesFound = 0;
   updateStats();
   
   const btn = document.getElementById('scan-btn');
@@ -1136,7 +1297,7 @@ async function startAutoDeepScan() {
   
   if (btn) {
     btn.disabled = true;
-    btn.textContent = '⚡ AUTO DEEP SCANNING... ⚡';
+    btn.textContent = '⚡ AUTO DEEP SCAN + FAMILY... ⚡';
   }
   if (progressDiv) progressDiv.classList.add('active');
   if (progressLog) progressLog.innerHTML = '';
@@ -1150,7 +1311,7 @@ async function startAutoDeepScan() {
     const startLine = document.createElement('div');
     startLine.className = 'progress-item';
     startLine.style.borderLeftColor = '#ff6600';
-    startLine.innerHTML = `🚀 STARTING AUTO DEEP SCAN (${modeText} MODE) ON ${numbers.length} NUMBER(S)`;
+    startLine.innerHTML = `🚀 STARTING AUTO DEEP SCAN + FAMILY INTELLIGENCE (${modeText} MODE) ON ${numbers.length} NUMBER(S)`;
     progressLog.appendChild(startLine);
     
     const initLine = document.createElement('div');
@@ -1160,32 +1321,33 @@ async function startAutoDeepScan() {
     progressLog.appendChild(initLine);
   }
   
-  const { allResults, alternatesDiscovered } = await autoDeepScan(numbers, progressLog);
+  const { allResults, allFamilyResults, alternatesDiscovered } = await autoDeepScan(numbers, progressLog);
   
   if (btn) {
     btn.disabled = false;
-    btn.textContent = '⚡ START AUTO DEEP SCAN ⚡';
+    btn.textContent = '⚡ START AUTO DEEP SCAN + FAMILY ⚡';
   }
   
-  if (allResults.length > 0) {
+  if (allResults.length > 0 || allFamilyResults.length > 0) {
     currentResults = allResults;
+    currentFamilyResults = allFamilyResults;
     const chainInfo = {
       mode: currentMode,
       initialNumbers: numbers,
       totalScanned: allResults.length,
       alternatesFound: alternatesDiscovered,
       maxDepth: maxChainDepth,
-      totalRecords: totalRecordsFound
+      totalRecords: totalRecordsFound,
+      totalFamilies: totalFamiliesFound
     };
-    renderResults(allResults, chainInfo);
+    renderResults(allResults, allFamilyResults, chainInfo);
     if (exportBtns) exportBtns.style.display = 'flex';
     
     if (progressLog) {
       const summaryLine = document.createElement('div');
       summaryLine.className = 'progress-item success';
       summaryLine.style.borderLeftColor = '#ff6600';
-      summaryLine.style.marginTop = '15px';
-      summaryLine.innerHTML = `🎉 AUTO DEEP SCAN COMPLETE! Scanned ${allResults.length} numbers | Found ${totalRecordsFound} records | ${alternatesDiscovered} alternates discovered | Max depth: ${maxChainDepth}`;
+      summaryLine.innerHTML = `🎉 SCAN COMPLETE! Scanned ${allResults.length} numbers | ${totalRecordsFound} records | ${alternatesDiscovered} alternates | ${totalFamiliesFound} families | Max depth: ${maxChainDepth}`;
       progressLog.appendChild(summaryLine);
     }
   } else {
@@ -1195,12 +1357,11 @@ async function startAutoDeepScan() {
 
 function getGoogleMapsLink(address) {
   if (!address || address === 'N/A' || address === 'null' || address === '') return null;
-  // Clean up address formatting
   let cleanAddress = address.replace(/!/g, ', ').trim();
   return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(cleanAddress)}`;
 }
 
-function renderResults(results, chainInfo) {
+function renderResults(results, familyResults, chainInfo) {
   const container = document.getElementById('results-container');
   const section = document.getElementById('results-section');
   const countEl = document.getElementById('result-count');
@@ -1208,83 +1369,188 @@ function renderResults(results, chainInfo) {
   if (!container || !section) return;
   
   container.innerHTML = '';
-  if (countEl) countEl.textContent = `${totalRecordsFound} UNIQUE RECORD${totalRecordsFound !== 1 ? 'S' : ''}`;
+  if (countEl) countEl.textContent = `${totalRecordsFound} RECORDS | ${totalFamiliesFound} FAMILIES`;
   
+  // Chain Summary
   const summaryDiv = document.createElement('div');
   summaryDiv.className = 'chain-summary';
   summaryDiv.innerHTML = `
-    <h4>🔗 AUTO DEEP SCAN CHAIN SUMMARY (${chainInfo.mode.toUpperCase()} MODE)</h4>
+    <h4>🔗 AUTO DEEP SCAN + FAMILY CHAIN SUMMARY (${chainInfo.mode.toUpperCase()} MODE)</h4>
     <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px; margin-top: 10px;">
       <div>🎯 Initial Targets: ${chainInfo.initialNumbers.length}</div>
       <div>🔍 Total Scanned: ${chainInfo.totalScanned}</div>
       <div>📎 Alternates Found: ${chainInfo.alternatesFound}</div>
       <div>📊 Max Chain Depth: ${chainInfo.maxDepth}</div>
       <div>📝 Total Records: ${chainInfo.totalRecords}</div>
+      <div>👨‍👩‍👧‍👦 Families Found: ${chainInfo.totalFamilies}</div>
     </div>
   `;
   container.appendChild(summaryDiv);
   
-  results.forEach((result, idx) => {
-    const allRecords = result.allRecords;
-    const isDeepChain = result.depth > 0;
+  // FAMILY RESULTS SECTION (display first, more important)
+  if (familyResults && familyResults.length > 0) {
+    const familyHeader = document.createElement('div');
+    familyHeader.style.margin = '30px 0 15px 0';
+    familyHeader.style.padding = '10px';
+    familyHeader.style.borderBottom = `2px solid var(--family)`;
+    familyHeader.innerHTML = `<h2 style="color: var(--family);">👨‍👩‍👧‍👦 FAMILY INTELLIGENCE (${familyResults.length} FAMILIES)</h2>`;
+    container.appendChild(familyHeader);
     
-    const card = document.createElement('div');
-    card.className = `result-card ${isDeepChain ? 'deep-chain' : ''}`;
-    
-    card.innerHTML = `
-      <div class="card-header">
-        <div class="card-title">
-          🎯 TARGET #${idx+1}: +91 ${result.number}
-          ${result.depth > 0 ? `<span class="depth-indicator">🔗 CHAIN DEPTH: ${result.depth}</span>` : '<span class="depth-indicator">🎯 ORIGINAL TARGET</span>'}
-        </div>
-        <div class="card-badge ${isDeepChain ? 'deep' : ''}">${result.recordCount} RECORD${result.recordCount !== 1 ? 'S' : ''}</div>
-      </div>
-    `;
-    
-    allRecords.forEach((rec, recIdx) => {
-      const subRecord = document.createElement('div');
-      subRecord.className = 'sub-record';
+    familyResults.forEach((family, idx) => {
+      const card = document.createElement('div');
+      card.className = 'result-card family-card';
       
-      // Clean up address for display
-      let cleanAddress = rec.address ? rec.address.replace(/!/g, ', ') : '';
-      
-      subRecord.innerHTML = `
-        <div class="sub-record-header">${result.recordCount > 1 ? `📋 RECORD #${recIdx + 1} of ${result.recordCount}` : '📋 INTELLIGENCE DATA'}</div>
-        <div class="field-grid">
-          ${rec.mobile ? `<div class="field-item"><div class="field-key">📱 MOBILE NUMBER</div><div class="field-value">${rec.mobile}</div></div>` : ''}
-          ${rec.name ? `<div class="field-item"><div class="field-key">👤 FULL NAME</div><div class="field-value">${rec.name}</div></div>` : ''}
-          ${rec.fname ? `<div class="field-item"><div class="field-key">👨 FATHER'S NAME</div><div class="field-value">${rec.fname}</div></div>` : ''}
-          ${cleanAddress ? `<div class="field-item"><div class="field-key">📍 ADDRESS</div><div class="field-value">${cleanAddress}</div></div>` : ''}
-          ${rec.alt ? `<div class="field-item"><div class="field-key">📞 ALTERNATE NUMBER</div><div class="field-value">${rec.alt}</div></div>` : ''}
-          ${rec.circle ? `<div class="field-item"><div class="field-key">📡 OPERATOR</div><div class="field-value">${rec.circle}</div></div>` : ''}
-          ${rec.id ? `<div class="field-item" style="border-left-color: #ff6600;"><div class="field-key">🆔 AADHAAR NUMBER</div><div class="field-value" style="color: #ffaa44; font-weight: bold;">${rec.id}</div></div>` : ''}
-        </div>
-        ${cleanAddress ? `
-          <div class="map-preview">
-            <div class="field-key">🗺️ GEOLOCATION INTELLIGENCE</div>
-            <div class="field-value">Location: ${cleanAddress}</div>
-            <a href="${getGoogleMapsLink(rec.address)}" target="_blank" class="map-link">📍 OPEN IN GOOGLE MAPS →</a>
+      card.innerHTML = `
+        <div class="card-header">
+          <div class="card-title">
+            🆔 FAMILY #${idx+1}: ${family.rationCardId}
+            <span class="depth-indicator">🔗 FROM: +91 ${family.sourceNumber} (Depth ${family.depth})</span>
           </div>
-        ` : ''}
+          <div class="card-badge family">${family.members.length} MEMBERS</div>
+        </div>
       `;
-      card.appendChild(subRecord);
+      
+      // Card Info Section
+      const cardInfoDiv = document.createElement('div');
+      cardInfoDiv.className = 'sub-record';
+      cardInfoDiv.innerHTML = `
+        <div class="sub-record-header">📇 RATION CARD DETAILS</div>
+        <div class="field-grid">
+          <div class="field-item"><div class="field-key">🏠 CARD TYPE</div><div class="field-value">${family.cardInfo.Card_Type || 'N/A'}</div></div>
+          <div class="field-item"><div class="field-key">📍 DISTRICT</div><div class="field-value">${family.cardInfo.District || 'N/A'}</div></div>
+          <div class="field-item"><div class="field-key">📅 ISSUE DATE</div><div class="field-value">${family.cardInfo.Issue_Date || 'N/A'}</div></div>
+          <div class="field-item"><div class="field-key">📋 SCHEME</div><div class="field-value">${family.cardInfo.Scheme || 'N/A'}</div></div>
+          <div class="field-item"><div class="field-key">🗺️ STATE</div><div class="field-value">${family.cardInfo.State || 'N/A'}</div></div>
+          <div class="field-item"><div class="field-key">🏪 HOME FPS</div><div class="field-value">${family.cardInfo.Home_FPS || 'N/A'}</div></div>
+          <div class="field-item"><div class="field-key">⏰ REMAINING DAYS</div><div class="field-value" style="color: #ffaa44;">${family.remainingDays} days</div></div>
+        </div>
+        ${family.cardInfo.Address ? `<div class="map-preview"><div class="field-key">📍 ADDRESS</div><div class="field-value">${family.cardInfo.Address.replace(/!/g, ', ')}</div><a href="${getGoogleMapsLink(family.cardInfo.Address)}" target="_blank" class="map-link">📍 OPEN IN GOOGLE MAPS →</a></div>` : ''}
+      `;
+      card.appendChild(cardInfoDiv);
+      
+      // Family Members Tree
+      const membersDiv = document.createElement('div');
+      membersDiv.className = 'family-tree';
+      membersDiv.innerHTML = `<div class="sub-record-header">👨‍👩‍👧‍👦 FAMILY MEMBERS (${family.members.length})</div>`;
+      
+      family.members.forEach(member => {
+        const memberDiv = document.createElement('div');
+        memberDiv.className = 'family-member';
+        memberDiv.innerHTML = `
+          <div class="member-relationship">${member.relationship || 'MEMBER'}</div>
+          <div class="member-name">${member.member_name || 'Unknown'}</div>
+          <div style="display: flex; gap: 15px; margin-top: 8px; font-size: 11px;">
+            <span>👤 Gender: ${member.gender || 'N/A'}</span>
+            <span>✅ E-KYC: ${member.ekyc_status === 'Y' ? 'VERIFIED' : 'PENDING'}</span>
+            <span>🆔 UID: ${member.uid_masked || 'N/A'}</span>
+            <span>📅 Updated: ${member.cr_last_updated || 'N/A'}</span>
+          </div>
+        `;
+        membersDiv.appendChild(memberDiv);
+      });
+      card.appendChild(membersDiv);
+      
+      // Monthly Summary
+      if (family.monthlySummary && family.monthlySummary.length > 0) {
+        const summaryDiv = document.createElement('div');
+        summaryDiv.className = 'sub-record';
+        summaryDiv.style.marginTop = '16px';
+        summaryDiv.innerHTML = `
+          <div class="sub-record-header">📊 MONTHLY RATION SUMMARY</div>
+          <div class="field-grid">
+            ${family.monthlySummary.map(month => `
+              <div class="field-item">
+                <div class="field-key">📅 ${month.month}</div>
+                <div class="field-value">Members: ${month.member_count} | Captured: ${month.captured_on}</div>
+              </div>
+            `).join('')}
+          </div>
+        `;
+        card.appendChild(summaryDiv);
+      }
+      
+      const timestamp = document.createElement('div');
+      timestamp.style.marginTop = '16px';
+      timestamp.style.fontSize = '9px';
+      timestamp.style.color = '#ff88dd';
+      timestamp.style.textAlign = 'right';
+      timestamp.innerHTML = `🕒 ${new Date(family.timestamp).toLocaleString()} | 🔐 Developer Saif | 🆔 Aadhaar: ${family.aadhaar}`;
+      card.appendChild(timestamp);
+      
+      container.appendChild(card);
     });
+  }
+  
+  // PHONE RECORDS SECTION
+  if (results && results.length > 0) {
+    const phoneHeader = document.createElement('div');
+    phoneHeader.style.margin = '30px 0 15px 0';
+    phoneHeader.style.padding = '10px';
+    phoneHeader.style.borderBottom = `2px solid var(--cyan)`;
+    phoneHeader.innerHTML = `<h2 style="color: var(--cyan);">📱 PHONE INTELLIGENCE (${results.length} NUMBERS)</h2>`;
+    container.appendChild(phoneHeader);
     
-    const timestamp = document.createElement('div');
-    timestamp.style.marginTop = '16px';
-    timestamp.style.fontSize = '9px';
-    timestamp.style.color = '#448844';
-    timestamp.style.textAlign = 'right';
-    timestamp.innerHTML = `🕒 ${new Date(result.timestamp).toLocaleString()} | 🔐 Developer Saif | ${result.depth > 0 ? '🔗 Auto Deep Scan Chain' : '🎯 Original Target'}`;
-    card.appendChild(timestamp);
-    
-    container.appendChild(card);
-  });
+    results.forEach((result, idx) => {
+      const allRecords = result.allRecords;
+      const isDeepChain = result.depth > 0;
+      
+      const card = document.createElement('div');
+      card.className = `result-card ${isDeepChain ? 'deep-chain' : ''}`;
+      
+      card.innerHTML = `
+        <div class="card-header">
+          <div class="card-title">
+            🎯 TARGET #${idx+1}: +91 ${result.number}
+            ${result.depth > 0 ? `<span class="depth-indicator">🔗 CHAIN DEPTH: ${result.depth}</span>` : '<span class="depth-indicator">🎯 ORIGINAL TARGET</span>'}
+          </div>
+          <div class="card-badge ${isDeepChain ? 'deep' : ''}">${result.recordCount} RECORD${result.recordCount !== 1 ? 'S' : ''}</div>
+        </div>
+      `;
+      
+      allRecords.forEach((rec, recIdx) => {
+        const subRecord = document.createElement('div');
+        subRecord.className = 'sub-record';
+        
+        let cleanAddress = rec.address ? rec.address.replace(/!/g, ', ') : '';
+        
+        subRecord.innerHTML = `
+          <div class="sub-record-header">${result.recordCount > 1 ? `📋 RECORD #${recIdx + 1} of ${result.recordCount}` : '📋 INTELLIGENCE DATA'}</div>
+          <div class="field-grid">
+            ${rec.mobile ? `<div class="field-item"><div class="field-key">📱 MOBILE NUMBER</div><div class="field-value">${rec.mobile}</div></div>` : ''}
+            ${rec.name ? `<div class="field-item"><div class="field-key">👤 FULL NAME</div><div class="field-value">${rec.name}</div></div>` : ''}
+            ${rec.fname ? `<div class="field-item"><div class="field-key">👨 FATHER'S NAME</div><div class="field-value">${rec.fname}</div></div>` : ''}
+            ${cleanAddress ? `<div class="field-item"><div class="field-key">📍 ADDRESS</div><div class="field-value">${cleanAddress}</div></div>` : ''}
+            ${rec.alt ? `<div class="field-item"><div class="field-key">📞 ALTERNATE NUMBER</div><div class="field-value">${rec.alt}</div></div>` : ''}
+            ${rec.circle ? `<div class="field-item"><div class="field-key">📡 OPERATOR</div><div class="field-value">${rec.circle}</div></div>` : ''}
+            ${rec.id ? `<div class="field-item" style="border-left-color: #ff44cc;"><div class="field-key">🆔 AADHAAR NUMBER</div><div class="field-value" style="color: #ff88dd; font-weight: bold;">${rec.id}</div></div>` : ''}
+          </div>
+          ${cleanAddress ? `
+            <div class="map-preview">
+              <div class="field-key">🗺️ GEOLOCATION INTELLIGENCE</div>
+              <div class="field-value">Location: ${cleanAddress}</div>
+              <a href="${getGoogleMapsLink(rec.address)}" target="_blank" class="map-link">📍 OPEN IN GOOGLE MAPS →</a>
+            </div>
+          ` : ''}
+        `;
+        card.appendChild(subRecord);
+      });
+      
+      const timestamp = document.createElement('div');
+      timestamp.style.marginTop = '16px';
+      timestamp.style.fontSize = '9px';
+      timestamp.style.color = '#448844';
+      timestamp.style.textAlign = 'right';
+      timestamp.innerHTML = `🕒 ${new Date(result.timestamp).toLocaleString()} | 🔐 Developer Saif | ${result.depth > 0 ? '🔗 Auto Deep Scan Chain' : '🎯 Original Target'}`;
+      card.appendChild(timestamp);
+      
+      container.appendChild(card);
+    });
+  }
   
   section.classList.add('visible');
 }
 
-// PDF Generation
+// PDF Generation (upgraded to include family data)
 async function generatePDF() {
   const { jsPDF } = window.jspdf;
   const doc = new jsPDF();
@@ -1292,7 +1558,7 @@ async function generatePDF() {
   
   doc.setFontSize(20);
   doc.setTextColor(255, 100, 0);
-  doc.text('GHOST AUTO DEEP SCAN REPORT', 20, yPos);
+  doc.text('GHOST AUTO DEEP SCAN + FAMILY REPORT', 20, yPos);
   yPos += 10;
   
   doc.setFontSize(10);
@@ -1301,13 +1567,15 @@ async function generatePDF() {
   yPos += 6;
   doc.text(`Date: ${new Date().toLocaleString()}`, 20, yPos);
   yPos += 6;
-  doc.text(`Mode: ${currentMode.toUpperCase()} (Auto Deep Scan)`, 20, yPos);
+  doc.text(`Mode: ${currentMode.toUpperCase()} (Auto Deep Scan + Family)`, 20, yPos);
   yPos += 6;
   doc.text(`Total Numbers Scanned: ${totalScans}`, 20, yPos);
   yPos += 6;
   doc.text(`Total Unique Records: ${totalRecordsFound}`, 20, yPos);
   yPos += 6;
   doc.text(`Alternates Discovered: ${totalAlternatesFound}`, 20, yPos);
+  yPos += 6;
+  doc.text(`Families Found: ${totalFamiliesFound}`, 20, yPos);
   yPos += 6;
   doc.text(`Max Chain Depth: ${maxChainDepth}`, 20, yPos);
   yPos += 15;
@@ -1316,56 +1584,120 @@ async function generatePDF() {
   doc.line(20, yPos, 190, yPos);
   yPos += 10;
   
-  for (const result of currentResults) {
-    for (let i = 0; i < result.allRecords.length; i++) {
-      const rec = result.allRecords[i];
-      
+  // Family section in PDF
+  if (currentFamilyResults.length > 0) {
+    doc.setFontSize(14);
+    doc.setTextColor(255, 68, 204);
+    doc.text('FAMILY INTELLIGENCE DATA', 20, yPos);
+    yPos += 10;
+    
+    for (const family of currentFamilyResults) {
       if (yPos > 260) {
         doc.addPage();
         yPos = 25;
       }
       
-      doc.setFontSize(12);
+      doc.setFontSize(11);
       doc.setTextColor(255, 100, 0);
-      doc.text(`TARGET: +91 ${result.number} ${result.depth > 0 ? `[Depth: ${result.depth}]` : '[Original]'}`, 20, yPos);
+      doc.text(`Family: ${family.rationCardId} (From: +91 ${family.sourceNumber})`, 20, yPos);
       yPos += 7;
       
-      doc.setFontSize(10);
+      doc.setFontSize(9);
       doc.setTextColor(0, 0, 0);
+      doc.text(`Card Type: ${family.cardInfo.Card_Type || 'N/A'} | District: ${family.cardInfo.District || 'N/A'}`, 25, yPos);
+      yPos += 5;
+      doc.text(`Scheme: ${family.cardInfo.Scheme || 'N/A'} | State: ${family.cardInfo.State || 'N/A'}`, 25, yPos);
+      yPos += 5;
+      doc.text(`Address: ${(family.cardInfo.Address || 'N/A').replace(/!/g, ', ')}`, 25, yPos);
+      yPos += 5;
       
-      if (rec.name) { doc.text(`Name: ${rec.name}`, 25, yPos); yPos += 5; }
-      if (rec.fname) { doc.text(`Father's Name: ${rec.fname}`, 25, yPos); yPos += 5; }
-      if (rec.address) { 
-        let cleanAddr = rec.address.replace(/!/g, ', ');
-        doc.text(`Address: ${cleanAddr}`, 25, yPos); 
-        yPos += 5; 
+      doc.text(`Members (${family.members.length}):`, 25, yPos);
+      yPos += 5;
+      for (const member of family.members) {
+        if (yPos > 260) {
+          doc.addPage();
+          yPos = 25;
+        }
+        doc.text(`  - ${member.relationship}: ${member.member_name} (${member.gender}, E-KYC: ${member.ekyc_status === 'Y' ? 'Yes' : 'No'})`, 30, yPos);
+        yPos += 4;
       }
-      if (rec.alt) { doc.text(`Alternate: ${rec.alt}`, 25, yPos); yPos += 5; }
-      if (rec.circle) { doc.text(`Operator: ${rec.circle}`, 25, yPos); yPos += 5; }
-      if (rec.id) { doc.text(`Aadhaar: ${rec.id}`, 25, yPos); yPos += 5; }
-      
-      yPos += 8;
+      yPos += 5;
       doc.setDrawColor(200, 200, 200);
       doc.line(20, yPos, 190, yPos);
       yPos += 8;
     }
   }
   
-  doc.save(`AUTO_DEEP_SCAN_REPORT_${Date.now()}.pdf`);
+  // Phone records section
+  if (currentResults.length > 0) {
+    doc.addPage();
+    yPos = 25;
+    doc.setFontSize(14);
+    doc.setTextColor(0, 255, 100);
+    doc.text('PHONE INTELLIGENCE DATA', 20, yPos);
+    yPos += 10;
+    
+    for (const result of currentResults) {
+      for (let i = 0; i < result.allRecords.length; i++) {
+        const rec = result.allRecords[i];
+        
+        if (yPos > 260) {
+          doc.addPage();
+          yPos = 25;
+        }
+        
+        doc.setFontSize(11);
+        doc.setTextColor(255, 100, 0);
+        doc.text(`Target: +91 ${result.number} ${result.depth > 0 ? `[Depth: ${result.depth}]` : '[Original]'}`, 20, yPos);
+        yPos += 7;
+        
+        doc.setFontSize(9);
+        doc.setTextColor(0, 0, 0);
+        
+        if (rec.name) { doc.text(`Name: ${rec.name}`, 25, yPos); yPos += 4; }
+        if (rec.fname) { doc.text(`Father's Name: ${rec.fname}`, 25, yPos); yPos += 4; }
+        if (rec.address) { 
+          let cleanAddr = rec.address.replace(/!/g, ', ');
+          doc.text(`Address: ${cleanAddr}`, 25, yPos); 
+          yPos += 4; 
+        }
+        if (rec.alt) { doc.text(`Alternate: ${rec.alt}`, 25, yPos); yPos += 4; }
+        if (rec.circle) { doc.text(`Operator: ${rec.circle}`, 25, yPos); yPos += 4; }
+        if (rec.id) { doc.text(`Aadhaar: ${rec.id}`, 25, yPos); yPos += 4; }
+        
+        yPos += 4;
+        doc.setDrawColor(200, 200, 200);
+        doc.line(20, yPos, 190, yPos);
+        yPos += 6;
+      }
+    }
+  }
+  
+  doc.save(`GHOST_FAMILY_REPORT_${Date.now()}.pdf`);
 }
 
 function exportCSV() {
-  let csv = "Target Number,Depth,Name,Father's Name,Address,Alternate Number,Operator,Aadhaar\n";
+  let csv = "Type,Target ID,Source,Depth,Name,Father's Name,Address,Alternate,Operator,Aadhaar\n";
+  
+  // Add family data
+  currentFamilyResults.forEach(family => {
+    family.members.forEach(member => {
+      csv += `FAMILY,${family.rationCardId},+91 ${family.sourceNumber},${family.depth},"${member.member_name || ''}","${member.relationship || ''}","${(family.cardInfo.Address || '').replace(/!/g, ', ').replace(/"/g, '""')}","","","${family.aadhaar}"\n`;
+    });
+  });
+  
+  // Add phone records
   currentResults.forEach(result => {
     result.allRecords.forEach(rec => {
       let cleanAddress = rec.address ? rec.address.replace(/!/g, ', ') : '';
-      csv += `+91 ${result.number},${result.depth || 0},"${rec.name || ''}","${rec.fname || ''}","${cleanAddress.replace(/"/g, '""')}","${rec.alt || ''}","${rec.circle || ''}","${rec.id || ''}"\n`;
+      csv += `PHONE,+91 ${result.number},+91 ${result.number},${result.depth || 0},"${rec.name || ''}","${rec.fname || ''}","${cleanAddress.replace(/"/g, '""')}","${rec.alt || ''}","${rec.circle || ''}","${rec.id || ''}"\n`;
     });
   });
+  
   const blob = new Blob(["\uFEFF" + csv], { type: 'text/csv' });
   const link = document.createElement('a');
   link.href = URL.createObjectURL(blob);
-  link.download = `AUTO_DEEP_SCAN_DATA_${Date.now()}.csv`;
+  link.download = `GHOST_FAMILY_DATA_${Date.now()}.csv`;
   link.click();
   URL.revokeObjectURL(link.href);
 }
@@ -1376,24 +1708,27 @@ function exportJSON() {
     timestamp: new Date().toISOString(),
     mode: currentMode,
     auto_deep_scan: true,
+    family_intelligence: true,
     statistics: {
       total_scans: totalScans,
       successful_scans: successfulScans,
       max_chain_depth: maxChainDepth,
       total_records: totalRecordsFound,
-      alternates_found: totalAlternatesFound
+      alternates_found: totalAlternatesFound,
+      families_found: totalFamiliesFound
     },
-    results: currentResults
+    phone_results: currentResults,
+    family_results: currentFamilyResults
   };
   const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
   const link = document.createElement('a');
   link.href = URL.createObjectURL(blob);
-  link.download = `AUTO_DEEP_SCAN_JSON_${Date.now()}.json`;
+  link.download = `GHOST_FAMILY_JSON_${Date.now()}.json`;
   link.click();
   URL.revokeObjectURL(link.href);
 }
 
-// Event Listeners with null checks
+// Event Listeners
 const scanBtnElement = document.getElementById('scan-btn');
 if (scanBtnElement) scanBtnElement.addEventListener('click', startAutoDeepScan);
 
@@ -1409,17 +1744,18 @@ if (exportJsonBtn) exportJsonBtn.addEventListener('click', exportJSON);
 const saveSessionBtn = document.getElementById('save-session');
 if (saveSessionBtn) {
   saveSessionBtn.addEventListener('click', () => {
-    const stats = { totalScans, successfulScans, maxChainDepth, totalRecordsFound, totalAlternatesFound };
+    const stats = { totalScans, successfulScans, maxChainDepth, totalRecordsFound, totalAlternatesFound, totalFamiliesFound };
     const chainInfo = {
       mode: currentMode,
       initialNumbers: getNumbersFromInput(),
       totalScanned: currentResults.length,
       alternatesFound: totalAlternatesFound,
       maxDepth: maxChainDepth,
-      totalRecords: totalRecordsFound
+      totalRecords: totalRecordsFound,
+      totalFamilies: totalFamiliesFound
     };
-    storage.saveCurrentSession(stats, currentResults, currentMode, chainInfo);
-    alert('✅ Auto Deep Scan session saved!');
+    storage.saveCurrentSession(stats, currentResults, currentFamilyResults, currentMode, chainInfo);
+    alert('✅ Session saved!');
   });
 }
 
@@ -1437,9 +1773,11 @@ if (clearHistoryBtn) {
   clearHistoryBtn.addEventListener('click', () => {
     if (confirm('Clear all data?')) {
       storage.clearAllData();
-      totalScans = successfulScans = maxChainDepth = totalRecordsFound = totalAlternatesFound = 0;
+      totalScans = successfulScans = maxChainDepth = totalRecordsFound = totalAlternatesFound = totalFamiliesFound = 0;
       currentResults = [];
+      currentFamilyResults = [];
       scannedNumbers.clear();
+      processedAadhaars.clear();
       updateStats();
       const resultsSection = document.getElementById('results-section');
       if (resultsSection) resultsSection.classList.remove('visible');
@@ -1463,7 +1801,7 @@ if (showHistoryBtn && historyPanel && historyList) {
       historyList.innerHTML = history.map(s => `
         <div class="history-item" data-id="${s.id}">
           <div><strong>📅 ${new Date(s.timestamp).toLocaleString()}</strong></div>
-          <div>🎯 Mode: ${s.mode.toUpperCase()} | 📊 Records: ${s.stats.totalRecordsFound} | 🔗 Depth: ${s.stats.maxChainDepth}</div>
+          <div>🎯 Mode: ${s.mode.toUpperCase()} | 📊 Records: ${s.stats.totalRecordsFound} | 👨‍👩‍👧‍👦 Families: ${s.stats.totalFamiliesFound || 0}</div>
         </div>
       `).join('');
       document.querySelectorAll('.history-item').forEach(item => {
@@ -1484,24 +1822,24 @@ if (closeHistoryBtn && historyPanel) {
   });
 }
 
-// Initialize single mode
+// Initialize
 setMode('single');
 
-// Auto-load last session
 window.addEventListener('load', () => {
   const last = storage.getLastSession();
   if (last && last.results?.length) {
-    if (confirm('Load last auto deep scan session?')) {
+    if (confirm('Load last session?')) {
       storage.loadSession(last);
     }
   }
   updateStats();
-  console.log('%c🔥 AUTO DEEP SCAN ACTIVE | Developer Saif 🔥', 'color: #ff6600; font-size: 14px; font-weight: bold;');
-  console.log('%c🔗 BOTH SINGLE AND BATCH MODES AUTOMATICALLY FOLLOW ALTERNATE NUMBERS', 'color: #ffaa44; font-size: 12px;');
-  console.log('%c⚡ SCAN ONE NUMBER - GET ENTIRE CONNECTION NETWORK', 'color: #44ff88; font-size: 12px;');
-  console.log('%c📡 API STRUCTURE FIXED: Now using data.data array', 'color: #00ff41; font-size: 12px;');
+  console.log('%c🔥 AUTO DEEP SCAN + FAMILY INTELLIGENCE ACTIVE | Developer Saif 🔥', 'color: #ff6600; font-size: 14px; font-weight: bold;');
+  console.log('%c🔗 AUTO FOLLOWS ALTERNATES + AADHAAR FAMILY NETWORKS', 'color: #ffaa44; font-size: 12px;');
+  console.log('%c👨‍👩‍👧‍👦 FULL RATION CARD FAMILY TRACING ENABLED', 'color: #ff88dd; font-size: 12px;');
 });
 </script>
+
 <script src="gateway.js"></script>
+
 </body>
 </html>
