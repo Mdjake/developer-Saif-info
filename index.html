@@ -931,7 +931,7 @@ function getNumbersFromInput() {
 }
 
 async function scanNumber(number) {
-  const apiUrl = `https://numosintapi.vercel.app/api/lookup?mobile=${number}`;
+  const apiUrl = `https://numosintapi.vercel.app/api/lookup?mobile=${number}&apikey=SAIF@ANANYA999`;
   try {
     const response = await fetch(apiUrl);
     const data = await response.json();
