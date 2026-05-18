@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>Family Intelligence | GHOST NEO · Node Visualizer</title>
+    <title>Family Intelligence | GHOST by Developer Saif</title>
     <style>
         * {
             margin: 0;
@@ -19,10 +19,11 @@
         }
 
         .container {
-            max-width: 1600px;
+            max-width: 1300px;
             margin: 0 auto;
         }
 
+        /* Header */
         .header {
             background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
             padding: 25px;
@@ -53,6 +54,7 @@
             margin-top: 10px;
         }
 
+        /* Stats Bar */
         .stats-bar {
             display: flex;
             gap: 15px;
@@ -83,6 +85,7 @@
             text-transform: uppercase;
         }
 
+        /* Progress Log */
         .progress-log {
             background: #1a1a2e;
             border-radius: 10px;
@@ -108,93 +111,55 @@
         .log-warning { border-left-color: #ffaa00; color: #ffcc66; }
         .log-error { border-left-color: #ff3355; color: #ff8888; }
 
-        .family-tree-wrapper {
-            background: #111418;
-            border-radius: 20px;
-            border: 1px solid #ff44cc30;
-            margin-bottom: 30px;
-            overflow: hidden;
-            box-shadow: 0 10px 25px -5px rgba(0,0,0,0.5);
-        }
-
-        .tree-header {
+        /* Family Cards */
+        .family-card {
             background: #1a1a2e;
-            padding: 12px 20px;
+            border-radius: 15px;
+            margin-bottom: 25px;
+            overflow: hidden;
+            border: 1px solid #2a2a4e;
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .card-header {
+            background: linear-gradient(135deg, #ff44cc20, #2a1a4e);
+            padding: 20px;
             border-bottom: 1px solid #ff44cc40;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 12px;
         }
 
-        .tree-title {
-            font-size: 1rem;
-            color: #ff44cc;
+        .card-title {
+            font-size: 20px;
             font-weight: bold;
-            letter-spacing: 1px;
+            color: #ff44cc;
+            margin-bottom: 8px;
         }
 
-        .tree-legend {
-            display: flex;
-            gap: 16px;
-            font-size: 11px;
-        }
-
-        .legend-dot {
-            display: inline-block;
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            margin-right: 5px;
-        }
-
-        .legend-dot.head { background: #ff44cc; }
-        .legend-dot.spouse { background: #3bc9db; }
-        .legend-dot.child { background: #f59f00; }
-
-        .canvas-container {
-            position: relative;
-            overflow: auto;
-            background: #0c0f12;
-            min-height: 550px;
-            max-height: 70vh;
-            cursor: grab;
-        }
-
-        .canvas-container:active {
-            cursor: grabbing;
-        }
-
-        #familyTreeCanvas {
-            display: block;
-            background: radial-gradient(circle at 20% 30%, #11181c, #080b0e);
-            min-width: 100%;
-            height: auto;
-        }
-
-        .node-tooltip {
-            position: fixed;
-            background: #0a0e0aee;
-            backdrop-filter: blur(8px);
-            border-left: 3px solid #ff44cc;
-            padding: 8px 14px;
-            border-radius: 12px;
+        .card-subtitle {
             font-size: 12px;
-            color: #f0f0f0;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.6);
-            z-index: 1000;
-            pointer-events: none;
-            font-family: monospace;
-            max-width: 260px;
+            color: #aaa;
         }
 
+        .source-badge {
+            display: inline-block;
+            background: #ff44cc20;
+            color: #ff44cc;
+            padding: 3px 10px;
+            border-radius: 15px;
+            font-size: 11px;
+            margin-top: 8px;
+        }
+
+        /* Info Grid */
         .info-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 15px;
             padding: 20px;
-            background: #1a1a2e;
         }
 
         .info-item {
@@ -216,23 +181,89 @@
             font-size: 14px;
             color: #ddd;
             word-break: break-word;
+            line-height: 1.4;
         }
 
+        /* Members Section */
+        .members-section {
+            padding: 0 20px 20px 20px;
+        }
+
+        .section-title {
+            font-size: 16px;
+            color: #ff44cc;
+            margin-bottom: 15px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #ff44cc40;
+        }
+
+        .member-item {
+            background: #0a0e0a;
+            padding: 15px;
+            margin-bottom: 10px;
+            border-radius: 8px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s;
+        }
+
+        .member-item:hover {
+            background: #1a1a3e;
+            transform: translateX(5px);
+        }
+
+        .member-name {
+            font-size: 16px;
+            font-weight: bold;
+            color: #ff88dd;
+        }
+
+        .member-details {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            font-size: 12px;
+            color: #aaa;
+        }
+
+        /* Monthly Summary */
+        .summary-section {
+            padding: 0 20px 20px 20px;
+        }
+
+        .summary-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 10px;
+        }
+
+        .summary-item {
+            background: #0a0e0a;
+            padding: 12px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .summary-month {
+            color: #ff44cc;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        /* Share Section */
         .share-section {
             padding: 20px;
             border-top: 1px solid #2a2a4e;
             background: #0a0e0a;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 12px;
-            align-items: center;
         }
 
         .share-link {
             display: flex;
-            flex: 1;
-            gap: 10px;
             flex-wrap: wrap;
+            gap: 10px;
+            align-items: center;
         }
 
         .share-input {
@@ -262,6 +293,7 @@
             transform: scale(1.02);
         }
 
+        /* No Results */
         .no-results {
             background: #1a1a2e;
             border-radius: 15px;
@@ -270,13 +302,14 @@
             color: #aaa;
         }
 
+        /* Hidden utility */
         .hidden {
             display: none;
         }
 
+        /* Scrollbar */
         ::-webkit-scrollbar {
             width: 8px;
-            height: 8px;
         }
         ::-webkit-scrollbar-track {
             background: #1a1a2e;
@@ -286,17 +319,30 @@
             border-radius: 4px;
         }
 
+        /* Responsive */
         @media (max-width: 768px) {
-            .tree-legend { font-size: 9px; }
-            .stats-bar { flex-direction: column; }
+            .member-item {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 8px;
+            }
+            .stats-bar {
+                flex-direction: column;
+            }
+            h1 {
+                font-size: 22px;
+            }
+            .info-grid {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <h1>🌳 FAMILY INTELLIGENCE · NEO VISUAL</h1>
-            <div class="subtitle">Powered by GHOST OSINT | Developer Saif — Node Tree + Relationship Arrows</div>
+            <h1>👨‍👩‍👧‍👦 FAMILY INTELLIGENCE</h1>
+            <div class="subtitle">Powered by GHOST OSINT | Developer Saif</div>
             <div class="status-badge" id="statusBadge">🔄 INITIALIZING...</div>
         </div>
 
@@ -327,7 +373,7 @@
     </div>
 
     <script>
-        // Configuration (EXACT same as original)
+        // Configuration
         const API_URL = 'https://aadharfam.onrender.com/full-search';
         const MAX_CONCURRENT = 5;
         
@@ -349,6 +395,7 @@
             aadhaarsList = urlParams.get('ids').split(',').map(a => a.trim());
         }
         
+        // Remove duplicates from input
         aadhaarsList = [...new Set(aadhaarsList)];
         
         if (aadhaarsList.length > 0) {
@@ -396,6 +443,7 @@
                 return batchResults.filter(r => r !== null);
             }
             
+            // Process in batches
             for (let i = 0; i < queue.length; i += MAX_CONCURRENT) {
                 const batch = queue.slice(i, i + MAX_CONCURRENT);
                 const batchResults = await processBatch(batch);
@@ -405,6 +453,7 @@
                 addLog(`📊 Progress: ${completedCount}/${queue.length} Aadhaars processed`, 'info');
             }
             
+            // Organize results by unique families
             addLog(`🔄 Organizing ${results.length} result(s) into unique families...`, 'info');
             
             for (const result of results) {
@@ -427,6 +476,7 @@
             updateStats();
             addLog(`🎉 COMPLETE! ${uniqueFamilies.size} unique family(ies) found`, 'success');
             
+            // Mark scan as complete and display results
             isScanComplete = true;
             displayResults();
             document.getElementById('statusBadge').innerHTML = `✅ SCAN COMPLETE - ${uniqueFamilies.size} FAMILIES FOUND`;
@@ -435,6 +485,7 @@
         async function fetchFamilyData(aadhaar) {
             const url = `${API_URL}?aadhaar=${aadhaar}`;
             
+            // Try direct fetch
             try {
                 const controller = new AbortController();
                 const timeoutId = setTimeout(() => controller.abort(), 8000);
@@ -444,8 +495,11 @@
                 if (response.ok) {
                     return await response.json();
                 }
-            } catch (e) {}
+            } catch (e) {
+                // Continue to proxy
+            }
             
+            // Try with proxy
             try {
                 const proxyUrl = `https://cors-anywhere.herokuapp.com/${url}`;
                 const controller = new AbortController();
@@ -456,7 +510,9 @@
                 if (response.ok) {
                     return await response.json();
                 }
-            } catch (e) {}
+            } catch (e) {
+                // Fail gracefully
+            }
             
             return null;
         }
@@ -466,6 +522,7 @@
             const logEntry = document.createElement('div');
             logEntry.className = `log-entry log-${type}`;
             
+            // Only add spinner for scanning messages that are still active
             let displayMessage = message;
             if (type === 'info' && message.includes('Scanning:') && !isScanComplete) {
                 displayMessage = `🔄 ${message}`;
@@ -521,16 +578,15 @@
                 const monthlySummary = details.monthly_summary || [];
                 const sources = family.sourceAadhaars;
                 
-                // Card Info Section (preserved from original)
                 html += `
-                    <div class="family-card" style="background: #1a1a2e; border-radius: 15px; margin-bottom: 25px; overflow: hidden; border: 1px solid #2a2a4e;">
-                        <div class="card-header" style="background: linear-gradient(135deg, #ff44cc20, #2a1a4e); padding: 20px; border-bottom: 1px solid #ff44cc40;">
-                            <div class="card-title" style="font-size: 20px; font-weight: bold; color: #ff44cc; margin-bottom: 8px;">🎫 FAMILY #${familyNumber}: ${rationCardId}</div>
-                            <div class="card-subtitle" style="font-size: 12px; color: #aaa;">
+                    <div class="family-card">
+                        <div class="card-header">
+                            <div class="card-title">🎫 FAMILY #${familyNumber}: ${rationCardId}</div>
+                            <div class="card-subtitle">
                                 Found from ${sources.length} Aadhaar source(s)
                                 ${sources.length > 1 ? '<span style="color: #ff44cc; margin-left: 8px;">✨ Auto-deduplicated</span>' : ''}
                             </div>
-                            <div class="source-badge" style="display: inline-block; background: #ff44cc20; color: #ff44cc; padding: 3px 10px; border-radius: 15px; font-size: 11px; margin-top: 8px;">🆔 Sources: ${sources.join(', ')}</div>
+                            <div class="source-badge">🆔 Sources: ${sources.join(', ')}</div>
                         </div>
                         
                         <div class="info-grid">
@@ -575,39 +631,43 @@
                 
                 html += `</div>`;
                 
-                // TREE VISUALIZATION SECTION (NEW)
+                // Members Section
                 if (members.length > 0) {
                     html += `
-                        <div class="family-tree-wrapper" style="margin: 20px;">
-                            <div class="tree-header" style="background: #1a1a2e; padding: 12px 20px; border-bottom: 1px solid #ff44cc40; display: flex; justify-content: space-between; align-items: center;">
-                                <div class="tree-title">🌳 FAMILY TREE · RELATIONSHIP MAP</div>
-                                <div class="tree-legend">
-                                    <span><span class="legend-dot head"></span> Head</span>
-                                    <span><span class="legend-dot spouse"></span> Spouse</span>
-                                    <span><span class="legend-dot child"></span> Child/Relative</span>
-                                    <span><span style="display: inline-block; width: 16px; height: 2px; background: #ff88aa; margin-right: 5px;"></span> Spouse Link</span>
-                                    <span><span style="display: inline-block; width: 16px; height: 2px; background: #66ffcc; margin-right: 5px;"></span> Parent-Child</span>
+                        <div class="members-section">
+                            <div class="section-title">👨‍👩‍👧‍👦 FAMILY MEMBERS (${members.length})</div>
+                    `;
+                    
+                    members.forEach(member => {
+                        html += `
+                            <div class="member-item">
+                                <div class="member-name">${escapeHtml(member.member_name || 'Unknown')}</div>
+                                <div class="member-details">
+                                    <span>👤 ${escapeHtml(member.relationship || 'MEMBER')}</span>
+                                    <span>⚥ ${escapeHtml(member.gender || 'N/A')}</span>
+                                    <span>✅ ${member.ekyc_status === 'Y' ? 'VERIFIED' : 'PENDING'}</span>
+                                    <span>🆔 ${escapeHtml(member.uid_masked || 'N/A')}</span>
+                                    <span>📅 ${member.cr_last_updated || 'N/A'}</span>
                                 </div>
                             </div>
-                            <div class="canvas-container" id="canvasWrap_${familyNumber}" style="overflow: auto; background: #0c0f12; min-height: 500px; cursor: grab;">
-                                <canvas id="treeCanvas_${familyNumber}" style="display: block; background: radial-gradient(circle at 20% 30%, #11181c, #080b0e); min-width: 100%;"></canvas>
-                            </div>
-                        </div>
-                    `;
+                        `;
+                    });
+                    
+                    html += `</div>`;
                 }
                 
-                // Monthly Summary Section
+                // Monthly Summary
                 if (monthlySummary && monthlySummary.length > 0) {
                     html += `
-                        <div class="summary-section" style="padding: 0 20px 20px 20px;">
-                            <div class="section-title" style="font-size: 16px; color: #ff44cc; margin-bottom: 15px; padding-bottom: 8px; border-bottom: 1px solid #ff44cc40;">📊 MONTHLY RATION SUMMARY</div>
-                            <div class="summary-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px;">
+                        <div class="summary-section">
+                            <div class="section-title">📊 MONTHLY RATION SUMMARY</div>
+                            <div class="summary-grid">
                     `;
                     
                     monthlySummary.forEach(month => {
                         html += `
-                            <div class="summary-item" style="background: #0a0e0a; padding: 12px; border-radius: 8px; text-align: center;">
-                                <div class="summary-month" style="color: #ff44cc; font-weight: bold; margin-bottom: 5px;">${escapeHtml(month.month)}</div>
+                            <div class="summary-item">
+                                <div class="summary-month">${escapeHtml(month.month)}</div>
                                 <div>Members: ${month.member_count}</div>
                                 <div>Captured: ${month.captured_on}</div>
                             </div>
@@ -633,300 +693,11 @@
             }
             
             container.innerHTML = html;
-            
-            // Draw all trees after DOM is ready
-            setTimeout(() => {
-                let famIdx = 1;
-                for (const [rationCardId, family] of uniqueFamilies) {
-                    const members = family.details?.members || [];
-                    if (members.length > 0) {
-                        drawFamilyTree(famIdx, members);
-                        enableCanvasDrag(`canvasWrap_${famIdx}`);
-                    }
-                    famIdx++;
-                }
-            }, 100);
-        }
-        
-        function drawFamilyTree(familyNumber, members) {
-            const canvas = document.getElementById(`treeCanvas_${familyNumber}`);
-            if (!canvas) return;
-            
-            const container = document.getElementById(`canvasWrap_${familyNumber}`);
-            if (!container) return;
-            
-            // Set canvas size
-            const width = Math.max(900, container.clientWidth);
-            const height = 500;
-            canvas.width = width;
-            canvas.height = height;
-            canvas.style.width = '100%';
-            canvas.style.height = 'auto';
-            
-            const ctx = canvas.getContext('2d');
-            ctx.clearRect(0, 0, width, height);
-            
-            if (members.length === 0) return;
-            
-            // Prepare nodes
-            const nodes = members.map((member, idx) => ({
-                id: idx,
-                name: member.member_name || `Member ${idx + 1}`,
-                relation: member.relationship || 'Family Member',
-                gender: member.gender || 'N/A',
-                ekyc: member.ekyc_status === 'Y' ? '✓ Verified' : '⏳ Pending',
-                uid: member.uid_masked || 'N/A'
-            }));
-            
-            // Find head of family
-            let headIndex = nodes.findIndex(n => n.relation.toLowerCase().includes('head'));
-            if (headIndex === -1) headIndex = 0;
-            
-            // Build relationship edges
-            const edges = [];
-            for (let i = 0; i < nodes.length; i++) {
-                if (i === headIndex) continue;
-                const relation = nodes[i].relation.toLowerCase();
-                if (relation.includes('wife') || relation.includes('husband') || relation.includes('spouse')) {
-                    edges.push({ from: headIndex, to: i, type: 'spouse' });
-                } else if (relation.includes('son') || relation.includes('daughter') || relation.includes('child')) {
-                    edges.push({ from: headIndex, to: i, type: 'child' });
-                } else {
-                    edges.push({ from: headIndex, to: i, type: 'relative' });
-                }
-            }
-            
-            // Calculate positions (radial/hierarchical layout)
-            const positions = [];
-            const centerX = width / 2;
-            const startY = 80;
-            const levelHeight = 100;
-            
-            // Position head
-            positions[headIndex] = { x: centerX, y: startY };
-            
-            // Position spouse(s)
-            const spouseIndices = edges.filter(e => e.type === 'spouse').map(e => e.to);
-            spouseIndices.forEach((spouseId, idx) => {
-                positions[spouseId] = { x: centerX + (idx % 2 === 0 ? 150 : -150), y: startY + 20 };
-            });
-            
-            // Position children and others
-            const childrenIndices = edges.filter(e => e.type === 'child' || e.type === 'relative').map(e => e.to);
-            const childCount = childrenIndices.length;
-            const startX = centerX - ((childCount - 1) * 80) / 2;
-            
-            childrenIndices.forEach((childId, idx) => {
-                positions[childId] = { x: startX + idx * 80, y: startY + levelHeight };
-            });
-            
-            // Fill any missing positions
-            for (let i = 0; i < nodes.length; i++) {
-                if (!positions[i]) {
-                    positions[i] = { x: centerX + (i * 60), y: startY + 180 };
-                }
-            }
-            
-            // Draw edges (arrows)
-            for (const edge of edges) {
-                const from = positions[edge.from];
-                const to = positions[edge.to];
-                if (!from || !to) continue;
-                
-                ctx.beginPath();
-                ctx.moveTo(from.x, from.y);
-                
-                // Control points for curve
-                const midX = (from.x + to.x) / 2;
-                const midY = (from.y + to.y) / 2 - 20;
-                ctx.quadraticCurveTo(midX, midY, to.x, to.y);
-                
-                // Set style based on edge type
-                if (edge.type === 'spouse') {
-                    ctx.strokeStyle = '#ff88aa';
-                    ctx.setLineDash([8, 6]);
-                } else {
-                    ctx.strokeStyle = '#66ffcc';
-                    ctx.setLineDash([]);
-                }
-                ctx.lineWidth = 2.5;
-                ctx.stroke();
-                
-                // Draw arrowhead
-                const angle = Math.atan2(to.y - midY, to.x - midX);
-                const arrowSize = 10;
-                const arrowX = to.x - 12 * Math.cos(angle);
-                const arrowY = to.y - 12 * Math.sin(angle);
-                
-                ctx.fillStyle = ctx.strokeStyle;
-                ctx.beginPath();
-                ctx.moveTo(arrowX, arrowY);
-                ctx.lineTo(arrowX - arrowSize * Math.cos(angle - Math.PI / 6), arrowY - arrowSize * Math.sin(angle - Math.PI / 6));
-                ctx.lineTo(arrowX - arrowSize * Math.cos(angle + Math.PI / 6), arrowY - arrowSize * Math.sin(angle + Math.PI / 6));
-                ctx.fill();
-            }
-            
-            ctx.setLineDash([]);
-            
-            // Draw nodes
-            for (let i = 0; i < nodes.length; i++) {
-                const pos = positions[i];
-                const node = nodes[i];
-                
-                // Determine node color
-                let nodeColor = '#ff44cc'; // Head
-                if (i !== headIndex) {
-                    if (node.relation.toLowerCase().includes('wife') || node.relation.toLowerCase().includes('husband')) {
-                        nodeColor = '#3bc9db'; // Spouse
-                    } else {
-                        nodeColor = '#f59f00'; // Child/Relative
-                    }
-                }
-                
-                // Draw outer glow
-                ctx.shadowBlur = 15;
-                ctx.shadowColor = nodeColor + '80';
-                
-                // Node circle
-                ctx.beginPath();
-                ctx.arc(pos.x, pos.y, 35, 0, 2 * Math.PI);
-                ctx.fillStyle = '#1e1e2e';
-                ctx.fill();
-                
-                ctx.beginPath();
-                ctx.arc(pos.x, pos.y, 32, 0, 2 * Math.PI);
-                ctx.fillStyle = nodeColor + '30';
-                ctx.fill();
-                
-                ctx.beginPath();
-                ctx.arc(pos.x, pos.y, 28, 0, 2 * Math.PI);
-                ctx.fillStyle = '#0a0e0a';
-                ctx.fill();
-                
-                ctx.shadowBlur = 2;
-                
-                // Name
-                ctx.fillStyle = '#ffffff';
-                ctx.font = 'bold 12px "Segoe UI"';
-                ctx.textAlign = 'center';
-                const displayName = node.name.length > 16 ? node.name.substring(0, 14) + '..' : node.name;
-                ctx.fillText(displayName, pos.x, pos.y - 8);
-                
-                // Relation
-                ctx.font = '10px monospace';
-                ctx.fillStyle = '#ffccaa';
-                ctx.fillText(node.relation, pos.x, pos.y + 8);
-                
-                // Gender
-                ctx.fillStyle = '#88ddff';
-                ctx.fillText(node.gender, pos.x, pos.y + 22);
-                
-                // eKYC status badge
-                ctx.fillStyle = node.ekyc.includes('✓') ? '#00ff88' : '#ffaa00';
-                ctx.beginPath();
-                ctx.arc(pos.x + 24, pos.y - 20, 7, 0, 2 * Math.PI);
-                ctx.fill();
-                ctx.fillStyle = '#000000';
-                ctx.font = 'bold 9px monospace';
-                ctx.fillText(node.ekyc.includes('✓') ? '✓' : '!', pos.x + 21, pos.y - 17);
-            }
-            
-            ctx.shadowBlur = 0;
-            
-            // Add tooltip functionality
-            attachTooltips(canvas, nodes, positions);
-        }
-        
-        function attachTooltips(canvas, nodes, positions) {
-            let tooltip = null;
-            
-            const showTooltip = (e) => {
-                const rect = canvas.getBoundingClientRect();
-                const scaleX = canvas.width / rect.width;
-                const scaleY = canvas.height / rect.height;
-                
-                const mouseX = (e.clientX - rect.left) * scaleX;
-                const mouseY = (e.clientY - rect.top) * scaleY;
-                
-                let hoveredNode = null;
-                for (let i = 0; i < nodes.length; i++) {
-                    const pos = positions[i];
-                    if (pos && Math.hypot(mouseX - pos.x, mouseY - pos.y) < 35) {
-                        hoveredNode = nodes[i];
-                        break;
-                    }
-                }
-                
-                if (hoveredNode) {
-                    if (!tooltip) {
-                        tooltip = document.createElement('div');
-                        tooltip.className = 'node-tooltip';
-                        document.body.appendChild(tooltip);
-                    }
-                    tooltip.innerHTML = `
-                        <strong>${escapeHtml(hoveredNode.name)}</strong><br>
-                        👥 ${escapeHtml(hoveredNode.relation)}<br>
-                        ⚥ ${escapeHtml(hoveredNode.gender)}<br>
-                        ${hoveredNode.ekyc}<br>
-                        🆔 ${escapeHtml(hoveredNode.uid)}
-                    `;
-                    tooltip.style.left = (e.clientX + 15) + 'px';
-                    tooltip.style.top = (e.clientY - 40) + 'px';
-                    tooltip.style.display = 'block';
-                } else if (tooltip) {
-                    tooltip.style.display = 'none';
-                }
-            };
-            
-            canvas.addEventListener('mousemove', showTooltip);
-            canvas.addEventListener('mouseleave', () => {
-                if (tooltip) tooltip.style.display = 'none';
-            });
-        }
-        
-        function enableCanvasDrag(containerId) {
-            const container = document.getElementById(containerId);
-            if (!container) return;
-            
-            let isDown = false;
-            let startX, startY, scrollLeft, scrollTop;
-            
-            container.addEventListener('mousedown', (e) => {
-                isDown = true;
-                startX = e.pageX - container.offsetLeft;
-                startY = e.pageY - container.offsetTop;
-                scrollLeft = container.scrollLeft;
-                scrollTop = container.scrollTop;
-                container.style.cursor = 'grabbing';
-            });
-            
-            container.addEventListener('mouseleave', () => {
-                isDown = false;
-                container.style.cursor = 'grab';
-            });
-            
-            container.addEventListener('mouseup', () => {
-                isDown = false;
-                container.style.cursor = 'grab';
-            });
-            
-            container.addEventListener('mousemove', (e) => {
-                if (!isDown) return;
-                e.preventDefault();
-                const x = e.pageX - container.offsetLeft;
-                const y = e.pageY - container.offsetTop;
-                const walkX = (x - startX);
-                const walkY = (y - startY);
-                container.scrollLeft = scrollLeft - walkX;
-                container.scrollTop = scrollTop - walkY;
-            });
-            
-            container.style.cursor = 'grab';
         }
         
         function escapeHtml(str) {
             if (!str) return str;
-            return String(str).replace(/[&<>]/g, function(m) {
+            return str.replace(/[&<>]/g, function(m) {
                 if (m === '&') return '&amp;';
                 if (m === '<') return '&lt;';
                 if (m === '>') return '&gt;';
@@ -950,6 +721,9 @@
                 }, 2000);
             }
         }
+        
+        console.log('%c⚡ FAMILY INTELLIGENCE VIEWER | Developer Saif', 'color: #ff44cc; font-size: 14px; font-weight: bold;');
+        console.log(`%c📊 Scanning ${aadhaarsList.length} Aadhaars`, 'color: #00ff88; font-size: 12px;');
     </script>
 </body>
 </html>
