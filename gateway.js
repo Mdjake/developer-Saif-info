@@ -264,7 +264,7 @@ async function startAuth() {
           renderLocked(newLock.until);
         } else {
           const left = MAX_ATTEMPTS - tries;
-          msg.textContent = `❌ Wrong password. ${left} attempt${left !== 1 ? "s" : ""} remaining.`;
+          msg.textContent = `❌ Wrong password tmkc. ${left} attempt${left !== 1 ? "s" : ""} remaining.`;
           busy = false;
           btn.disabled = false;
           input.focus();
