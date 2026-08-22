@@ -285,13 +285,6 @@ async function startAuth() {
 // Run generateCredential("yourpassword") in console, paste output into CREDENTIAL above.
 // DELETE this function before going live.
 
-async function generateCredential(password) {
-  const salt    = randomHex(16);
-  const derived = await deriveKey(password, salt);
-  const cred    = { salt, hash: derived };
-  console.log("Paste this into CREDENTIAL:\n", JSON.stringify(cred, null, 2));
-  return cred;
-}
 
 // ================== INIT ==================
 (function() {
